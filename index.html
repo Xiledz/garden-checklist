@@ -288,6 +288,221 @@
   .reset-btn:hover { border-color: var(--cta); box-shadow: 0 0 20px var(--cta-glow); }
   .reset-btn:hover::before { width: 200px; height: 200px; }
 
+  /* Page View Switcher */
+  .page-switcher {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+  }
+  .page-tab {
+    flex: 1;
+    padding: 14px 20px;
+    background: transparent;
+    color: var(--text-dim);
+    border: none;
+    cursor: pointer;
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+    text-transform: uppercase;
+  }
+  .page-tab:hover { color: var(--text-bright); background: rgba(124,58,237,0.08); }
+  .page-tab.active {
+    color: var(--text-bright);
+    background: linear-gradient(135deg, rgba(124,58,237,0.25), rgba(168,85,247,0.1));
+    text-shadow: 0 0 12px var(--accent-glow);
+    border-bottom: 2px solid var(--accent);
+  }
+  .page-view { display: none; }
+  .page-view.active { display: block; }
+
+  /* Wiki Styles */
+  .wiki-search { position: relative; margin: 16px 0; }
+  .wiki-search input {
+    width: 100%;
+    padding: 12px 18px 12px 44px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .wiki-search input:focus { border-color: var(--accent); box-shadow: 0 0 16px var(--accent-glow); }
+  .wiki-search::before {
+    content: '\1F50D';
+    position: absolute;
+    left: 14px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    opacity: 0.5;
+  }
+  .wiki-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    flex-wrap: wrap;
+  }
+  .wiki-tab {
+    flex: 1;
+    min-width: 80px;
+    padding: 10px 6px;
+    background: transparent;
+    color: var(--text-dim);
+    border: none;
+    cursor: pointer;
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+    text-transform: uppercase;
+  }
+  .wiki-tab:hover { color: var(--text-bright); background: rgba(124,58,237,0.08); }
+  .wiki-tab.active {
+    color: var(--text-bright);
+    background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(168,85,247,0.08));
+    text-shadow: 0 0 10px var(--accent-glow);
+    border-bottom: 2px solid var(--accent);
+  }
+  .wiki-section { display: none; }
+  .wiki-section.active { display: block; }
+  .wiki-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 14px;
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+    border-left: 3px solid var(--accent);
+  }
+  .wiki-card:hover { border-color: rgba(124,58,237,0.4); }
+  .wiki-card h3 {
+    font-family: 'Russo One', sans-serif;
+    font-size: 1rem;
+    color: var(--accent-light);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  .wiki-card h4 {
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.85rem;
+    color: var(--cta);
+    margin: 14px 0 6px;
+  }
+  .wiki-card table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 0.8rem; }
+  .wiki-card th {
+    background: rgba(124,58,237,0.12);
+    color: var(--accent-light);
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .wiki-card td { padding: 6px 10px; border-bottom: 1px solid rgba(124,58,237,0.06); }
+  .wiki-card tr:hover td { background: rgba(124,58,237,0.04); }
+  .wv { color: #22c55e; font-weight: 700; }
+  .ww { color: #fbbf24; font-weight: 700; }
+  .wr { color: #f43f5e; font-weight: 700; }
+  .wb { color: #3b82f6; font-weight: 700; }
+  .maxed-tag { color: #22c55e; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; }
+  .verify-tag { color: #fbbf24; font-style: italic; font-size: 0.75rem; }
+  .formula-box {
+    background: rgba(10,10,26,0.95);
+    border: 1px solid rgba(124,58,237,0.25);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    color: #22c55e;
+    margin: 8px 0;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    line-height: 1.5;
+  }
+  .flow-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 6px 0;
+    padding: 8px 12px;
+    background: rgba(124,58,237,0.04);
+    border-radius: 6px;
+  }
+  .fn { padding: 4px 12px; border-radius: 5px; font-size: 0.75rem; font-weight: 700; }
+  .fn-src { background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.25); }
+  .fn-cur { background: rgba(59,130,246,0.15); color: #3b82f6; border: 1px solid rgba(59,130,246,0.25); }
+  .fn-brd { background: rgba(124,58,237,0.15); color: #a855f7; border: 1px solid rgba(124,58,237,0.25); }
+  .fn-rst { background: rgba(244,63,94,0.15); color: #f43f5e; border: 1px solid rgba(244,63,94,0.25); }
+  .fa { color: var(--text-dim); font-size: 1rem; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-left: 6px; }
+  .tag-g { background: rgba(34,197,94,0.15); color: #22c55e; }
+  .tag-r { background: rgba(244,63,94,0.15); color: #f43f5e; }
+  .tag-p { background: rgba(124,58,237,0.15); color: #a855f7; }
+  .tag-y { background: rgba(251,191,36,0.15); color: #fbbf24; }
+  .tag-b { background: rgba(59,130,246,0.15); color: #3b82f6; }
+
+  /* Player Switcher */
+  .player-switcher {
+    display: flex;
+    gap: 0;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .player-tab {
+    flex: 1;
+    padding: 12px 20px;
+    background: transparent;
+    color: var(--text-dim);
+    border: none;
+    cursor: pointer;
+    font-family: 'Russo One', 'Chakra Petch', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    position: relative;
+    text-transform: uppercase;
+  }
+  .player-tab:first-child { border-right: 1px solid var(--border); }
+  .player-tab:hover { color: var(--text); background: rgba(124,58,237,0.05); }
+  .player-tab.active {
+    color: var(--text-bright);
+    background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(168,85,247,0.1));
+    text-shadow: 0 0 12px var(--accent-glow);
+  }
+  .player-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 20%; right: 20%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+
   /* Sections with glassmorphism */
   .section {
     background: var(--bg-card);
@@ -642,8 +857,20 @@
 <div id="scanlines"></div>
 
 <div class="title-block">
-  <h1 data-text="Singularity Run Checklist">Singularity Run Checklist</h1>
-  <div class="subtitle">Garden Incremental -- Optimization Framework</div>
+  <h1 data-text="Garden Incremental">Garden Incremental</h1>
+  <div class="subtitle">Singularity Run -- Checklist & Wiki</div>
+</div>
+
+<div class="page-switcher">
+  <button class="page-tab active" onclick="switchPageView('checklist')">Checklist</button>
+  <button class="page-tab" onclick="switchPageView('wiki')">Wiki</button>
+</div>
+
+<div id="checklistView" class="page-view active">
+
+<div class="player-switcher">
+  <button class="player-tab active" onclick="switchPlayer('xiled')">Xiled</button>
+  <button class="player-tab" onclick="switchPlayer('pezzy')">Pezzy</button>
 </div>
 
 <div class="progress-bar-container">
@@ -660,6 +887,426 @@
 </div>
 
 <div id="sections"></div>
+
+</div><!-- end checklistView -->
+
+<div id="wikiView" class="page-view">
+
+<div class="wiki-search">
+  <input type="text" id="wikiSearchInput" placeholder="Search upgrades, currencies, mechanics..." oninput="wikiSearch(this.value)">
+</div>
+
+<div class="wiki-tabs" id="wikiTabs">
+  <button class="wiki-tab active" onclick="showWiki('wOverview')">Overview</button>
+  <button class="wiki-tab" onclick="showWiki('wBoards')">Boards</button>
+  <button class="wiki-tab" onclick="showWiki('wPrestige')">Prestige</button>
+  <button class="wiki-tab" onclick="showWiki('wFruits')">Fruits</button>
+  <button class="wiki-tab" onclick="showWiki('wCombat')">Combat</button>
+  <button class="wiki-tab" onclick="showWiki('wBees')">Bees</button>
+  <button class="wiki-tab" onclick="showWiki('wGacha')">Gacha</button>
+  <button class="wiki-tab" onclick="showWiki('wMilestones')">Milestones</button>
+  <button class="wiki-tab" onclick="showWiki('wFormulas')">Formulas</button>
+</div>
+
+<div id="wikiSearchResults" style="display:none;"></div>
+
+<!-- WIKI: Overview -->
+<div class="wiki-section active" id="wOverview">
+  <div class="wiki-card">
+    <h3>Currency Flow - Start to Finish</h3>
+    <div class="flow-row"><span class="fn fn-src">Kill Plant</span><span class="fa">-></span><span class="fn fn-cur">Grass</span><span class="fa">-></span><span class="fn fn-brd">Grass Board</span><span style="color:var(--text-dim);font-size:0.7rem;margin-left:6px;">(Damage, FL boost, GP Gen)</span></div>
+    <div class="flow-row"><span class="fn fn-src">Click Tree</span><span class="fa">-></span><span class="fn fn-cur">Fall Leaves + Strawberries</span><span class="fa">-></span><span class="fn fn-brd">FL Board + Garden Rank</span></div>
+    <div class="flow-row"><span class="fn fn-src">Bees (passive)</span><span class="fa">-></span><span class="fn fn-cur">Honey</span><span class="fa">-></span><span class="fn fn-brd">Fruit Crafting (endgame)</span></div>
+    <div class="flow-row"><span class="fn fn-src">Boss Kill</span><span class="fa">-></span><span class="fn fn-cur">Gacha + Garden Shards</span><span class="fa">-></span><span class="fn fn-brd">Gacha (Stats/RL/RB)</span></div>
+    <div class="flow-row"><span class="fn fn-src">GP Generator</span><span class="fa">-></span><span class="fn fn-cur">Garden Points</span><span class="fa">-></span><span class="fn fn-rst">Reincarnation (7.5M GP)</span></div>
+    <div class="flow-row"><span class="fn fn-src">Progression</span><span class="fa">-></span><span class="fn fn-cur">Flowers</span><span class="fa">-></span><span class="fn fn-rst">Garden Level</span></div>
+    <h4>Prestige Chain</h4>
+    <div class="flow-row"><span class="fn fn-rst">Garden Rank</span><span class="fa">-></span><span class="fn fn-rst">Garden Level</span><span class="fa">-></span><span class="fn fn-rst">Reinc x100</span><span class="fa">-></span><span class="fn fn-rst">Prestige 4</span><span class="fa">-></span><span class="fn fn-rst" style="font-size:0.85rem;">SINGULARITY</span></div>
+  </div>
+
+  <div class="wiki-card">
+    <h3>Spending Destinations</h3>
+    <table>
+      <tr><th>Currency</th><th>Spent On</th></tr>
+      <tr><td class="wv">Grass</td><td>Grass Board (plant damage, FL boost, GP gen, combat stats)</td></tr>
+      <tr><td class="wv">Fall Leaves</td><td>FL Board (tree cooldown, straw limit, FL multiplier)</td></tr>
+      <tr><td class="wv">Strawberries</td><td>Garden Rank (prestige), Fruit crafting, Strawberry Board</td></tr>
+      <tr><td class="wv">Flowers</td><td>Garden Level (prestige), Fruit crafting (mid-tier fruits)</td></tr>
+      <tr><td class="wv">Honey</td><td>Fruit crafting (Plums-Dragon Fruit, ALL endgame fruits)</td></tr>
+      <tr><td class="wv">Gacha Shards</td><td>Gacha upgrades (Stats, RL, RB, Clone)</td></tr>
+      <tr><td class="wv">Garden Points</td><td>Reincarnation (7.5M per), GP board upgrades</td></tr>
+      <tr><td class="wv">Divinity</td><td>Divinity Board upgrades, late-game multipliers</td></tr>
+      <tr><td class="wv">Glory</td><td>Glory currency upgrade (x1TFFM at max)</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- WIKI: Boards -->
+<div class="wiki-section" id="wBoards">
+  <div class="wiki-card">
+    <h3>Grass Board <span class="tag tag-g">Grass</span></h3>
+    <table>
+      <tr><th>#</th><th>Upgrade</th><th>Max</th><th>Doubles Every</th><th>Effect</th></tr>
+      <tr><td>1</td><td>Grass Multiplier</td><td class="wv">300</td><td class="wv">5</td><td>xGrass from plant kills</td></tr>
+      <tr><td>2</td><td>Fall Leaves</td><td class="wv">250</td><td class="wv">10</td><td>xFall Leaves from tree click</td></tr>
+      <tr><td>3</td><td>Touch Grass</td><td class="wv">12</td><td>-</td><td class="verify-tag">VERIFY function</td></tr>
+      <tr><td>4</td><td>Garden Damage</td><td class="wv">100</td><td class="wv">10</td><td>+Damage to plant</td></tr>
+      <tr><td>5</td><td>Garden Attack Speed</td><td class="wv">14</td><td>-</td><td>-0.035s/lv (base 2s)</td></tr>
+      <tr><td>6</td><td>Garden Respawn Speed</td><td class="wv">10</td><td>-</td><td>-0.035s/lv (base 2s)</td></tr>
+      <tr><td>7</td><td>Garden Shards</td><td class="wv">14</td><td>-</td><td>+0.5% shard drops</td></tr>
+      <tr><td>8</td><td>Garden Shards Chance</td><td class="wv">10</td><td>-</td><td>+0.5% drop chance</td></tr>
+      <tr><td>9</td><td>Scarlet Petals</td><td class="ww">?</td><td class="wv">6</td><td>Multiplier TBD</td></tr>
+      <tr><td>10</td><td>Scarlet Shards</td><td class="ww">?</td><td>-</td><td>Resource generation</td></tr>
+      <tr><td>11</td><td>Scarlet Shards Chance</td><td class="ww">?</td><td>-</td><td>% chance</td></tr>
+    </table>
+  </div>
+
+  <div class="wiki-card">
+    <h3>Fall Leaves Board <span class="tag tag-r">Fall Leaves</span></h3>
+    <table>
+      <tr><th>#</th><th>Upgrade</th><th>Max</th><th>Effect</th></tr>
+      <tr><td>1</td><td>Sunshine Power</td><td class="wv">200</td><td>Boosts FL production</td></tr>
+      <tr><td>2</td><td>x5 Leaves Multiplier</td><td class="wv">40</td><td>xFall Leaves</td></tr>
+      <tr><td>3</td><td>Fall Leaves Multiplier</td><td class="wv">250</td><td>xFall Leaves</td></tr>
+      <tr><td>4</td><td>Garden Click Cooldown</td><td class="wv">14</td><td>Reduces tree click cooldown</td></tr>
+      <tr><td>5</td><td>Strawberries Limit</td><td class="wv">14</td><td>+Max strawberries/click</td></tr>
+      <tr><td>6</td><td>Strawberry Spawn Timer</td><td class="wv">8</td><td>Reduces spawn interval</td></tr>
+    </table>
+  </div>
+
+  <div class="wiki-card">
+    <h3>Strawberry Board <span class="tag tag-r">Strawberries</span></h3>
+    <table>
+      <tr><th>#</th><th>Upgrade</th><th>Max</th><th>Effect</th></tr>
+      <tr><td>1</td><td>Strawberry Limit</td><td class="wv">300</td><td>+Strawberry capacity</td></tr>
+      <tr><td>2</td><td>Fall Leaves Multiplier</td><td class="wv">300</td><td>xFall Leaves (separate from FL Board)</td></tr>
+    </table>
+  </div>
+
+  <div class="wiki-card">
+    <h3>Garden Points Boards <span class="tag tag-g">GP</span></h3>
+    <table>
+      <tr><th>Upgrade</th><th>Max</th><th>Final Bonus</th><th>Status</th></tr>
+      <tr><td>More GP Upgrades</td><td class="wv">10</td><td>-</td><td class="maxed-tag">MAXED early</td></tr>
+      <tr><td>GP Multiplier</td><td class="wv">60</td><td class="wv">x34 GP</td><td class="maxed-tag">MAXED</td></tr>
+      <tr><td>GP Multiplier 2</td><td class="ww">?</td><td>-</td><td class="maxed-tag">MAXED</td></tr>
+      <tr><td>GP3 Levels</td><td class="wv">5</td><td>-</td><td class="ww">4/5 at end</td></tr>
+      <tr><td>GP Multiplier 3</td><td class="wv">30</td><td class="wv">x34 GP</td><td class="maxed-tag">MAXED</td></tr>
+      <tr><td>GP Tier 4/5</td><td class="wv">5</td><td>-</td><td class="maxed-tag">MAXED</td></tr>
+    </table>
+    <div class="formula-box">GP Multiplier scaling:
+  Lv 45: x25.8  |  Lv 56: x31.8  |  Lv 58: x32.5  |  Lv 60: x34 (MAX)
+GP Multiplier 3:
+  Lv 25: x19.3  |  Lv 30: x34 (MAX)</div>
+  </div>
+
+  <div class="wiki-card">
+    <h3>Divinity Boards <span class="tag tag-p">Divinity</span></h3>
+    <table>
+      <tr><th>Upgrade</th><th>Max</th><th>Final Bonus</th><th>Board</th></tr>
+      <tr><td>More Divinity Upgrades</td><td class="wv">1</td><td>-</td><td>Main</td></tr>
+      <tr><td>Divinity Multiplier</td><td class="wv">35</td><td>-</td><td>Main</td></tr>
+      <tr><td>Glory</td><td class="wv">60</td><td class="wr">x1TFFM</td><td>Currency</td></tr>
+      <tr><td>Divinity</td><td class="wv">80</td><td>Can have >0 Div</td><td>Currency</td></tr>
+      <tr><td>Heaven Points</td><td class="wv">30</td><td class="wv">-0.1% GP gen</td><td>Currency</td></tr>
+      <tr><td>Heavenly Bulk</td><td class="wv">44</td><td>+Large Div bonus</td><td>Div II</td></tr>
+      <tr><td>Divinity II</td><td class="wv">30</td><td>+Large bonus</td><td>Div II</td></tr>
+      <tr><td>Divinity III</td><td class="wv">5</td><td class="wv">x2.77 Div</td><td>Div III</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- WIKI: Prestige -->
+<div class="wiki-section" id="wPrestige">
+  <div class="wiki-card">
+    <h3>Garden Rank <span class="tag tag-r">Inner Prestige</span></h3>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:8px;">Resets FL + Strawberries. Gives multipliers that compound each rank.</p>
+    <table>
+      <tr><th>Rank</th><th>Requires</th><th>Gives</th><th>Resets</th></tr>
+      <tr><td>0->I</td><td>Strawberry amounts</td><td>xN FL, xN Straw</td><td>FL + Strawberries</td></tr>
+      <tr><td>I->II</td><td>Higher thresholds</td><td>Higher multipliers</td><td>FL + Strawberries</td></tr>
+      <tr><td>II->III</td><td>Even higher</td><td>Even higher multipliers</td><td>FL + Strawberries</td></tr>
+    </table>
+  </div>
+
+  <div class="wiki-card">
+    <h3>Garden Level <span class="tag tag-p">Outer Prestige</span></h3>
+    <table>
+      <tr><th>Level</th><th>Cost</th><th>Gives</th><th>Resets</th></tr>
+      <tr><td>0->1</td><td class="wv">300DDe Flowers</td><td>x3 Flowers, x10 FL</td><td>Flowers & Flower/Honey Upgrades</td></tr>
+    </table>
+  </div>
+
+  <div class="wiki-card">
+    <h3>Reincarnation</h3>
+    <p style="color:var(--text-dim);font-size:0.85rem;">Requires <span class="wv">7.5M Garden Points</span>. Soft reset, keeps Fruits + Runes. Need 100 + Prestige 4 for Singularity.</p>
+  </div>
+
+  <div class="wiki-card">
+    <h3>Reinc 90 Boosts</h3>
+    <table>
+      <tr><th>Boost</th><th>Value</th></tr>
+      <tr><td>Grass</td><td class="wv">x7 -> x10</td></tr>
+      <tr><td>Fall Leaves</td><td class="wv">x30 -> x60</td></tr>
+      <tr><td>Glory</td><td class="wv">x20k -> x23k</td></tr>
+      <tr><td>Divinity</td><td class="wv">x80k -> x87k</td></tr>
+      <tr><td>Sunite</td><td class="wv">x1.75 -> x2</td></tr>
+      <tr><td>Sins</td><td class="wv">x500 -> x1.25k</td></tr>
+      <tr><td>Ember</td><td class="wv">x2.5k -> x3.5k</td></tr>
+      <tr><td>Madness</td><td class="wv">x3.5k -> x5k</td></tr>
+    </table>
+  </div>
+
+  <div class="wiki-card">
+    <h3>Prestige <span class="tag tag-r">Multiplies Everything</span></h3>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:8px;">Cost: 100 Reincs/prestige. Multiplies EVERY currency in the game.</p>
+    <table>
+      <tr><th>Stat</th><th>P2 -> P3</th></tr>
+      <tr><td>Rune Bulk</td><td class="wv">x12.5 -> x20</td></tr>
+      <tr><td>Rune Luck</td><td class="wv">x3 -> x5</td></tr>
+      <tr><td>Rune Clone</td><td class="wv">+3 -> +5</td></tr>
+      <tr><td>Grass</td><td class="wv">x1 -> x5</td></tr>
+      <tr><td>Divinity</td><td class="wv">x2 -> x50</td></tr>
+      <tr><td>Glory</td><td class="wv">x5 -> x25</td></tr>
+    </table>
+    <p style="color:var(--text-dim);font-size:0.8rem;margin-top:6px;">P3 Perks: Auto Boss, Keep Boss Milestones, Keep Garden Rank, Keep Butterfly, Auto Click Tree, Auto Hit Boss</p>
+  </div>
+
+  <div class="wiki-card">
+    <h3>Singularity <span class="tag tag-r">Mega Prestige</span></h3>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:8px;">Requires Reinc 100 + P4. Resets EVERYTHING except: Masteries, Guild, Events, Robux.</p>
+    <table>
+      <tr><th>Boost</th><th>Sing 1</th><th>Sing 2</th></tr>
+      <tr><td>Rune Bulk</td><td class="wv">x3</td><td class="wv">x4</td></tr>
+      <tr><td>Rune Luck</td><td class="wv">x2</td><td class="wv">x2.5</td></tr>
+      <tr><td>Stats</td><td class="wv">x3</td><td class="wv">x4</td></tr>
+      <tr><td>Tier Luck</td><td class="wv">x10</td><td class="wv">x15</td></tr>
+      <tr><td>Heavenly Bulk</td><td class="wv">x3</td><td class="wv">x6</td></tr>
+      <tr><td>Rune Clone</td><td class="wv">+3</td><td class="wv">+4</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- WIKI: Fruits -->
+<div class="wiki-section" id="wFruits">
+  <div class="wiki-card">
+    <h3>Fruit System <span class="tag tag-g">Permanent Multiplicative</span></h3>
+    <p style="color:var(--text-dim);font-size:0.85rem;">Persist through reincarnation. All boosts permanent and multiplicative. 21 total.</p>
+  </div>
+  <div class="wiki-card">
+    <h4>Crafted Fruits (1-5)</h4>
+    <table>
+      <tr><th>#</th><th>Fruit</th><th>Boost 1</th><th>Boost 2</th><th>Boost 3</th><th>Boost 4</th></tr>
+      <tr><td>1</td><td>Apples</td><td class="wv">x2.5 FL</td><td class="wv">x2 TL</td><td>-</td><td>-</td></tr>
+      <tr><td>2</td><td>Oranges</td><td class="wv">x1.25 FL</td><td class="wv">x2.25 Grass</td><td class="wv">x2 TB</td><td>-</td></tr>
+      <tr><td>3</td><td>Bananas</td><td class="wv">x1.25 FL</td><td class="wv">x2.75 Grass</td><td class="wv">+1 Straw</td><td class="wv">+50M RB</td></tr>
+      <tr><td>4</td><td>Pineapples</td><td class="wv">x1.5 FL</td><td class="wv">x2.5 Grass</td><td class="wv">+1 Straw</td><td class="wv">x2 TL</td></tr>
+      <tr><td>5</td><td>Peaches</td><td class="wv">x2.25 Grass</td><td class="wv">+1 Straw</td><td class="wv">+75M RB</td><td class="wv">x2 TL</td></tr>
+    </table>
+  </div>
+  <div class="wiki-card">
+    <h4>Mid Fruits (6-14)</h4>
+    <table>
+      <tr><th>#</th><th>Fruit</th><th>Boost 1</th><th>Boost 2</th><th>Boost 3</th><th>Boost 4</th></tr>
+      <tr><td>6</td><td>Pears</td><td class="wv">x1.25 GP</td><td class="wv">x1.25 Grass</td><td class="wv">x1.05 RB</td><td class="wv">x3 TL</td></tr>
+      <tr><td>7</td><td>Mangos</td><td class="wv">x3.75 Grass</td><td class="wv">x2 G.Dmg</td><td class="wv">+1 Straw</td><td class="wv">x2 Div</td></tr>
+      <tr><td>8</td><td>Grapes</td><td class="wv">x3 Grass</td><td class="wv">x1.5 G.Dmg</td><td class="wv">+1 Straw</td><td class="wv">x1.05 RB</td></tr>
+      <tr><td>9</td><td>Coconuts</td><td class="wv">x1.75 FL</td><td class="wv">x2 Gacha</td><td class="wv">x1.25 RB</td><td class="wv">x1.05 RL</td></tr>
+      <tr><td>10</td><td>Blueberries</td><td class="wv">+3 Straw</td><td class="wv">x2 Gacha</td><td class="wv">x3 GP</td><td class="wv">x100 Snow</td></tr>
+      <tr><td>11</td><td>Watermelons</td><td class="wv">x2.5 FL</td><td class="wv">x2.5 Flowers</td><td>-</td><td>-</td></tr>
+      <tr><td>12</td><td>Lemons</td><td class="wv">x5 FL</td><td class="wv">x3.5 Flowers</td><td class="wv">x175 Honey</td><td class="wv">x350 Snow</td></tr>
+      <tr><td>13</td><td>Mandarins</td><td class="wv">x5.5 FL</td><td class="wv">x5.75 Flowers</td><td class="wv">x1.5 Honey</td><td class="wv">x1.75 GP</td></tr>
+      <tr><td>14</td><td>Cherries</td><td class="wv">x5.5 FL</td><td class="wv">x5.75 Flowers</td><td class="wv">x1.5 Honey</td><td class="wv">x1.05 RB</td></tr>
+    </table>
+  </div>
+  <div class="wiki-card">
+    <h4>Endgame Fruits - Direct RL/RB <span class="tag tag-y">High Priority</span></h4>
+    <table>
+      <tr><th>#</th><th>Fruit</th><th>Rune Bulk</th><th>Rune Luck</th><th>Other</th></tr>
+      <tr><td>15</td><td>Plums</td><td class="wr">x1.05</td><td>-</td><td class="wv">x1.3 Grass</td></tr>
+      <tr><td>16</td><td>Avocados</td><td class="wr">x1.1</td><td>-</td><td class="wv">x1.3 Grass</td></tr>
+      <tr><td>17</td><td>Cucumbers</td><td class="wr">x1.05</td><td>-</td><td class="wv">x2 Grass</td></tr>
+      <tr><td>18</td><td>Papayas</td><td class="wr">x1.14</td><td class="wr">x1.05</td><td>-</td></tr>
+      <tr><td>19</td><td>Kiwifruit</td><td class="wr">x1.14</td><td class="wr">x1.05</td><td>-</td></tr>
+      <tr><td>20</td><td>Pumpkins</td><td class="wr">x1.14</td><td class="wr">x1.05</td><td>-</td></tr>
+      <tr><td>21</td><td>Dragon Fruit</td><td class="wr">x1.25</td><td class="wr">x1.1</td><td>-</td></tr>
+    </table>
+    <div class="formula-box">All 7 late fruits combined:
+  Total RB: 1.05*1.1*1.05*1.14*1.14*1.14*1.25 = x2.148
+  Total RL: 1.05*1.05*1.05*1.1 = x1.271
+  PERMANENT and MULTIPLICATIVE
+
+All FL fruits combined:
+  x2.5*1.25*1.25*1.5*2.5*5*5.5*5.5 = x1,782 FL from fruits alone</div>
+  </div>
+</div>
+
+<!-- WIKI: Combat -->
+<div class="wiki-section" id="wCombat">
+  <div class="wiki-card">
+    <h3>Plant Combat - "Very Dangerous Plant"</h3>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:8px;">Auto-attack plant -> dies -> drops Grass -> respawns. "Skip Levels Where You Can Oneshot Boss" auto-advances.</p>
+    <table>
+      <tr><th>Plant Lv</th><th>HP</th><th>Grass Drop</th></tr>
+      <tr><td>4</td><td class="wv">460</td><td class="verify-tag">?</td></tr>
+      <tr><td>5</td><td class="wv">1.33k</td><td class="verify-tag">?</td></tr>
+      <tr><td>6</td><td class="wv">2.93k</td><td class="verify-tag">?</td></tr>
+      <tr><td>High</td><td class="verify-tag">?</td><td class="wv">7.45M Grass</td></tr>
+    </table>
+    <div class="formula-box">HP Scaling: Lv4->5 = x2.89, Lv5->6 = x2.20
+Combat defaults: Damage 515, Attack 2s, Respawn 2s
+Battle result: 789.4M total damage, 2.45M Grass reward</div>
+  </div>
+</div>
+
+<!-- WIKI: Bees -->
+<div class="wiki-section" id="wBees">
+  <div class="wiki-card">
+    <h3>Bee System <span class="tag tag-y">Passive Honey</span></h3>
+    <table>
+      <tr><th>Bee</th><th>Rate/Lv</th><th>Interval</th><th>Max</th><th>Cost</th><th>%/s at Max</th></tr>
+      <tr><td>Noob Bee</td><td class="wv">+0.02%</td><td>5s</td><td>5</td><td>100k</td><td>0.02</td></tr>
+      <tr><td>Super Bee</td><td class="wv">+0.05%</td><td>4s</td><td>5</td><td>43k</td><td>0.063</td></tr>
+      <tr><td>Worker Bee</td><td class="wv">+0.18%</td><td>3s</td><td>8</td><td>1,500k</td><td>0.48</td></tr>
+      <tr><td>Cash Bee</td><td class="wv">+0.04%</td><td>0.75s</td><td>10</td><td>2.50c</td><td>0.53</td></tr>
+      <tr><td>Garden Bee</td><td class="wv">+0.2%</td><td>2s</td><td>15</td><td>1,000c</td><td>1.5</td></tr>
+      <tr><td>Giant Bee</td><td class="wv">+3%</td><td>10s</td><td>15</td><td>4QNo</td><td>4.5</td></tr>
+      <tr><td>King Bee</td><td class="wv">+0.5%</td><td>1s</td><td>20</td><td>250De</td><td>10.0</td></tr>
+      <tr><td>Queen Of Bees</td><td class="wr">+1%</td><td>0.5s</td><td>25</td><td>300De</td><td class="wr">50.0</td></tr>
+    </table>
+    <div class="formula-box">Total max: ~67%/s. Queen = 50%/s (75% of output).
+Priority: Queen >> King >> Giant >> Garden >> rest negligible</div>
+  </div>
+</div>
+
+<!-- WIKI: Gacha -->
+<div class="wiki-section" id="wGacha">
+  <div class="wiki-card">
+    <h3>Gacha System</h3>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:8px;">Shards from Garden Boss. Each level can FAIL. Auto mode available.</p>
+    <table>
+      <tr><th>Lv</th><th>Cost</th><th>Success</th><th>Stats</th><th>RL</th><th>RB</th><th>Clone</th></tr>
+      <tr><td>0</td><td class="wv">1</td><td class="wv">100%</td><td>x1.00</td><td>x1.00</td><td>x1.00</td><td>+0.0%</td></tr>
+      <tr><td>10</td><td class="wv">13</td><td class="wv">59%</td><td>x1.10</td><td>x1.10</td><td>x1.10</td><td>+0.5%</td></tr>
+      <tr><td>15</td><td class="wv">23</td><td class="wv">44%</td><td>x1.15</td><td>x1.15</td><td>x1.15</td><td>+0.8%</td></tr>
+      <tr><td>28</td><td class="wv">50</td><td class="wv">23%</td><td>x1.28</td><td>x1.28</td><td>x1.28</td><td>+1.4%</td></tr>
+    </table>
+    <div class="formula-box">Stats(N) = 1 + 0.01*N  |  Clone(N) = 0.05%*N
+Cost: ~quadratic  |  Success: ~100% - 2.75%*N
+E[shards to level N] = SUM(k=1..N) Cost(k)/Success(k)</div>
+  </div>
+</div>
+
+<!-- WIKI: Milestones -->
+<div class="wiki-section" id="wMilestones">
+  <div class="wiki-card">
+    <h3>Singularity Milestones <span class="tag tag-p">Permanent</span></h3>
+    <table>
+      <tr><th>#</th><th>At</th><th>Bonuses</th></tr>
+      <tr><td>1</td><td class="wv">1</td><td>Keep Perks; Keep Minify 1 & Depths 2; Keep Lv1 Stat Boost; Keep Auto Buy Max; 2x RB & RL; 2x Stats; 3x Aura Chance</td></tr>
+      <tr><td>2</td><td class="wv">2</td><td>2x Rune Clone Chance; 2x RB; 2x Fish; 2x Tier Luck; Keep Prestige Tier</td></tr>
+      <tr><td>3</td><td class="wv">3</td><td>2x Guild Pts; 1.5x RL; 2x Stats; Keep Minify On Reinc</td></tr>
+      <tr><td>4</td><td class="wv">4</td><td>5x Toxic Mush; 5x Mushrooms; 2x Fish; Keep Lv2 Stat Boost; Auto Buy Relics</td></tr>
+      <tr><td>5</td><td class="wv">5</td><td>2x Stats; x50 Worker XP; x50 Fisher XP; Keep Auto Charge</td></tr>
+      <tr><td>6</td><td class="wv">6</td><td>2x Sunite; 2x Fish; Keep Tech Tree On Prestige</td></tr>
+      <tr><td>7</td><td class="wv">7</td><td>New Bee Upgrade; 2x GP; New Bee</td></tr>
+      <tr><td>8</td><td class="wv">8</td><td>2x Gacha Shards; 2x Boss Shards & Dmg; New Bee</td></tr>
+      <tr><td>9</td><td class="wv">9</td><td>1.4x RB; 1.1x Ores; Better Ore Milestones; Keep Minify 3; 3x Tier Bulk</td></tr>
+      <tr><td>10</td><td class="wv">10</td><td>1.4x RB; 1.25x RL; Keep Light Pts Upgrade On Reinc</td></tr>
+      <tr><td>11</td><td class="ww">11</td><td>10x Heavenly Pts?; 3x Heaven Fish?; 1.5x Stats; 1.1x RB?; Keep Minify On Prestige</td></tr>
+      <tr><td>12</td><td class="ww">12</td><td>5x ??; x1T Fisher XP?; Better Fish Milestones?</td></tr>
+      <tr><td>13</td><td class="ww">13</td><td>2x Button Stats; 100x Magiclite?; 2x Sunite; 1.25x RL?</td></tr>
+      <tr><td>14</td><td class="ww">14</td><td>5x Ores?; 5x Fastest Button?; 1.25x RL; Keep Hell Rank On Reinc?</td></tr>
+      <tr><td>15</td><td class="ww">15</td><td>2x Stats; 2x Button Stats; 5x Cores?; New Sunite Upgrades</td></tr>
+      <tr><td>16</td><td class="ww">16</td><td>2x Stats; Keep Computer On Prestige; Keep Heaven Tree On Prestige?</td></tr>
+      <tr><td>17</td><td class="ww">17</td><td>3x Heavenly Bulk; 3x Heaven Pts?; 1.5x Stats; 1.25x RL?</td></tr>
+      <tr><td>18</td><td class="ww">18</td><td>1.4x Rune ?; Keep Hell Rank On Prestige?</td></tr>
+      <tr><td>19</td><td class="ww">19</td><td>2x Grass & Boss Dmg?; 1.25x Stats?; Keep Garden Rank On Prestige; Sell Fruits For Starlight?</td></tr>
+      <tr><td>20</td><td class="ww">20</td><td>2x Tier Luck; 2x RB; 1.5x Heavenly Luck; 2x Guild Pts</td></tr>
+    </table>
+    <p style="color:var(--text-dim);font-size:0.75rem;margin-top:6px;">Yellow entries = partial confidence, need closer screenshots to verify.</p>
+  </div>
+</div>
+
+<!-- WIKI: Formulas -->
+<div class="wiki-section" id="wFormulas">
+  <div class="wiki-card">
+    <h3>FL Multiplier Stack</h3>
+    <div class="formula-box">FL/click = Base FL
+  * Grass Board "Fall Leaves" (250 max, DE10)
+  * FL Board "Sunshine Power" (200 max)
+  * FL Board "FL Multiplier" (250 max)
+  * FL Board "x5 Leaves Mult" (40 max)
+  * Straw Board "FL Multiplier" (300 max)
+  * Garden Rank xFL
+  * Garden Level xFL (x10/lv)
+  * Fruit FL (x1,782 combined)
+  * Singularity Stats (x4 at Sing 2)
+  * Prestige (x5 at P3)</div>
+  </div>
+
+  <div class="wiki-card">
+    <h3>Singularity Run Timeline</h3>
+    <div class="formula-box">PHASE 1 - Early (Reinc 0-30):
+  Grass -> FL -> Straw Boards
+  Garden Rank 0 -> I -> II
+  Craft early fruits (1-5)
+
+PHASE 2 - Mid (Reinc 30-60):
+  GP Board -> GP Mult -> MAXED
+  Garden Level loop
+  Unlock Flowers
+
+PHASE 3 - Divinity (Reinc 60-90):
+  Divinity Board unlocks
+  GP2 -> GP3 boards
+  Glory/Divinity/Heaven currency boards
+  Reinc 90 = massive boosts
+
+PHASE 4 - Late (Reinc 90-100):
+  GP3 + GP Mult 3 -> MAXED
+  Divinity II + III -> MAXED
+  Heavenly Bulk -> MAXED
+  GP4/5 -> MAXED
+  Prestige 4 -> SINGULARITY</div>
+  </div>
+
+  <div class="wiki-card">
+    <h3>15 Major Unlock Gates</h3>
+    <div class="formula-box"> 1. More GP Upgrades (10/10) - early
+ 2. GP Multiplier (60/60, x34) - mid
+ 3. GP Multiplier 2 - mid
+ 4. More Divinity Upgrades (1/1) - div phase
+ 5. Divinity Multiplier (35) - div phase
+ 6. Glory (60/60, x1TFFM) - mid-late
+ 7. Divinity currency (80/80) - mid-late
+ 8. Heaven Points (30) - mid-late
+ 9. Upgrade Tree Unlocker - mid-late
+10. GP3 Levels (5) - late
+11. GP Multiplier 3 (30/30, x34) - late
+12. Heavenly Bulk (44/44) - late
+13. Divinity II (30/30) - late
+14. Divinity III (5/5, x2.77) - endgame
+15. GP4/5 (5/5) - endgame</div>
+  </div>
+
+  <div class="wiki-card">
+    <h3>Data Gaps <span class="tag tag-y">Verify</span></h3>
+    <table>
+      <tr><th>ID</th><th>Item</th><th>Priority</th></tr>
+      <tr><td>V1</td><td>Grass Mult per-level increment (+0.03?)</td><td class="ww">HIGH</td></tr>
+      <tr><td>V2</td><td>FL Board per-level increments</td><td class="ww">HIGH</td></tr>
+      <tr><td>V3</td><td>Does Grass Mult display include Sing x4?</td><td class="ww">HIGH</td></tr>
+      <tr><td>V4</td><td>All uncrafted fruit exact craft costs</td><td class="ww">HIGH</td></tr>
+      <tr><td>V5</td><td>Sing Milestones 11-20 exact text</td><td class="ww">MEDIUM</td></tr>
+      <tr><td>V6</td><td>Sing boost scaling for Sing 3+</td><td class="ww">HIGH</td></tr>
+      <tr><td>V7</td><td>Garden Level costs beyond lv 0->1</td><td class="ww">MEDIUM</td></tr>
+      <tr><td>V8</td><td>Reinc 90 full boost list</td><td class="ww">MEDIUM</td></tr>
+    </table>
+  </div>
+</div>
+
+</div><!-- end wikiView -->
 
 <div class="footer">Garden Incremental -- Singularity Optimization v3</div>
 
@@ -721,7 +1368,7 @@ const DATA = [
     cls: "phase-4",
     items: [
       { id: "p4_1", text: "Get <strong>Upgrade Tree</strong> to the point of more Leaf upgrades." },
-      { id: "p4_2", text: "Between upgrades, runes, Garden Ranks, and Fruits -- <strong>skip all 3 reinc up to Flowers</strong>.", detail: "This is where your accumulated Fruits, Garden Ranks, and board upgrades should carry you through." },
+      { id: "p4_2", text: "Between upgrades, runes, Garden Ranks, and Fruits -- <strong>skip all 3 reinc up to Flowers</strong>.", detail: "This is where your accumulated Fruits, Garden Ranks, and board upgrades should carry you through. <b>Reinc 91 can skip to 93. Reinc 93 can skip to 96.</b> Use these to speed through the mid-garden grind." },
       { id: "p4_3", text: "Craft <strong>Mangos, Grapes, Coconuts</strong>.", detail: "Mangos: x3.75 Grass, x2 Garden Damage, +1 Straw, x2 Divinity. Grapes: x3 Grass, x1.5 Garden Damage, +1 Straw, x1.05 RB. Coconuts: x1.75 FL, x2 Gacha Shards, x1.25 RB, x1.05 RL." },
       { id: "p4_4", text: "Max <strong>Garden Rank</strong>. Buy all remaining Grass Board upgrades.", detail: "When maxed, sit on Garden Boss for Gacha Shards." },
       { id: "p4_5", text: "Get to <strong>Garden Level 50-75</strong>.", detail: "Helps with Honey rune stats. Each Garden Level costs Flowers and resets Flowers + Honey upgrades." },
@@ -781,7 +1428,8 @@ const DATA = [
       { id: "grp_2", text: "Do the <strong>last 2 Points</strong> together." },
       { id: "grp_3", text: "Do the <strong>Leaf and 2 Grass ones</strong> after Points together." },
       { id: "grp_4", text: "Do the <strong>Flower and first Honey</strong> together." },
-      { id: "grp_5", text: "Do the <strong>last 2 Honey</strong> together." }
+      { id: "grp_5", text: "Do the <strong>last 2 Honey</strong> together." },
+      { id: "grp_6", text: "<strong>Reinc 91 -> skip to 93. Reinc 93 -> skip to 96.</strong>", detail: "Use these skip points to accelerate through mid-garden. Saves significant grinding time." }
     ]
   },
   {
@@ -859,19 +1507,44 @@ const DATA = [
       "<strong>Plant Combat:</strong> Kill plants for Grass. Higher levels = more drops. At high levels: 7.45M+ Grass per kill.",
       "<strong>Stat increases:</strong> Rare stats in Upgrade Trees are massive. Heaven/Hell trees boost Bulk. Garden tree nearly required for rare runes.",
       "<strong>Milestone scaling:</strong> Wonky in Mines -- hit walls, then huge increases. Neptunite cascade (Kale Head -> Plutite -> Neptunite -> RB) is exponential.",
+      "<strong>Reinc Skip requirements (Reinc 85+):</strong> Skip from 91->93 costs: 15B GP, 6.5Qd GP, 1.25NoDe FL, 1.5QnVt Grass, 200UTg Grass. Skip from 93->96 costs: 1.25NoDe FL, 1.5QnVt Grass, 200UTg Grass, 1DDe Flowers, 1.25T Honey. <b>WARNING: Only available for Garden Runes below 1/100SxDe!</b>",
       "<strong>Garden = slowest part</strong> of any singularity before P4. After P4 it flows. Most pre-P4 time is prep.",
       "<strong>Timeline:</strong> A singularity takes ~15-30 hours. P3 is the rough one."
     ]
   }
 ];
 
-const STORAGE_KEY = "singularity_checklist_v3";
+const PLAYERS = ['xiled', 'pezzy'];
+let activePlayer = localStorage.getItem('singularity_active_player') || 'xiled';
+
+function getStorageKey() {
+  return `singularity_checklist_v3_${activePlayer}`;
+}
 
 function loadState() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; }
+  try { return JSON.parse(localStorage.getItem(getStorageKey())) || {}; } catch(e) { return {}; }
 }
 function saveState(state) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  localStorage.setItem(getStorageKey(), JSON.stringify(state));
+}
+
+// Migrate old shared save to Xiled if it exists and Xiled has no data
+(function migrateOldData() {
+  const oldData = localStorage.getItem('singularity_checklist_v3');
+  const xiledData = localStorage.getItem('singularity_checklist_v3_xiled');
+  if (oldData && !xiledData) {
+    localStorage.setItem('singularity_checklist_v3_xiled', oldData);
+    localStorage.removeItem('singularity_checklist_v3');
+  }
+})();
+
+function switchPlayer(player) {
+  activePlayer = player;
+  localStorage.setItem('singularity_active_player', player);
+  document.querySelectorAll('.player-tab').forEach(t => {
+    t.classList.toggle('active', t.textContent.toLowerCase() === player);
+  });
+  render();
 }
 
 function countSectionChecked(section, state) {
@@ -1006,7 +1679,73 @@ function switchMethod(secIdx, method, btn) {
   updateProgress();
 }
 
+// Set correct active tab on load
+document.querySelectorAll('.player-tab').forEach(t => {
+  t.classList.toggle('active', t.textContent.toLowerCase() === activePlayer);
+});
 render();
+
+// === PAGE VIEW SWITCHER ===
+function switchPageView(view) {
+  document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(view + 'View').classList.add('active');
+  document.querySelectorAll('.page-tab').forEach(t => {
+    if (t.textContent.toLowerCase() === view) t.classList.add('active');
+  });
+  window.scrollTo({top: 0});
+}
+
+// === WIKI TAB NAVIGATION ===
+function showWiki(id) {
+  document.querySelectorAll('.wiki-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.wiki-tab').forEach(t => t.classList.remove('active'));
+  const sec = document.getElementById(id);
+  if (sec) sec.classList.add('active');
+  const tabs = document.querySelectorAll('.wiki-tab');
+  const names = {wOverview:'overview',wBoards:'boards',wPrestige:'prestige',wFruits:'fruits',wCombat:'combat',wBees:'bees',wGacha:'gacha',wMilestones:'milestones',wFormulas:'formulas'};
+  tabs.forEach(t => { if (t.textContent.toLowerCase() === names[id]) t.classList.add('active'); });
+  document.getElementById('wikiSearchResults').style.display = 'none';
+  document.getElementById('wikiSearchInput').value = '';
+}
+
+// === WIKI SEARCH ===
+const WIKI_SEARCH_DATA = [
+  {sec:'wBoards',t:'Grass Multiplier',d:'Grass Board, 300 max, doubles every 5, xGrass'},
+  {sec:'wBoards',t:'Fall Leaves',d:'Grass Board 250 max, FL Board 250 max, Straw Board 300 max'},
+  {sec:'wBoards',t:'Garden Attack Speed',d:'Grass Board, 14 max, -0.035s/lv, base 2s'},
+  {sec:'wBoards',t:'Garden Points Multiplier',d:'GP Board, 60 max, x34 at max. x25.8@45 x31.8@56'},
+  {sec:'wBoards',t:'GP Multiplier 3',d:'GP3 Board, 30 max, x34 at max. x19.3@25'},
+  {sec:'wBoards',t:'Divinity III',d:'Divinity III Board, 5 max, x2.77 Divinity'},
+  {sec:'wBoards',t:'Heavenly Bulk',d:'Div II Board, 44 max, large divinity bonus'},
+  {sec:'wBoards',t:'Glory',d:'Currency Board, 60 max, x1TFFM at max'},
+  {sec:'wPrestige',t:'Garden Rank',d:'Inner prestige, resets FL + Straw, gives multipliers'},
+  {sec:'wPrestige',t:'Garden Level',d:'Outer prestige, 300DDe Flowers, x3 Flowers x10 FL'},
+  {sec:'wPrestige',t:'Reincarnation',d:'7.5M GP, soft reset, keeps fruits and runes'},
+  {sec:'wPrestige',t:'Singularity',d:'Mega prestige, Reinc 100 + P4, resets everything'},
+  {sec:'wPrestige',t:'Reinc 90 Boosts',d:'Grass x10, Glory x23k, Divinity x87k'},
+  {sec:'wFruits',t:'Dragon Fruit',d:'x1.25 RB, x1.1 RL, permanent multiplicative endgame'},
+  {sec:'wFruits',t:'Coconuts',d:'x1.75 FL, x2 Gacha, x1.25 RB, x1.05 RL'},
+  {sec:'wFruits',t:'Combined Fruit RL/RB',d:'x2.148 RB x1.271 RL from all 7 late fruits'},
+  {sec:'wCombat',t:'Plant Combat',d:'Very Dangerous Plant, HP scales x2.2-2.9/lv'},
+  {sec:'wBees',t:'Queen Of The Bees',d:'Best bee, 50%/s at max, 75% of total output'},
+  {sec:'wGacha',t:'Gacha System',d:'Stats/RL/RB +0.01/lv, Clone +0.05%/lv'},
+  {sec:'wMilestones',t:'Milestones 1-10',d:'High confidence, RB RL Stats perks permanent'},
+  {sec:'wMilestones',t:'Milestones 11-20',d:'Partial confidence, need verification'},
+  {sec:'wFormulas',t:'FL Multiplier Stack',d:'All sources multiplied together'},
+  {sec:'wFormulas',t:'Progression Timeline',d:'4 phases, early mid divinity late'},
+  {sec:'wFormulas',t:'15 Unlock Gates',d:'GP through GP4/5 progression order'},
+];
+function wikiSearch(q) {
+  const res = document.getElementById('wikiSearchResults');
+  if (!q.trim()) { res.style.display='none'; document.querySelectorAll('.wiki-section').forEach(s=>s.style.display=''); return; }
+  const ql = q.toLowerCase();
+  const hits = WIKI_SEARCH_DATA.filter(d => d.t.toLowerCase().includes(ql)||d.d.toLowerCase().includes(ql));
+  if (!hits.length) { res.innerHTML='<div class="wiki-card"><p style="color:var(--text-dim)">No results.</p></div>'; }
+  else { res.innerHTML=hits.map(h=>`<div class="wiki-card" style="cursor:pointer" onclick="showWiki('${h.sec}')"><h3>${h.t}</h3><p style="color:var(--text-dim);font-size:0.8rem;">${h.d}</p></div>`).join(''); }
+  res.style.display='block';
+  document.querySelectorAll('.wiki-section').forEach(s=>s.classList.remove('active'));
+}
 </script>
 </body>
 </html>

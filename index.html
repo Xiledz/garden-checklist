@@ -459,6 +459,49 @@
   .tag-y { background: rgba(251,191,36,0.15); color: #fbbf24; }
   .tag-b { background: rgba(59,130,246,0.15); color: #3b82f6; }
 
+  /* Notation Table */
+  .notation-grid { overflow-x: auto; }
+  .notation-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .notation-table thead th {
+    background: rgba(124,58,237,0.15);
+    color: var(--accent-light);
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    padding: 8px 6px;
+    text-align: center;
+    border-bottom: 2px solid var(--border);
+  }
+  .notation-table td {
+    padding: 5px 6px;
+    text-align: center;
+    border-bottom: 1px solid rgba(124,58,237,0.06);
+    color: var(--text-dim);
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+  }
+  .notation-table .ns {
+    color: var(--accent-light);
+    font-family: 'Russo One', sans-serif;
+    font-weight: 400;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+  }
+  .notation-table tr:hover td { background: rgba(124,58,237,0.06); }
+  .notation-table tr.nt-sep td { border-top: 2px solid rgba(124,58,237,0.15); }
+  @media (max-width: 700px) {
+    .notation-table { font-size: 0.65rem; }
+    .notation-table td, .notation-table th { padding: 4px 3px; }
+    .notation-table .ns { font-size: 0.7rem; }
+  }
+
   /* Player Switcher */
   .player-switcher {
     display: flex;
@@ -858,12 +901,13 @@
 
 <div class="title-block">
   <h1 data-text="Garden Incremental">Garden Incremental</h1>
-  <div class="subtitle">Singularity Run -- Checklist & Wiki</div>
+  <div class="subtitle">Singularity Run -- Checklist, Wiki & Reference</div>
 </div>
 
 <div class="page-switcher">
   <button class="page-tab active" onclick="switchPageView('checklist')">Checklist</button>
   <button class="page-tab" onclick="switchPageView('wiki')">Wiki</button>
+  <button class="page-tab" onclick="switchPageView('notation')">Notation</button>
 </div>
 
 <div id="checklistView" class="page-view active">
@@ -1308,6 +1352,56 @@ PHASE 4 - Late (Reinc 90-100):
 
 </div><!-- end wikiView -->
 
+<div id="notationView" class="page-view">
+<h2 style="font-family:'Russo One',sans-serif;color:var(--accent-light);text-align:center;margin:18px 0 6px">Number Notation Reference</h2>
+<p style="text-align:center;color:var(--text-dim);margin-bottom:18px;font-size:0.95em">Every suffix used in Garden Incremental, from smallest to largest. Combined suffixes stack multiplicatively.</p>
+
+<div class="notation-grid">
+<table class="notation-table">
+<thead><tr><th>Suffix</th><th>Value</th><th>Suffix</th><th>Value</th><th>Suffix</th><th>Value</th><th>Suffix</th><th>Value</th><th>Suffix</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td class="ns">K</td><td>1e3</td><td class="ns">M</td><td>1e6</td><td class="ns">B</td><td>1e9</td><td class="ns">T</td><td>1e12</td><td class="ns">Qd</td><td>1e15</td></tr>
+<tr><td class="ns">Qn</td><td>1e18</td><td class="ns">Sx</td><td>1e21</td><td class="ns">Sp</td><td>1e24</td><td class="ns">Oc</td><td>1e27</td><td class="ns">No</td><td>1e30</td></tr>
+<tr class="nt-sep"><td class="ns">De</td><td>1e33</td><td class="ns">UDe</td><td>1e36</td><td class="ns">DDe</td><td>1e39</td><td class="ns">TDe</td><td>1e42</td><td class="ns">QdDe</td><td>1e45</td></tr>
+<tr><td class="ns">QnDe</td><td>1e48</td><td class="ns">SxDe</td><td>1e51</td><td class="ns">SpDe</td><td>1e54</td><td class="ns">OcDe</td><td>1e57</td><td class="ns">NoDe</td><td>1e60</td></tr>
+<tr class="nt-sep"><td class="ns">Vt</td><td>1e63</td><td class="ns">UVt</td><td>1e66</td><td class="ns">DVt</td><td>1e69</td><td class="ns">TVt</td><td>1e72</td><td class="ns">QdVt</td><td>1e75</td></tr>
+<tr><td class="ns">QnVt</td><td>1e78</td><td class="ns">SxVt</td><td>1e81</td><td class="ns">SpVt</td><td>1e84</td><td class="ns">OcVt</td><td>1e87</td><td class="ns">NoVt</td><td>1e90</td></tr>
+<tr class="nt-sep"><td class="ns">Tg</td><td>1e93</td><td class="ns">UTg</td><td>1e96</td><td class="ns">DTg</td><td>1e99</td><td class="ns">TTg</td><td>1e102</td><td class="ns">QdTg</td><td>1e105</td></tr>
+<tr><td class="ns">QnTg</td><td>1e108</td><td class="ns">SxTg</td><td>1e111</td><td class="ns">SpTg</td><td>1e114</td><td class="ns">OcTg</td><td>1e117</td><td class="ns">NoTg</td><td>1e120</td></tr>
+<tr class="nt-sep"><td class="ns">qg</td><td>1e123</td><td class="ns">Uqg</td><td>1e126</td><td class="ns">Dqg</td><td>1e129</td><td class="ns">Tqg</td><td>1e132</td><td class="ns">Qdqg</td><td>1e135</td></tr>
+<tr><td class="ns">Qnqg</td><td>1e138</td><td class="ns">Sxqg</td><td>1e141</td><td class="ns">Spqg</td><td>1e144</td><td class="ns">Ocqg</td><td>1e147</td><td class="ns">Noqg</td><td>1e150</td></tr>
+<tr class="nt-sep"><td class="ns">Qg</td><td>1e153</td><td class="ns">UQg</td><td>1e156</td><td class="ns">DQg</td><td>1e159</td><td class="ns">TQg</td><td>1e162</td><td class="ns">QdQg</td><td>1e165</td></tr>
+<tr><td class="ns">QnQg</td><td>1e168</td><td class="ns">SxQg</td><td>1e171</td><td class="ns">SpQg</td><td>1e174</td><td class="ns">OcQg</td><td>1e177</td><td class="ns">NoQg</td><td>1e180</td></tr>
+<tr class="nt-sep"><td class="ns">sg</td><td>1e183</td><td class="ns">Usg</td><td>1e186</td><td class="ns">Dsg</td><td>1e189</td><td class="ns">Tsg</td><td>1e192</td><td class="ns">Qdsg</td><td>1e195</td></tr>
+<tr><td class="ns">Qnsg</td><td>1e198</td><td class="ns">Sxsg</td><td>1e201</td><td class="ns">Spsg</td><td>1e204</td><td class="ns">Ocsg</td><td>1e207</td><td class="ns">Nosg</td><td>1e210</td></tr>
+<tr class="nt-sep"><td class="ns">Sg</td><td>1e213</td><td class="ns">USg</td><td>1e216</td><td class="ns">DSg</td><td>1e219</td><td class="ns">TSg</td><td>1e222</td><td class="ns">QdSg</td><td>1e225</td></tr>
+<tr><td class="ns">QnSg</td><td>1e228</td><td class="ns">SxSg</td><td>1e231</td><td class="ns">SpSg</td><td>1e234</td><td class="ns">OcSg</td><td>1e237</td><td class="ns">NoSg</td><td>1e240</td></tr>
+<tr class="nt-sep"><td class="ns">Og</td><td>1e243</td><td class="ns">UOg</td><td>1e246</td><td class="ns">DOg</td><td>1e249</td><td class="ns">TOg</td><td>1e252</td><td class="ns">QdOg</td><td>1e255</td></tr>
+<tr><td class="ns">QnOg</td><td>1e258</td><td class="ns">SxOg</td><td>1e261</td><td class="ns">SpOg</td><td>1e264</td><td class="ns">OcOg</td><td>1e267</td><td class="ns">NoOg</td><td>1e270</td></tr>
+<tr class="nt-sep"><td class="ns">Ng</td><td>1e273</td><td class="ns">UNg</td><td>1e276</td><td class="ns">DNg</td><td>1e279</td><td class="ns">TNg</td><td>1e282</td><td class="ns">QdNg</td><td>1e285</td></tr>
+<tr><td class="ns">QnNg</td><td>1e288</td><td class="ns">SxNg</td><td>1e291</td><td class="ns">SpNg</td><td>1e294</td><td class="ns">OcNg</td><td>1e297</td><td class="ns">NoNg</td><td>1e300</td></tr>
+<tr class="nt-sep"><td class="ns">Ce</td><td>1e303</td><td class="ns">UCe</td><td>1e306</td><td class="ns">DCe</td><td>1e309</td><td class="ns">TCe</td><td>1e312</td><td class="ns">QdCe</td><td>1e315</td></tr>
+</tbody>
+</table>
+</div>
+
+<div style="margin-top:20px;padding:14px 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)">
+<h3 style="font-family:'Russo One',sans-serif;color:var(--gold);font-size:0.95em;margin-bottom:8px">Suffix Pattern</h3>
+<p style="color:var(--text-dim);font-size:0.88em;line-height:1.7">
+The base suffixes cycle in groups of 10: <span style="color:var(--accent-light)">K, M, B, T, Qd, Qn, Sx, Sp, Oc, No</span> (representing 10<sup>3</sup> through 10<sup>30</sup>). After that, compound suffixes form by combining a base prefix with a group name: <span style="color:var(--accent-light)">De</span> (Decillion, 10<sup>33</sup>), <span style="color:var(--accent-light)">Vt</span> (Vigintillion, 10<sup>63</sup>), <span style="color:var(--accent-light)">Tg</span> (Trigintillion, 10<sup>93</sup>), <span style="color:var(--accent-light)">qg</span> (Quadragintillion, 10<sup>123</sup>), <span style="color:var(--accent-light)">Qg</span> (Quinquagintillion, 10<sup>153</sup>), <span style="color:var(--accent-light)">sg</span> (Sexagintillion, 10<sup>183</sup>), <span style="color:var(--accent-light)">Sg</span> (Septuagintillion, 10<sup>213</sup>), <span style="color:var(--accent-light)">Og</span> (Octogintillion, 10<sup>243</sup>), <span style="color:var(--accent-light)">Ng</span> (Nonagintillion, 10<sup>273</sup>), <span style="color:var(--accent-light)">Ce</span> (Centillion, 10<sup>303</sup>). Combined suffixes stack: e.g. SpDe = Sp x De = 10<sup>24</sup> x 10<sup>33</sup> = 10<sup>57</sup>.
+</p>
+</div>
+
+<div style="margin-top:14px;padding:14px 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)">
+<h3 style="font-family:'Russo One',sans-serif;color:var(--gold);font-size:0.95em;margin-bottom:8px">Quick Lookup</h3>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+<input type="text" id="notationSearch" placeholder="Type a suffix (e.g. SpDe) or exponent (e.g. 54)..." style="flex:1;min-width:200px;padding:8px 12px;background:rgba(10,10,26,0.8);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Chakra Petch',sans-serif;font-size:0.9em" oninput="searchNotation(this.value)">
+<div id="notationResult" style="color:var(--accent-light);font-size:0.95em;min-width:180px"></div>
+</div>
+</div>
+
+</div><!-- end notationView -->
+
 <div class="footer">Garden Incremental -- Singularity Optimization v3</div>
 
 <script>
@@ -1745,6 +1839,43 @@ function wikiSearch(q) {
   else { res.innerHTML=hits.map(h=>`<div class="wiki-card" style="cursor:pointer" onclick="showWiki('${h.sec}')"><h3>${h.t}</h3><p style="color:var(--text-dim);font-size:0.8rem;">${h.d}</p></div>`).join(''); }
   res.style.display='block';
   document.querySelectorAll('.wiki-section').forEach(s=>s.classList.remove('active'));
+}
+
+// === NOTATION SEARCH ===
+const NOTATION_MAP = [
+["K",3],["M",6],["B",9],["T",12],["Qd",15],["Qn",18],["Sx",21],["Sp",24],["Oc",27],["No",30],
+["De",33],["UDe",36],["DDe",39],["TDe",42],["QdDe",45],["QnDe",48],["SxDe",51],["SpDe",54],["OcDe",57],["NoDe",60],
+["Vt",63],["UVt",66],["DVt",69],["TVt",72],["QdVt",75],["QnVt",78],["SxVt",81],["SpVt",84],["OcVt",87],["NoVt",90],
+["Tg",93],["UTg",96],["DTg",99],["TTg",102],["QdTg",105],["QnTg",108],["SxTg",111],["SpTg",114],["OcTg",117],["NoTg",120],
+["qg",123],["Uqg",126],["Dqg",129],["Tqg",132],["Qdqg",135],["Qnqg",138],["Sxqg",141],["Spqg",144],["Ocqg",147],["Noqg",150],
+["Qg",153],["UQg",156],["DQg",159],["TQg",162],["QdQg",165],["QnQg",168],["SxQg",171],["SpQg",174],["OcQg",177],["NoQg",180],
+["sg",183],["Usg",186],["Dsg",189],["Tsg",192],["Qdsg",195],["Qnsg",198],["Sxsg",201],["Spsg",204],["Ocsg",207],["Nosg",210],
+["Sg",213],["USg",216],["DSg",219],["TSg",222],["QdSg",225],["QnSg",228],["SxSg",231],["SpSg",234],["OcSg",237],["NoSg",240],
+["Og",243],["UOg",246],["DOg",249],["TOg",252],["QdOg",255],["QnOg",258],["SxOg",261],["SpOg",264],["OcOg",267],["NoOg",270],
+["Ng",273],["UNg",276],["DNg",279],["TNg",282],["QdNg",285],["QnNg",288],["SxNg",291],["SpNg",294],["OcNg",297],["NoNg",300],
+["Ce",303],["UCe",306],["DCe",309],["TCe",312],["QdCe",315]
+];
+function searchNotation(q) {
+  const el = document.getElementById('notationResult');
+  if (!q.trim()) { el.textContent = ''; return; }
+  q = q.trim();
+  // Try matching as exponent number
+  const asNum = parseInt(q);
+  if (!isNaN(asNum)) {
+    const match = NOTATION_MAP.find(n => n[1] === asNum);
+    if (match) { el.innerHTML = `<strong style="color:var(--gold)">${match[0]}</strong> = 10<sup>${match[1]}</sup>`; return; }
+  }
+  // Try matching as suffix (case-sensitive first, then insensitive)
+  let match = NOTATION_MAP.find(n => n[0] === q);
+  if (!match) match = NOTATION_MAP.find(n => n[0].toLowerCase() === q.toLowerCase());
+  if (match) { el.innerHTML = `<strong style="color:var(--gold)">${match[0]}</strong> = 10<sup>${match[1]}</sup>`; return; }
+  // Partial match
+  const partials = NOTATION_MAP.filter(n => n[0].toLowerCase().includes(q.toLowerCase()));
+  if (partials.length > 0 && partials.length <= 10) {
+    el.innerHTML = partials.map(p => `<strong style="color:var(--gold)">${p[0]}</strong>=10<sup>${p[1]}</sup>`).join(' &nbsp; ');
+  } else {
+    el.textContent = 'No match';
+  }
 }
 </script>
 </body>

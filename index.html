@@ -28,6 +28,11 @@
     --green-dim: #16a34a;
     --green-glow: #22c55e50;
     --phase-pre: #6366f1;
+    --phase-p0: #22d3ee;
+    --phase-p1: #2dd4bf;
+    --phase-p2: #4ade80;
+    --phase-prep61: #facc15;
+    --phase-w89: #fb923c;
     --phase-1: #8b5cf6;
     --phase-2: #a855f7;
     --phase-3: #c084fc;
@@ -574,6 +579,11 @@
     border-radius: 3px 0 0 3px;
   }
   .phase-pre::before { background: linear-gradient(180deg, var(--phase-pre), #4338ca); box-shadow: 0 0 10px var(--phase-pre); }
+  .phase-p0::before { background: linear-gradient(180deg, var(--phase-p0), #0891b2); box-shadow: 0 0 10px var(--phase-p0); }
+  .phase-p1::before { background: linear-gradient(180deg, var(--phase-p1), #0d9488); box-shadow: 0 0 10px var(--phase-p1); }
+  .phase-p2::before { background: linear-gradient(180deg, var(--phase-p2), #16a34a); box-shadow: 0 0 10px var(--phase-p2); }
+  .phase-prep61::before { background: linear-gradient(180deg, var(--phase-prep61), #eab308); box-shadow: 0 0 10px var(--phase-prep61); }
+  .phase-w89::before { background: linear-gradient(180deg, var(--phase-w89), #ea580c); box-shadow: 0 0 10px var(--phase-w89); }
   .phase-1::before { background: linear-gradient(180deg, var(--phase-1), #6d28d9); box-shadow: 0 0 10px var(--phase-1); }
   .phase-2::before { background: linear-gradient(180deg, var(--phase-2), #7c3aed); box-shadow: 0 0 10px var(--phase-2); }
   .phase-3::before { background: linear-gradient(180deg, var(--phase-3), #a855f7); box-shadow: 0 0 10px var(--phase-3); }
@@ -1440,6 +1450,85 @@ The base suffixes cycle in groups of 10: <span style="color:var(--accent-light)"
 <script>
 const DATA = [
   {
+    title: "Prestige 0→1: Worlds 1-4 (Reinc 1-25)",
+    cls: "phase-p0",
+    items: [
+      { id: "p0_1", text: "Grab <strong>Masteries</strong> as they appear." },
+      { id: "p0_2", text: "<strong>Reinc 1-2:</strong> Skip." },
+      { id: "p0_3", text: "<strong>Reinc 3-4:</strong> Grab plants and logs, skip." },
+      { id: "p0_4", text: "<strong>Reinc 5-9:</strong> Grab and upgrade leaves, unlock <strong>World 2</strong>, grab snow then ice, skip." },
+      { id: "p0_5", text: "<strong>Reinc 10-14:</strong> Grab snow, skip." },
+      { id: "p0_6", text: "<strong>Reinc 15-19:</strong> Grab snow, unlock <strong>World 3</strong>, upgrade point tree, grab sand then sac for fossils, skip." },
+      { id: "p0_7", text: "<strong>Reinc 20-24:</strong> Grab snow, unlock World 3, upgrade point tree + better points tree, unlock <strong>World 4</strong>, break ore and refine for dust, skip." },
+      { id: "p0_8", text: "<strong>Reinc 25 (Final):</strong> Break ore, refine, buy dust upgrades. Break another ore, sell, buy cash upgrades. Minify, break another ore, sell, buy cash upgrades again.", detail: "Buy miners, get milestones for sandstone and lead. Pop roll luck potion, roll traits for miners (Universal or higher). Buy ruby pickaxe, roll enchantments (Universal or higher). Grab adamantite and reinc." },
+      { id: "p0_9", text: "Go to <strong>World 4 and Prestige</strong>.", detail: "Target time: ~25 minutes from start." }
+    ]
+  },
+  {
+    title: "Prestige 1→2: Worlds 1-6 (Reinc 1-50)",
+    cls: "phase-p1",
+    items: [
+      { id: "p1e_1", text: "<strong>Reinc 1-4:</strong> Skip." },
+      { id: "p1e_2", text: "<strong>Reinc 5-9:</strong> Grab and upgrade leaves, unlock World 2, grab snow, skip." },
+      { id: "p1e_3", text: "<strong>Reinc 10-14:</strong> Grab snow, skip." },
+      { id: "p1e_4", text: "<strong>Reinc 15-19:</strong> Grab snow, unlock World 3, upgrade point tree, grab sand then sac for fossils, skip." },
+      { id: "p1e_5", text: "<strong>Reinc 20-24:</strong> Break ore and refine for dust, skip." },
+      { id: "p1e_6", text: "<strong>Reinc 25-27:</strong> World 3 runes (<strong>50T Temple God</strong>), grab masteries. Mines: break ore, refine. Unlock <strong>World 5</strong>, get energy/upgrades. Power + runes (<strong>50T Nexus Entity</strong>), skip.", detail: "Grab point and runes opened masteries when available." },
+      { id: "p1e_7", text: "<strong>Reinc 28-32:</strong> Break ore and refine, go to World 5, grab energy/upgrades, grab power, skip." },
+      { id: "p1e_8", text: "<strong>Reinc 33-37:</strong> Break ore and refine. World 5: grab circuits and upgrades, upgrade tech tree, unlock <strong>World 6</strong>. Catch a fish and sell it, skip.", detail: "If no circuits on ground: grab energy, grab power, grab energy again, then craft circuits." },
+      { id: "p1e_9", text: "<strong>Reinc 38-42:</strong> Catch a fish, sell it, skip." },
+      { id: "p1e_10", text: "<strong>Reinc 43-45:</strong> Catch a fish, get pearls, skip." },
+      { id: "p1e_11", text: "<strong>Reinc 46-50 (Ocean deep dive):</strong> Catch fish, sell, open runes (<strong>5M The Deepest Sea</strong>). Get pearls/upgrades. Turn off fishing luck. Fish for Angel Fish + 1 other, sell other, craft first rod, buy coin upgrades.", detail: "Fish until depths 3, repeat: pearls, first rod, coin upgrades. Get depths 4, buy first 3 fishermen. Get pearls/upgrades, first rod + coin upgrades. Fish until loach and piranha, get milestones. Pop roll luck potion, roll traits for fishermen (Leviathan or better). Roll enchants on first rod (Sea Monster or better). Fish until stringfish." },
+      { id: "p1e_12", text: "Go to <strong>World 6 and Prestige</strong>.", detail: "Target time: ~46 minutes for this prestige." }
+    ]
+  },
+  {
+    title: "Prestige 2→3: Worlds 1-7 (Reinc 1-60)",
+    cls: "phase-p2",
+    items: [
+      { id: "p2e_1", text: "<strong>Reinc 1-4:</strong> Skip." },
+      { id: "p2e_2", text: "<strong>Reinc 5-9:</strong> Grab and upgrade leaves, unlock World 2, grab snow, skip." },
+      { id: "p2e_3", text: "<strong>Reinc 10-14:</strong> Grab snow, skip." },
+      { id: "p2e_4", text: "<strong>Reinc 15-19:</strong> Grab snow, unlock World 3, get fossils, skip." },
+      { id: "p2e_5", text: "<strong>Reinc 25-27:</strong> Grab snow, World 3 runes (<strong>500T Temple God</strong>). World 4: break ore, refine. Unlock World 5, get energy then power, skip." },
+      { id: "p2e_6", text: "<strong>Reinc 28-32:</strong> Break ore, refine. World 5: energy, power, runes (<strong>500T Nexus Entity</strong>), energy and power again, skip." },
+      { id: "p2e_7", text: "<strong>Reinc 33-35:</strong> Skip." },
+      { id: "p2e_8", text: "<strong>Reinc 36-45:</strong> Catch fish, grab pearls each reinc group, skip." },
+      { id: "p2e_9", text: "<strong>Reinc 46-50 (Ocean + runes):</strong> Catch fish, sell, open runes (<strong>50M The Deepest Sea</strong>). Repeat until depths 4: pearls/upgrades, turn off fishing luck, Angel Fish + 1, craft first rod, coin upgrades. Then: buy 3 fishermen, pearls/upgrades, fish until stringfish, skip.", detail: "Same Ocean deep dive as P1 but rune threshold is now 50M instead of 5M." },
+      { id: "p2e_10", text: "<strong>Reinc 51-55 (Mushroom World):</strong> Catch fish, get pearls, unlock <strong>World 7</strong>. Buy red mushroom seeds, plant all. Pick one at a time, sell, buy fungus upgrades (fungus mult 1&2, mushrooms mult, plant max size cap, score mult). Score milestones 5+. First spore upgrade until runes (<strong>10k Echomycra</strong>), skip." },
+      { id: "p2e_11", text: "<strong>Reinc 56-60 (Mushroom deep dive):</strong> Push to score milestone 8+, then 11+. Spore upgrades + glowy crystals. Farm red mushrooms buying all upgrades each pick. Bounce spore upgrades / glowy crystals. Grab magic energy and upgrades (stay above 2.5No, score mult is priority), skip.", detail: "Should be able to buy all upgrades other than Magic Energy Multiplier and Extra Fungus Multiplier on first pass. Keep bouncing between spore upgrades and glowy crystals until most are done." }
+    ]
+  },
+  {
+    title: "Reinc 61+ Prep: Multi-World Optimization",
+    cls: "phase-prep61",
+    items: [
+      { id: "prep_1", text: "Grab <strong>Masteries</strong> as they become available." },
+      { id: "prep_2", text: "<strong>Ticket upgrades:</strong> Rune Luck and Rune Bulk first. Leftovers into stats, tier luck, tier bulk." },
+      { id: "prep_3", text: "<strong>Perk grind:</strong> Get to score milestone 11, spore upgrades + glowy crystals, magic energy, grab perks (only go down to reinc 55), skip reinc 56-60, repeat until all perks.", detail: "This is the fastest perk farming loop at this stage." },
+      { id: "prep_4", text: "<strong>World 5 (after automation perks):</strong> Grab runes, upgrade PC until it needs ice." },
+      { id: "prep_5", text: "<strong>World 3 runes:</strong> Open runes for a bit, sac Temple God runes for passive luck. Grab fossils before leaving." },
+      { id: "prep_6", text: "<strong>World 2 passive:</strong> Buy upgrades with passive shards, pop roll luck potion, roll passives (<strong>Varkyn+ target</strong>). Stop boss fight progression to keep getting shards." },
+      { id: "prep_7", text: "<strong>World 7 push:</strong> Get to milestone 15+ using earlier methods. Open runes, max magic energy upgrades, farm toxic mushrooms until <strong>radiant aura</strong>." },
+      { id: "prep_8", text: "<strong>World 4 equipment:</strong> Get to minify 3, pop roll luck potion, roll best traits for miners, craft ruby pickaxe, roll best passive." },
+      { id: "prep_9", text: "<strong>World 6 equipment:</strong> Get to depths 5, grab all coin/pearl upgrades, open runes, buy all fishermen. Pop roll luck potion, roll best traits. Craft first rod, fish until last rod, roll best enchantments on first and last rods. Check relics (should auto unlock)." },
+      { id: "prep_10", text: "<strong>Rune farming:</strong> Go through all worlds farming runes and sacrificing in World 3. Focus <strong>Worlds 4 and 6</strong>." },
+      { id: "prep_11", text: "<strong>Milestones:</strong> Do milestones on Worlds 4 and 6." }
+    ]
+  },
+  {
+    title: "Reinc 61-75: World 8 (Space) + World 9 (Heaven)",
+    cls: "phase-w89",
+    items: [
+      { id: "w89_1", text: "<strong>Reinc 61-65:</strong> Fastest path to World 8: World 6 get 1 fish + pearls, World 7 score milestone 11, glowy crystals + magic energy, unlock <strong>World 8</strong>.", detail: "With cosmic rarity glitch + Sing 6 (keep planetify): press moonlite button first, open first 2 runes, hit moonlite again, farm third rune." },
+      { id: "w89_2", text: "Upgrade <strong>Planetify to rank 9</strong>. Do milestones with <strong>NO UPGRADES</strong> first (they glitch otherwise, need relog to fix).", detail: "After milestones with no upgrades: grab all upgrades for dirtite through uranite, do milestones again, skip reinc 61-65." },
+      { id: "w89_3", text: "<strong>Reinc 66-70:</strong> Skip." },
+      { id: "w89_4", text: "<strong>Reinc 70 perks:</strong> Go to World 7, do all perks available for reinc 70 (easy since you keep planetify). Grab <strong>World 6 perks first</strong>." },
+      { id: "w89_5", text: "<strong>World 6 equipment:</strong> Buy all fishermen, craft last fishing rod." },
+      { id: "w89_6", text: "<strong>Reinc 71-75 (World 9 -- Heaven):</strong> Get first transcend. Get rare 50+, press glory button. Sit on runes.", detail: "Farm to transcend 3 by getting upgrades between grace and glory. Work on upgrade tree while getting transcend 4. Finish upgrade tree, get enough divinity for reinc 75, skip." }
+    ]
+  },
+  {
     title: "Phase 0: Pre-Garden Prep",
     cls: "phase-pre",
     items: [
@@ -1626,290 +1715,4 @@ const DATA = [
       "<strong>Fruit priority:</strong> Dragon Fruit is best (x1.25 RB, x1.1 RL). All late fruits (Papayas+) give permanent multiplicative RB/RL. <strong>Gating progression:</strong> Gate 1 (FL+Straw) -> Gate 2 (FL+Grass) -> Gate 3 (Grass+GP) -> Gate 4-6 (multi-currency) -> Gate 7 (FL/Flowers) -> Gate 8 (Honey+Flowers) -> Gate 9 (Honey only, 8 fruits: 1No to 25De). Honey is the final bottleneck.",
       "<strong>Garden Rune Milestones:</strong> Rune 2 unlocks at <b>10 QdDe Grass</b>. Rune 3 unlocks at <b>250T Honey</b>. Both are massive upgrades -- when you hit these thresholds, go regrind runes for a few minutes, upgrade sacrifices, and do milestones before pushing further.",
       "<strong>Hell Rank:</strong> Don't max unless you need RB for farming. Saves time getting to Garden.",
-      "<strong>Heaven/Divinity:</strong> Heaven Board has Divinity (60 lvl), Heavenly Bulk (30 lvl), Divinity II (30 lvl), Divinity III, Glory, Garden Points. Divinity Multiplier (purchased with GP) gates access.",
-      "<strong>Space milestones glitch:</strong> They glitch at some point. Relog to fix, delay as long as possible.",
-      "<strong>Auto click (Garden Tree):</strong> Gives Fall Leaves per click, costs Strawberries. Once obtained, stays active unless you relog without getting it.",
-      "<strong>Auto Charge perk (Sing 5):</strong> Doesn't work until you relog.",
-      "<strong>Bees:</strong> 8 types from Noob Bee (0.02%/5s) to Queen of the Bees (1%/0.5s). Each upgraded individually with Honey.",
-      "<strong>Plant Combat:</strong> Kill plants for Grass. Higher levels = more drops. At high levels: 7.45M+ Grass per kill.",
-      "<strong>Stat increases:</strong> Rare stats in Upgrade Trees are massive. Heaven/Hell trees boost Bulk. Garden tree nearly required for rare runes.",
-      "<strong>Milestone scaling:</strong> Wonky in Mines -- hit walls, then huge increases. Neptunite cascade (Kale Head -> Plutite -> Neptunite -> RB) is exponential.",
-      "<strong>Reinc Skip requirements (Reinc 85+):</strong> Skip from 91->93 costs: 15B GP, 6.5Qd GP, 1.25NoDe FL, 1.5QnVt Grass, 200UTg Grass. Skip from 93->96 costs: 1.25NoDe FL, 1.5QnVt Grass, 200UTg Grass, 1DDe Flowers, 1.25T Honey. <b>WARNING: Only available for Garden Runes below 1/100SxDe!</b>",
-      "<strong>Garden = slowest part</strong> of any singularity before P4. After P4 it flows. Most pre-P4 time is prep.",
-      "<strong>Timeline:</strong> A singularity takes ~15-30 hours. P3 is the rough one."
-    ]
-  }
-];
-
-const PLAYERS = ['xiled', 'pezzy'];
-let activePlayer = localStorage.getItem('singularity_active_player') || 'xiled';
-
-function getStorageKey() {
-  return `singularity_checklist_v3_${activePlayer}`;
-}
-
-function loadState() {
-  try { return JSON.parse(localStorage.getItem(getStorageKey())) || {}; } catch(e) { return {}; }
-}
-function saveState(state) {
-  localStorage.setItem(getStorageKey(), JSON.stringify(state));
-}
-
-// Migrate old shared save to Xiled if it exists and Xiled has no data
-(function migrateOldData() {
-  const oldData = localStorage.getItem('singularity_checklist_v3');
-  const xiledData = localStorage.getItem('singularity_checklist_v3_xiled');
-  if (oldData && !xiledData) {
-    localStorage.setItem('singularity_checklist_v3_xiled', oldData);
-    localStorage.removeItem('singularity_checklist_v3');
-  }
-})();
-
-function switchPlayer(player) {
-  activePlayer = player;
-  localStorage.setItem('singularity_active_player', player);
-  document.querySelectorAll('.player-tab').forEach(t => {
-    t.classList.toggle('active', t.textContent.toLowerCase() === player);
-  });
-  render();
-}
-
-function countSectionChecked(section, state) {
-  let total = 0, checked = 0;
-  if (section.isTips) return { total: 0, checked: 0 };
-  if (section.hasMethodToggle) {
-    Object.values(section.methods).forEach(m => {
-      m.items.forEach(item => { total++; if (state[item.id]) checked++; });
-    });
-  } else if (section.items) {
-    section.items.forEach(item => { total++; if (state[item.id]) checked++; });
-  }
-  return { total, checked };
-}
-
-function updateProgress() {
-  const boxes = document.querySelectorAll('.check-item input[type="checkbox"]');
-  const total = boxes.length;
-  const checked = [...boxes].filter(b => b.checked).length;
-  const pct = total ? (checked/total*100).toFixed(1) : 0;
-  document.getElementById('progressText').textContent = `${checked} / ${total} steps`;
-  document.getElementById('progressPct').textContent = `${pct}%`;
-  document.getElementById('progressFill').style.width = `${pct}%`;
-
-  // Update per-section counts
-  const state = loadState();
-  DATA.forEach((section, si) => {
-    const sc = countSectionChecked(section, state);
-    const countEl = document.querySelector(`#sec_${si} .section-count`);
-    const doneEl = document.querySelector(`#sec_${si} .section-done`);
-    if (countEl && sc.total > 0) {
-      countEl.textContent = `${sc.checked} / ${sc.total}`;
-      if (doneEl) doneEl.style.display = (sc.checked === sc.total && sc.total > 0) ? 'inline' : 'none';
-    }
-  });
-}
-
-function resetAll() {
-  if (!confirm('Reset run checkboxes? Singularity Milestones will be preserved.')) return;
-  const old = loadState();
-  const kept = {};
-  Object.keys(old).forEach(k => { if (k.startsWith('sing_')) kept[k] = old[k]; });
-  saveState(kept);
-  document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
-    if (cb.id.startsWith('sing_')) return;
-    cb.checked = false;
-    cb.closest('.check-item').classList.remove('checked');
-  });
-  updateProgress();
-}
-
-function buildCheckItem(item, state) {
-  const checked = state[item.id] || false;
-  let html = `<div class="check-item ${checked ? 'checked' : ''}">
-    <input type="checkbox" id="${item.id}" ${checked ? 'checked' : ''}>
-    <label class="check-label" for="${item.id}">${item.text}</label>
-  </div>`;
-  if (item.detail) {
-    html += `<div class="detail">${item.detail}</div>`;
-  }
-  return html;
-}
-
-function render() {
-  const state = loadState();
-  const container = document.getElementById('sections');
-  let html = '';
-
-  DATA.forEach((section, si) => {
-    const sc = countSectionChecked(section, state);
-    html += `<div class="section ${section.cls}" id="sec_${si}">`;
-    html += `<div class="section-header" onclick="toggleSection(${si})">`;
-    html += `<span class="section-arrow">&#9660;</span>`;
-    html += `<span class="section-title">${section.title}</span>`;
-    if (sc.total > 0) {
-      const allDone = sc.checked === sc.total;
-      html += `<span class="section-done" style="display:${allDone ? 'inline' : 'none'}">DONE</span>`;
-      html += `<span class="section-count">${sc.checked} / ${sc.total}</span>`;
-    } else if (section.isTips) {
-      html += `<span class="section-count">${section.tips.length} notes</span>`;
-    }
-    html += `</div>`;
-    html += `<div class="section-body">`;
-
-    if (section.isTips) {
-      section.tips.forEach(t => {
-        html += `<div class="tip-item">${t}</div>`;
-      });
-    } else if (section.hasMethodToggle) {
-      html += `<div class="method-toggle">`;
-      html += `<button class="method-btn active" onclick="switchMethod(${si}, 'method1', this)">Method 1 (Recommended)</button>`;
-      html += `<button class="method-btn" onclick="switchMethod(${si}, 'method2', this)">Method 2 (Alt)</button>`;
-      html += `</div>`;
-      html += `<div class="method-content active" id="sec_${si}_method1">`;
-      section.methods.method1.items.forEach(item => { html += buildCheckItem(item, state); });
-      html += `</div>`;
-      html += `<div class="method-content" id="sec_${si}_method2">`;
-      section.methods.method2.items.forEach(item => { html += buildCheckItem(item, state); });
-      html += `</div>`;
-    } else {
-      section.items.forEach(item => { html += buildCheckItem(item, state); });
-    }
-
-    html += `</div></div>`;
-  });
-
-  container.innerHTML = html;
-
-  document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
-    cb.addEventListener('change', function() {
-      const st = loadState();
-      st[this.id] = this.checked;
-      saveState(st);
-      this.closest('.check-item').classList.toggle('checked', this.checked);
-      updateProgress();
-    });
-  });
-
-  updateProgress();
-}
-
-function toggleSection(idx) {
-  document.getElementById(`sec_${idx}`).classList.toggle('collapsed');
-}
-
-function switchMethod(secIdx, method, btn) {
-  const parent = btn.closest('.section-body');
-  parent.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  parent.querySelectorAll('.method-content').forEach(mc => mc.classList.remove('active'));
-  document.getElementById(`sec_${secIdx}_${method}`).classList.add('active');
-  updateProgress();
-}
-
-// Set correct active tab on load
-document.querySelectorAll('.player-tab').forEach(t => {
-  t.classList.toggle('active', t.textContent.toLowerCase() === activePlayer);
-});
-render();
-
-// === PAGE VIEW SWITCHER ===
-function switchPageView(view) {
-  document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById(view + 'View').classList.add('active');
-  document.querySelectorAll('.page-tab').forEach(t => {
-    if (t.textContent.toLowerCase() === view) t.classList.add('active');
-  });
-  window.scrollTo({top: 0});
-}
-
-// === WIKI TAB NAVIGATION ===
-function showWiki(id) {
-  document.querySelectorAll('.wiki-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.wiki-tab').forEach(t => t.classList.remove('active'));
-  const sec = document.getElementById(id);
-  if (sec) sec.classList.add('active');
-  const tabs = document.querySelectorAll('.wiki-tab');
-  const names = {wOverview:'overview',wBoards:'boards',wPrestige:'prestige',wFruits:'fruits',wCombat:'combat',wBees:'bees',wGacha:'gacha',wMilestones:'milestones',wFormulas:'formulas'};
-  tabs.forEach(t => { if (t.textContent.toLowerCase() === names[id]) t.classList.add('active'); });
-  document.getElementById('wikiSearchResults').style.display = 'none';
-  document.getElementById('wikiSearchInput').value = '';
-}
-
-// === WIKI SEARCH ===
-const WIKI_SEARCH_DATA = [
-  {sec:'wBoards',t:'Grass Multiplier',d:'Grass Board, 300 max, doubles every 5, xGrass'},
-  {sec:'wBoards',t:'Fall Leaves',d:'Grass Board 250 max, FL Board 250 max, Straw Board 300 max'},
-  {sec:'wBoards',t:'Garden Attack Speed',d:'Grass Board, 14 max, -0.035s/lv, base 2s'},
-  {sec:'wBoards',t:'Garden Points Multiplier',d:'GP Board, 60 max, x34 at max. x25.8@45 x31.8@56'},
-  {sec:'wBoards',t:'GP Multiplier 3',d:'GP3 Board, 30 max, x34 at max. x19.3@25'},
-  {sec:'wBoards',t:'Divinity III',d:'Divinity III Board, 5 max, x2.77 Divinity'},
-  {sec:'wBoards',t:'Heavenly Bulk',d:'Div II Board, 44 max, large divinity bonus'},
-  {sec:'wBoards',t:'Glory',d:'Currency Board, 60 max, x1TFFM at max'},
-  {sec:'wPrestige',t:'Garden Rank',d:'Inner prestige, resets FL + Straw, gives multipliers'},
-  {sec:'wPrestige',t:'Garden Level',d:'Outer prestige, 300DDe Flowers, x3 Flowers x10 FL'},
-  {sec:'wPrestige',t:'Reincarnation',d:'7.5M GP, soft reset, keeps fruits and runes'},
-  {sec:'wPrestige',t:'Singularity',d:'Mega prestige, Reinc 100 + P4, resets everything'},
-  {sec:'wPrestige',t:'Reinc 90 Boosts',d:'Grass x10, Glory x23k, Divinity x87k'},
-  {sec:'wFruits',t:'Dragon Fruit',d:'x1.25 RB, x1.1 RL, permanent multiplicative endgame'},
-  {sec:'wFruits',t:'Coconuts',d:'x1.75 FL, x2 Gacha, x1.25 RB, x1.05 RL'},
-  {sec:'wFruits',t:'Combined Fruit RL/RB',d:'x2.148 RB x1.271 RL from all 7 late fruits'},
-  {sec:'wCombat',t:'Plant Combat',d:'Very Dangerous Plant, HP scales x2.2-2.9/lv'},
-  {sec:'wBees',t:'Queen Of The Bees',d:'Best bee, 50%/s at max, 75% of total output'},
-  {sec:'wGacha',t:'Gacha System',d:'Stats/RL/RB +0.01/lv, Clone +0.05%/lv'},
-  {sec:'wMilestones',t:'Milestones 1-10',d:'High confidence, RB RL Stats perks permanent'},
-  {sec:'wMilestones',t:'Milestones 11-20',d:'Partial confidence, need verification'},
-  {sec:'wFormulas',t:'FL Multiplier Stack',d:'All sources multiplied together'},
-  {sec:'wFormulas',t:'Progression Timeline',d:'4 phases, early mid divinity late'},
-  {sec:'wFormulas',t:'15 Unlock Gates',d:'GP through GP4/5 progression order'},
-];
-function wikiSearch(q) {
-  const res = document.getElementById('wikiSearchResults');
-  if (!q.trim()) { res.style.display='none'; document.querySelectorAll('.wiki-section').forEach(s=>s.style.display=''); return; }
-  const ql = q.toLowerCase();
-  const hits = WIKI_SEARCH_DATA.filter(d => d.t.toLowerCase().includes(ql)||d.d.toLowerCase().includes(ql));
-  if (!hits.length) { res.innerHTML='<div class="wiki-card"><p style="color:var(--text-dim)">No results.</p></div>'; }
-  else { res.innerHTML=hits.map(h=>`<div class="wiki-card" style="cursor:pointer" onclick="showWiki('${h.sec}')"><h3>${h.t}</h3><p style="color:var(--text-dim);font-size:0.8rem;">${h.d}</p></div>`).join(''); }
-  res.style.display='block';
-  document.querySelectorAll('.wiki-section').forEach(s=>s.classList.remove('active'));
-}
-
-// === NOTATION SEARCH ===
-const NOTATION_MAP = [
-["K",3],["M",6],["B",9],["T",12],["Qd",15],["Qn",18],["Sx",21],["Sp",24],["Oc",27],["No",30],
-["De",33],["UDe",36],["DDe",39],["TDe",42],["QdDe",45],["QnDe",48],["SxDe",51],["SpDe",54],["OcDe",57],["NoDe",60],
-["Vt",63],["UVt",66],["DVt",69],["TVt",72],["QdVt",75],["QnVt",78],["SxVt",81],["SpVt",84],["OcVt",87],["NoVt",90],
-["Tg",93],["UTg",96],["DTg",99],["TTg",102],["QdTg",105],["QnTg",108],["SxTg",111],["SpTg",114],["OcTg",117],["NoTg",120],
-["qg",123],["Uqg",126],["Dqg",129],["Tqg",132],["Qdqg",135],["Qnqg",138],["Sxqg",141],["Spqg",144],["Ocqg",147],["Noqg",150],
-["Qg",153],["UQg",156],["DQg",159],["TQg",162],["QdQg",165],["QnQg",168],["SxQg",171],["SpQg",174],["OcQg",177],["NoQg",180],
-["sg",183],["Usg",186],["Dsg",189],["Tsg",192],["Qdsg",195],["Qnsg",198],["Sxsg",201],["Spsg",204],["Ocsg",207],["Nosg",210],
-["Sg",213],["USg",216],["DSg",219],["TSg",222],["QdSg",225],["QnSg",228],["SxSg",231],["SpSg",234],["OcSg",237],["NoSg",240],
-["Og",243],["UOg",246],["DOg",249],["TOg",252],["QdOg",255],["QnOg",258],["SxOg",261],["SpOg",264],["OcOg",267],["NoOg",270],
-["Ng",273],["UNg",276],["DNg",279],["TNg",282],["QdNg",285],["QnNg",288],["SxNg",291],["SpNg",294],["OcNg",297],["NoNg",300],
-["Ce",303],["UCe",306],["DCe",309],["TCe",312],["QdCe",315]
-];
-function searchNotation(q) {
-  const el = document.getElementById('notationResult');
-  if (!q.trim()) { el.textContent = ''; return; }
-  q = q.trim();
-  // Try matching as exponent number
-  const asNum = parseInt(q);
-  if (!isNaN(asNum)) {
-    const match = NOTATION_MAP.find(n => n[1] === asNum);
-    if (match) { el.innerHTML = `<strong style="color:var(--gold)">${match[0]}</strong> = 10<sup>${match[1]}</sup>`; return; }
-  }
-  // Try matching as suffix (case-sensitive first, then insensitive)
-  let match = NOTATION_MAP.find(n => n[0] === q);
-  if (!match) match = NOTATION_MAP.find(n => n[0].toLowerCase() === q.toLowerCase());
-  if (match) { el.innerHTML = `<strong style="color:var(--gold)">${match[0]}</strong> = 10<sup>${match[1]}</sup>`; return; }
-  // Partial match
-  const partials = NOTATION_MAP.filter(n => n[0].toLowerCase().includes(q.toLowerCase()));
-  if (partials.length > 0 && partials.length <= 10) {
-    el.innerHTML = partials.map(p => `<strong style="color:var(--gold)">${p[0]}</strong>=10<sup>${p[1]}</sup>`).join(' &nbsp; ');
-  } else {
-    el.textContent = 'No match';
-  }
-}
-</script>
-</body>
-</html>
+      "<strong>Heaven/Divinity:</strong> Heaven Board has Divinity (60 lvl), Heavenly Bulk (30 lvl), Divinity II (30 lvl), Divin

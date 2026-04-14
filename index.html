@@ -1714,5 +1714,290 @@ const DATA = [
       "<strong>Gacha math:</strong> Level N gives x(1+0.01*N) Stats/RL/RB and +0.05%*N Clone Chance. Success drops -- use Auto.",
       "<strong>Fruit priority:</strong> Dragon Fruit is best (x1.25 RB, x1.1 RL). All late fruits (Papayas+) give permanent multiplicative RB/RL. <strong>Gating progression:</strong> Gate 1 (FL+Straw) -> Gate 2 (FL+Grass) -> Gate 3 (Grass+GP) -> Gate 4-6 (multi-currency) -> Gate 7 (FL/Flowers) -> Gate 8 (Honey+Flowers) -> Gate 9 (Honey only, 8 fruits: 1No to 25De). Honey is the final bottleneck.",
       "<strong>Garden Rune Milestones:</strong> Rune 2 unlocks at <b>10 QdDe Grass</b>. Rune 3 unlocks at <b>250T Honey</b>. Both are massive upgrades -- when you hit these thresholds, go regrind runes for a few minutes, upgrade sacrifices, and do milestones before pushing further.",
-      "<strong>Hell Rank:</strong> Don't max unless you need RB for farming. Saves time getting to Garden.",
-      "<strong>Heaven/Divinity:</strong> Heaven Board has Divinity (60 lvl), Heavenly Bulk (30 lvl), Divinity II (30 lvl), Divin
+      "<strong>Heaven/Divinity:</strong> Heaven Board has Divinity (60 lvl), Heavenly Bulk (30 lvl), Divinity II (30 lvl), Divinity III, Glory, Garden Points. Divinity Multiplier (purchased with GP) gates access.",
+      "<strong>Space milestones glitch:</strong> They glitch at some point. Relog to fix, delay as long as possible.",
+      "<strong>Auto click (Garden Tree):</strong> Gives Fall Leaves per click, costs Strawberries. Once obtained, stays active unless you relog without getting it.",
+      "<strong>Auto Charge perk (Sing 5):</strong> Doesn't work until you relog.",
+      "<strong>Bees:</strong> 8 types from Noob Bee (0.02%/5s) to Queen of the Bees (1%/0.5s). Each upgraded individually with Honey.",
+      "<strong>Plant Combat:</strong> Kill plants for Grass. Higher levels = more drops. At high levels: 7.45M+ Grass per kill.",
+      "<strong>Stat increases:</strong> Rare stats in Upgrade Trees are massive. Heaven/Hell trees boost Bulk. Garden tree nearly required for rare runes.",
+      "<strong>Milestone scaling:</strong> Wonky in Mines -- hit walls, then huge increases. Neptunite cascade (Kale Head -> Plutite -> Neptunite -> RB) is exponential.",
+      "<strong>Reinc Skip requirements (Reinc 85+):</strong> Skip from 91->93 costs: 15B GP, 6.5Qd GP, 1.25NoDe FL, 1.5QnVt Grass, 200UTg Grass. Skip from 93->96 costs: 1.25NoDe FL, 1.5QnVt Grass, 200UTg Grass, 1DDe Flowers, 1.25T Honey. <b>WARNING: Only available for Garden Runes below 1/100SxDe!</b>",
+      "<strong>Garden = slowest part</strong> of any singularity before P4. After P4 it flows. Most pre-P4 time is prep.",
+      "<strong>Timeline:</strong> A singularity takes ~15-30 hours. P3 is the rough one."
+    ]
+  }
+];
+
+const PLAYERS = ['xiled', 'pezzy'];
+let activePlayer = localStorage.getItem('singularity_active_player') || 'xiled';
+
+function getStorageKey() {
+  return `singularity_checklist_v3_${activePlayer}`;
+}
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(getStorageKey())) || {}; } catch(e) { return {}; }
+}
+function saveState(state) {
+  localStorage.setItem(getStorageKey(), JSON.stringify(state));
+}
+
+// Migrate old shared save to Xiled if it exists and Xiled has no data
+(function migrateOldData() {
+  const oldData = localStorage.getItem('singularity_checklist_v3');
+  const xiledData = localStorage.getItem('singularity_checklist_v3_xiled');
+  if (oldData && !xiledData) {
+    localStorage.setItem('singularity_checklist_v3_xiled', oldData);
+    localStorage.removeItem('singularity_checklist_v3');
+  }
+})();
+
+function switchPlayer(player) {
+  activePlayer = player;
+  localStorage.setItem('singularity_active_player', player);
+  document.querySelectorAll('.player-tab').forEach(t => {
+    t.classList.toggle('active', t.textContent.toLowerCase() === player);
+  });
+  render();
+}
+
+function countSectionChecked(section, state) {
+  let total = 0, checked = 0;
+  if (section.isTips) return { total: 0, checked: 0 };
+  if (section.hasMethodToggle) {
+    Object.values(section.methods).forEach(m => {
+      m.items.forEach(item => { total++; if (state[item.id]) checked++; });
+    });
+  } else if (section.items) {
+    section.items.forEach(item => { total++; if (state[item.id]) checked++; });
+  }
+  return { total, checked };
+}
+
+function updateProgress() {
+  const boxes = document.querySelectorAll('.check-item input[type="checkbox"]');
+  const total = boxes.length;
+  const checked = [...boxes].filter(b => b.checked).length;
+  const pct = total ? (checked/total*100).toFixed(1) : 0;
+  document.getElementById('progressText').textContent = `${checked} / ${total} steps`;
+  document.getElementById('progressPct').textContent = `${pct}%`;
+  document.getElementById('progressFill').style.width = `${pct}%`;
+
+  // Update per-section counts
+  const state = loadState();
+  DATA.forEach((section, si) => {
+    const sc = countSectionChecked(section, state);
+    const countEl = document.querySelector(`#sec_${si} .section-count`);
+    const doneEl = document.querySelector(`#sec_${si} .section-done`);
+    if (countEl && sc.total > 0) {
+      countEl.textContent = `${sc.checked} / ${sc.total}`;
+      if (doneEl) doneEl.style.display = (sc.checked === sc.total && sc.total > 0) ? 'inline' : 'none';
+    }
+  });
+}
+
+function resetAll() {
+  if (!confirm('Reset run checkboxes? Singularity Milestones will be preserved.')) return;
+  const old = loadState();
+  const kept = {};
+  Object.keys(old).forEach(k => { if (k.startsWith('sing_')) kept[k] = old[k]; });
+  saveState(kept);
+  document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
+    if (cb.id.startsWith('sing_')) return;
+    cb.checked = false;
+    cb.closest('.check-item').classList.remove('checked');
+  });
+  updateProgress();
+}
+
+function buildCheckItem(item, state) {
+  const checked = state[item.id] || false;
+  let html = `<div class="check-item ${checked ? 'checked' : ''}">
+    <input type="checkbox" id="${item.id}" ${checked ? 'checked' : ''}>
+    <label class="check-label" for="${item.id}">${item.text}</label>
+  </div>`;
+  if (item.detail) {
+    html += `<div class="detail">${item.detail}</div>`;
+  }
+  return html;
+}
+
+function render() {
+  const state = loadState();
+  const container = document.getElementById('sections');
+  let html = '';
+
+  DATA.forEach((section, si) => {
+    const sc = countSectionChecked(section, state);
+    html += `<div class="section ${section.cls}" id="sec_${si}">`;
+    html += `<div class="section-header" onclick="toggleSection(${si})">`;
+    html += `<span class="section-arrow">&#9660;</span>`;
+    html += `<span class="section-title">${section.title}</span>`;
+    if (sc.total > 0) {
+      const allDone = sc.checked === sc.total;
+      html += `<span class="section-done" style="display:${allDone ? 'inline' : 'none'}">DONE</span>`;
+      html += `<span class="section-count">${sc.checked} / ${sc.total}</span>`;
+    } else if (section.isTips) {
+      html += `<span class="section-count">${section.tips.length} notes</span>`;
+    }
+    html += `</div>`;
+    html += `<div class="section-body">`;
+
+    if (section.isTips) {
+      section.tips.forEach(t => {
+        html += `<div class="tip-item">${t}</div>`;
+      });
+    } else if (section.hasMethodToggle) {
+      html += `<div class="method-toggle">`;
+      html += `<button class="method-btn active" onclick="switchMethod(${si}, 'method1', this)">Method 1 (Recommended)</button>`;
+      html += `<button class="method-btn" onclick="switchMethod(${si}, 'method2', this)">Method 2 (Alt)</button>`;
+      html += `</div>`;
+      html += `<div class="method-content active" id="sec_${si}_method1">`;
+      section.methods.method1.items.forEach(item => { html += buildCheckItem(item, state); });
+      html += `</div>`;
+      html += `<div class="method-content" id="sec_${si}_method2">`;
+      section.methods.method2.items.forEach(item => { html += buildCheckItem(item, state); });
+      html += `</div>`;
+    } else {
+      section.items.forEach(item => { html += buildCheckItem(item, state); });
+    }
+
+    html += `</div></div>`;
+  });
+
+  container.innerHTML = html;
+
+  document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', function() {
+      const st = loadState();
+      st[this.id] = this.checked;
+      saveState(st);
+      this.closest('.check-item').classList.toggle('checked', this.checked);
+      updateProgress();
+    });
+  });
+
+  updateProgress();
+}
+
+function toggleSection(idx) {
+  document.getElementById(`sec_${idx}`).classList.toggle('collapsed');
+}
+
+function switchMethod(secIdx, method, btn) {
+  const parent = btn.closest('.section-body');
+  parent.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  parent.querySelectorAll('.method-content').forEach(mc => mc.classList.remove('active'));
+  document.getElementById(`sec_${secIdx}_${method}`).classList.add('active');
+  updateProgress();
+}
+
+// Set correct active tab on load
+document.querySelectorAll('.player-tab').forEach(t => {
+  t.classList.toggle('active', t.textContent.toLowerCase() === activePlayer);
+});
+render();
+
+// === PAGE VIEW SWITCHER ===
+function switchPageView(view) {
+  document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(view + 'View').classList.add('active');
+  document.querySelectorAll('.page-tab').forEach(t => {
+    if (t.textContent.toLowerCase() === view) t.classList.add('active');
+  });
+  window.scrollTo({top: 0});
+}
+
+// === WIKI TAB NAVIGATION ===
+function showWiki(id) {
+  document.querySelectorAll('.wiki-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.wiki-tab').forEach(t => t.classList.remove('active'));
+  const sec = document.getElementById(id);
+  if (sec) sec.classList.add('active');
+  const tabs = document.querySelectorAll('.wiki-tab');
+  const names = {wOverview:'overview',wBoards:'boards',wPrestige:'prestige',wFruits:'fruits',wCombat:'combat',wBees:'bees',wGacha:'gacha',wMilestones:'milestones',wFormulas:'formulas'};
+  tabs.forEach(t => { if (t.textContent.toLowerCase() === names[id]) t.classList.add('active'); });
+  document.getElementById('wikiSearchResults').style.display = 'none';
+  document.getElementById('wikiSearchInput').value = '';
+}
+
+// === WIKI SEARCH ===
+const WIKI_SEARCH_DATA = [
+  {sec:'wBoards',t:'Grass Multiplier',d:'Grass Board, 300 max, doubles every 5, xGrass'},
+  {sec:'wBoards',t:'Fall Leaves',d:'Grass Board 250 max, FL Board 250 max, Straw Board 300 max'},
+  {sec:'wBoards',t:'Garden Attack Speed',d:'Grass Board, 14 max, -0.035s/lv, base 2s'},
+  {sec:'wBoards',t:'Garden Points Multiplier',d:'GP Board, 60 max, x34 at max. x25.8@45 x31.8@56'},
+  {sec:'wBoards',t:'GP Multiplier 3',d:'GP3 Board, 30 max, x34 at max. x19.3@25'},
+  {sec:'wBoards',t:'Divinity III',d:'Divinity III Board, 5 max, x2.77 Divinity'},
+  {sec:'wBoards',t:'Heavenly Bulk',d:'Div II Board, 44 max, large divinity bonus'},
+  {sec:'wBoards',t:'Glory',d:'Currency Board, 60 max, x1TFFM at max'},
+  {sec:'wPrestige',t:'Garden Rank',d:'Inner prestige, resets FL + Straw, gives multipliers'},
+  {sec:'wPrestige',t:'Garden Level',d:'Outer prestige, 300DDe Flowers, x3 Flowers x10 FL'},
+  {sec:'wPrestige',t:'Reincarnation',d:'7.5M GP, soft reset, keeps fruits and runes'},
+  {sec:'wPrestige',t:'Singularity',d:'Mega prestige, Reinc 100 + P4, resets everything'},
+  {sec:'wPrestige',t:'Reinc 90 Boosts',d:'Grass x10, Glory x23k, Divinity x87k'},
+  {sec:'wFruits',t:'Dragon Fruit',d:'x1.25 RB, x1.1 RL, permanent multiplicative endgame'},
+  {sec:'wFruits',t:'Coconuts',d:'x1.75 FL, x2 Gacha, x1.25 RB, x1.05 RL'},
+  {sec:'wFruits',t:'Combined Fruit RL/RB',d:'x2.148 RB x1.271 RL from all 7 late fruits'},
+  {sec:'wCombat',t:'Plant Combat',d:'Very Dangerous Plant, HP scales x2.2-2.9/lv'},
+  {sec:'wBees',t:'Queen Of The Bees',d:'Best bee, 50%/s at max, 75% of total output'},
+  {sec:'wGacha',t:'Gacha System',d:'Stats/RL/RB +0.01/lv, Clone +0.05%/lv'},
+  {sec:'wMilestones',t:'Milestones 1-10',d:'High confidence, RB RL Stats perks permanent'},
+  {sec:'wMilestones',t:'Milestones 11-20',d:'Partial confidence, need verification'},
+  {sec:'wFormulas',t:'FL Multiplier Stack',d:'All sources multiplied together'},
+  {sec:'wFormulas',t:'Progression Timeline',d:'4 phases, early mid divinity late'},
+  {sec:'wFormulas',t:'15 Unlock Gates',d:'GP through GP4/5 progression order'},
+];
+function wikiSearch(q) {
+  const res = document.getElementById('wikiSearchResults');
+  if (!q.trim()) { res.style.display='none'; document.querySelectorAll('.wiki-section').forEach(s=>s.style.display=''); return; }
+  const ql = q.toLowerCase();
+  const hits = WIKI_SEARCH_DATA.filter(d => d.t.toLowerCase().includes(ql)||d.d.toLowerCase().includes(ql));
+  if (!hits.length) { res.innerHTML='<div class="wiki-card"><p style="color:var(--text-dim)">No results.</p></div>'; }
+  else { res.innerHTML=hits.map(h=>`<div class="wiki-card" style="cursor:pointer" onclick="showWiki('${h.sec}')"><h3>${h.t}</h3><p style="color:var(--text-dim);font-size:0.8rem;">${h.d}</p></div>`).join(''); }
+  res.style.display='block';
+  document.querySelectorAll('.wiki-section').forEach(s=>s.classList.remove('active'));
+}
+
+// === NOTATION SEARCH ===
+const NOTATION_MAP = [
+["K",3],["M",6],["B",9],["T",12],["Qd",15],["Qn",18],["Sx",21],["Sp",24],["Oc",27],["No",30],
+["De",33],["UDe",36],["DDe",39],["TDe",42],["QdDe",45],["QnDe",48],["SxDe",51],["SpDe",54],["OcDe",57],["NoDe",60],
+["Vt",63],["UVt",66],["DVt",69],["TVt",72],["QdVt",75],["QnVt",78],["SxVt",81],["SpVt",84],["OcVt",87],["NoVt",90],
+["Tg",93],["UTg",96],["DTg",99],["TTg",102],["QdTg",105],["QnTg",108],["SxTg",111],["SpTg",114],["OcTg",117],["NoTg",120],
+["qg",123],["Uqg",126],["Dqg",129],["Tqg",132],["Qdqg",135],["Qnqg",138],["Sxqg",141],["Spqg",144],["Ocqg",147],["Noqg",150],
+["Qg",153],["UQg",156],["DQg",159],["TQg",162],["QdQg",165],["QnQg",168],["SxQg",171],["SpQg",174],["OcQg",177],["NoQg",180],
+["sg",183],["Usg",186],["Dsg",189],["Tsg",192],["Qdsg",195],["Qnsg",198],["Sxsg",201],["Spsg",204],["Ocsg",207],["Nosg",210],
+["Sg",213],["USg",216],["DSg",219],["TSg",222],["QdSg",225],["QnSg",228],["SxSg",231],["SpSg",234],["OcSg",237],["NoSg",240],
+["Og",243],["UOg",246],["DOg",249],["TOg",252],["QdOg",255],["QnOg",258],["SxOg",261],["SpOg",264],["OcOg",267],["NoOg",270],
+["Ng",273],["UNg",276],["DNg",279],["TNg",282],["QdNg",285],["QnNg",288],["SxNg",291],["SpNg",294],["OcNg",297],["NoNg",300],
+["Ce",303],["UCe",306],["DCe",309],["TCe",312],["QdCe",315]
+];
+function searchNotation(q) {
+  const el = document.getElementById('notationResult');
+  if (!q.trim()) { el.textContent = ''; return; }
+  q = q.trim();
+  // Try matching as exponent number
+  const asNum = parseInt(q);
+  if (!isNaN(asNum)) {
+    const match = NOTATION_MAP.find(n => n[1] === asNum);
+    if (match) { el.innerHTML = `<strong style="color:var(--gold)">${match[0]}</strong> = 10<sup>${match[1]}</sup>`; return; }
+  }
+  // Try matching as suffix (case-sensitive first, then insensitive)
+  let match = NOTATION_MAP.find(n => n[0] === q);
+  if (!match) match = NOTATION_MAP.find(n => n[0].toLowerCase() === q.toLowerCase());
+  if (match) { el.innerHTML = `<strong style="color:var(--gold)">${match[0]}</strong> = 10<sup>${match[1]}</sup>`; return; }
+  // Partial match
+  const partials = NOTATION_MAP.filter(n => n[0].toLowerCase().includes(q.toLowerCase()));
+  if (partials.length > 0 && partials.length <= 10) {
+    el.innerHTML = partials.map(p => `<strong style="color:var(--gold)">${p[0]}</strong>=10<sup>${p[1]}</sup>`).join(' &nbsp; ');
+  } else {
+    el.textContent = 'No match';
+  }
+}
+</script>
+</body>
+</html>

@@ -1532,51 +1532,45 @@ const DATA = [
     title: "Phase 0: Pre-Garden Prep",
     cls: "phase-pre",
     items: [
-      { id: "pre_1", text: "Max <strong>Cosmic Rank/Rarity</strong> as high as possible.", detail: "Cosmic Rank doesn't reset until you disconnect. Keeping it lets you open the first 5 Space runes immediately on the next run." },
-      { id: "pre_2", text: "Get <strong>Computer upgrades</strong> up to the point of needing Strawberries.", detail: "PC tier gives xRL, xRB, xCores, xNeptunite, xPlutite. Get it as far as you can before Garden." },
-      { id: "pre_3a", text: "<strong>Perks: Mushroom</strong> -- 5 reinc at a time after energy upgrades.", detail: "Only Mine perks and 'keep first 3 world' perks appear here. Grind 5x reinc, grab 5 perks, skip reinc." },
-      { id: "pre_3b", text: "<strong>Perks: Space</strong> -- easy once you get the 3rd set of runes.", detail: "Get essential mine/fishing perks early to smooth the run." },
-      { id: "pre_3c", text: "<strong>Perks: Hell</strong> -- easy once runes + upgrade tree done." },
-      { id: "pre_3d", text: "<strong>Perks: Late Garden</strong> -- do at Reinc 96-97 after Honey runes.", detail: "At Sing 4+ you keep all level 2 stat-boosting perks, so fewer early perks to farm. Honey runes at Reinc 98, or Reinc 97 if Prestige 4." },
-      { id: "pre_4", text: "Farm all <strong>Sacrifices and Milestones</strong>.", detail: "Key sacrifices: Nexus Entity (+0.05 RL/sac), Starlight Sun (+0.05 RB/sac), Frozen Core (+0.15 TL/sac), Garden Tree (+0.1 TB/sac)." },
-      { id: "pre_5", text: "Run to <strong>Space first</strong> before opening any runes.", detail: "Light Point upgrades give rune stats (xRL, xRB at 32/34). Always grab these before sitting on runes." },
+      { id: "pre_1", text: "Max <strong>Cosmic Rank/Rarity</strong> as high as possible.", detail: "Doesn't reset until you disconnect -- lets you open the first 5 Space runes immediately next run." },
+      { id: "pre_2", text: "Get <strong>Computer upgrades</strong> up to the point of needing Strawberries." },
+      { id: "pre_3", text: "Farm all <strong>Sacrifices and Milestones</strong> before entering Garden." },
+      { id: "pre_4", text: "Finish <strong>Perks</strong> in Hell before moving to Garden.", detail: "Perk order: Mushroom (5 reinc at a time) -> Space (easy after 3rd rune set) -> Hell (easy after runes + tree)." },
+      { id: "pre_5", text: "Run to <strong>Space first</strong> before opening any runes.", detail: "Light Point upgrades give xRL and xRB. Always grab these before sitting on runes." },
       { id: "pre_6", text: "Equip <strong>Archangel passive</strong> for Garden." }
     ]
   },
   {
-    title: "Phase 1: Garden Entry (Reinc 86-88)",
+    title: "Phase 1: Garden Entry",
     cls: "phase-1",
     items: [
-      { id: "p1_1", text: "<strong>Reinc 86</strong> -- Get first Garden Rank, then immediately reinc.", detail: "Garden Rank gives xFall Leaves and xStrawberries but WARNING: resets both currencies. Grab it and go." },
-      { id: "p1_2", text: "<strong>Reinc 87</strong> -- Grab Light Point rune upgrades + Sunite Bulk upgrades (as high as possible). Farm 2-5k alltime Strawberry runes.", detail: "Optional: skip 86 & 87 and just farm runes on the way to 88." },
-      { id: "p1_3", text: "Craft early <strong>Fruits</strong> as soon as you can: Apples, Oranges.", detail: "Apples: x2.5 Fall Leaves, x2 Tier Luck. Oranges: x1.25 Fall Leaves, x2.25 Grass, x2 Tier Bulk. Fruits persist through reinc!" },
+      { id: "p1_1", text: "<strong>Reinc 86</strong> -- Get first Garden Rank, then immediately reinc." },
+      { id: "p1_2", text: "<strong>Reinc 87</strong> -- Grab LP rune upgrades + Sunite Bulk upgrades. Farm 2-5k alltime Strawberry runes.", detail: "Optional: skip 86 & 87 entirely and just farm runes on the way to 88." },
+      { id: "p1_3", text: "Craft <strong>Fruits</strong> as they become available (Apples, Oranges first).", detail: "Fruits persist through reinc. Check the Fruit Tracker for gating requirements." },
       { id: "p1_4", text: "<strong>Reinc 88</strong> -- Push into Garden reincs." }
     ]
   },
   {
-    title: "Phase 2: Garden Reincarnations",
+    title: "Phase 2: Garden Reincarnations (Speed Through)",
     cls: "phase-2",
     items: [
-      { id: "p2_1", text: "Push through <strong>Garden reincs</strong> as fast as possible. Reinc when you can, don't stall.", detail: "This is the fastest path to Garden Point reincarnations. Speed over optimization here." },
-      { id: "p2_2", text: "Rank up <strong>Garden Rank</strong> whenever requirements are met.", detail: "Garden Rank gives xFall Leaves and xStrawberries multipliers. WARNING: Resets Fall Leaves AND Strawberries each rank up. Worth it for the permanent multipliers." },
-      { id: "p2_3", text: "Craft <strong>Bananas, Pineapples, Peaches</strong> as materials are available.", detail: "Bananas: x1.25 FL, x2.75 Grass, +1 Straw, +50M RB. Pineapples: x1.5 FL, x2.5 Grass, +1 Straw, x2 TL. Peaches: x2.25 Grass, +1 Straw, +75M RB, x2 TL." },
-      { id: "p2_4", text: "Kill <strong>Plants</strong> for Grass drops. Level up Plant Combat.", detail: "Plants drop Grass. Higher plant levels = more Grass per kill. 'Skip Levels Where You Can Oneshot Boss.' At high levels: 7.45M+ Grass per kill." },
-      { id: "p2_5", text: "Pick up <strong>Garden Levels</strong> when you have enough Flowers.", detail: "Garden Level costs Flowers, resets Flowers + Honey upgrades. Gives xFlowers and xFall Leaves. Level 0->1: x1->x3 Flowers, +3->+10 Fall Leaves." },
-      { id: "p2_6", text: "Upgrade <strong>Grass Board</strong> between reincs.", detail: "Grass Multiplier (0/300), Fall Leaves (0/250), Touch Grass (0/12), Garden Damage (0/100), Attack Speed (0/14, base 2s), Respawn Speed (0/10, base 2s)." },
-      { id: "p2_7", text: "Kill <strong>Garden Boss</strong> for Gacha Shards. Level Gacha when possible.", detail: "Gacha gives +0.01/level to xStats, xRL, xRB, plus +0.05%/level Rune Clone Chance. Success chance drops at higher levels -- use Auto." }
+      { id: "p2_1", text: "Push through <strong>Garden reincs</strong> as fast as possible -- reinc when you can, don't stall.", detail: "Speed over optimization. This is the fastest path to Garden Point reincs." },
+      { id: "p2_2", text: "Rank up <strong>Garden Rank</strong> whenever you meet requirements.", detail: "Resets FL + Strawberries but gives permanent multipliers. Worth it." },
+      { id: "p2_3", text: "Craft <strong>Fruits</strong> as materials become available." },
+      { id: "p2_4", text: "Pick up <strong>Garden Levels</strong> along the way when you have Flowers." },
+      { id: "p2_5", text: "Kill <strong>Plants</strong> for Grass. Upgrade Grass Board between reincs." },
+      { id: "p2_6", text: "Kill <strong>Garden Boss</strong> for Gacha Shards. Level Gacha when possible.", detail: "Gacha gives xStats, xRL, xRB per level plus Clone Chance. Use Auto at higher levels." }
     ]
   },
   {
     title: "Phase 3: Garden Point Reincarnations",
     cls: "phase-3",
     items: [
-      { id: "p3_1", text: "Go back and grab some <strong>Heaven runes</strong>, then grind through Point reincs.", detail: "Garden Points generate from 100x Grass via the Garden Points Generator (upgradeable 0/7)." },
-      { id: "p3_2", text: "Upgrade <strong>Fall Leaves Board</strong> as you progress.", detail: "Sunshine Power (0/200), x5 Leaves Multiplier (0/40), Garden Click Cooldown (0/14), Strawberry Limit (0/14), Strawberry Spawn Timer (0/8)." },
-      { id: "p3_3", text: "Use <strong>Garden Tree Click</strong> for Fall Leaves.", detail: "Tree gives Fall Leaves per click, costs Strawberries. Auto-click stays active once obtained unless you relog without getting it." },
-      { id: "p3_4", text: "Craft <strong>Pears, Blueberries</strong> once Garden Points are available.", detail: "Pears: x1.25 GP, x1.25 Grass, x1.05 RB, x3 TL. Blueberries: +3 Straw, x2 Gacha Shards, x3 GP, x100 Snow." },
-      { id: "p3_5", text: "On last/second-to-last point reinc, sit on <strong>Garden Boss</strong> and try to open runes. Target: full rune within 20-30 seconds.", detail: "Farm runes at the second reinc point. Usually skip 2nd and 3rd point reinc. Get another 2-5k of overall rune types. <b>Rune 2 unlocks at 10 QdDe Grass. Rune 3 unlocks at 250T Honey.</b> Both are massive upgrades \u2014 when you hit these thresholds, stop and regrind runes for a few minutes, upgrade sacrifices, and do milestones before pushing further." },
-      { id: "p3_6", text: "Run back to second world for <strong>Tier upgrades</strong> from passive sheet.", detail: "Grab snow runes for snow milestones. Target Tier 600-875 at this point. Cosmic Level gives more Tier Luck and Bulk." },
-      { id: "p3_7", text: "Upgrade <strong>Garden Shard</strong> upgrades if shards are accumulating.", detail: "Garden Shards (0/14, +0.5% per level) and Garden Shards Chance (0/10, +0.5% per level)." }
+      { id: "p3_1", text: "Go back and grab some <strong>Heaven runes</strong>, then grind through Point reincs." },
+      { id: "p3_2", text: "On last point reinc, sit on <strong>Garden Boss</strong> and open runes. Target: full rune within 20-30 sec.", detail: "Usually skip 2nd and 3rd point reinc. Get another 2-5k of overall rune types." },
+      { id: "p3_3", text: "Check for <strong>Rune 2</strong> (unlocks at 10 QdDe Grass) -- massive upgrade, regrind runes when you hit it." },
+      { id: "p3_4", text: "Run back to World 2 for <strong>Tier upgrades</strong> from passive sheet.", detail: "Grab snow runes for snow milestones. Target Tier 600-875. Cosmic Level gives more TL and TB." },
+      { id: "p3_5", text: "Don't forget <strong>Space stuff</strong> for more rune stats." }
     ]
   },
   {
@@ -1584,11 +1578,9 @@ const DATA = [
     cls: "phase-4",
     items: [
       { id: "p4_1", text: "Get <strong>Upgrade Tree</strong> to the point of more Leaf upgrades." },
-      { id: "p4_2", text: "Between upgrades, runes, Garden Ranks, and Fruits -- <strong>skip all 3 reinc up to Flowers</strong>.", detail: "This is where your accumulated Fruits, Garden Ranks, and board upgrades should carry you through. <b>Reinc 91 can skip to 93. Reinc 93 can skip to 96.</b> Use these to speed through the mid-garden grind." },
-      { id: "p4_3", text: "Craft <strong>Mangos, Grapes, Coconuts</strong>.", detail: "Mangos: x3.75 Grass, x2 Garden Damage, +1 Straw, x2 Divinity. Grapes: x3 Grass, x1.5 Garden Damage, +1 Straw, x1.05 RB. Coconuts: x1.75 FL, x2 Gacha Shards, x1.25 RB, x1.05 RL." },
-      { id: "p4_4", text: "Max <strong>Garden Rank</strong>. Buy all remaining Grass Board upgrades.", detail: "When maxed, sit on Garden Boss for Gacha Shards." },
-      { id: "p4_5", text: "Get to <strong>Garden Level 50-75</strong>.", detail: "Helps with Honey rune stats. Each Garden Level costs Flowers and resets Flowers + Honey upgrades." },
-      { id: "p4_6", text: "Max <strong>Gacha level</strong> with accumulated shards.", detail: "At level 28: x1.28 Stats/RL/RB, +1.4% Clone Chance. Higher levels possible with more shards." }
+      { id: "p4_2", text: "Between upgrades, runes, Garden Ranks, and Fruits -- <strong>skip all 3 reinc up to Flowers</strong>.", detail: "Reinc 91 -> skip to 93. Reinc 93 -> skip to 96." },
+      { id: "p4_3", text: "Max <strong>Garden Rank</strong>. When maxed, sit on boss for Gacha Shards." },
+      { id: "p4_4", text: "Get to <strong>Garden Level 50-75</strong> for the stats -- helps when going for Honey runes." }
     ]
   },
   {
@@ -1599,19 +1591,16 @@ const DATA = [
       "method1": {
         label: "Method 1 (Recommended -- extra reincs)",
         items: [
-          { id: "p5m1_1", text: "Do the <strong>Flower reinc</strong> and immediately reincarnate (or do 2). Get Flower rein and first Honey rein.", detail: "The extra reincs make everything easier from here on." },
+          { id: "p5m1_1", text: "Do the <strong>Flower reinc</strong> and immediately reincarnate. Get Flower rein and first Honey rein." },
           { id: "p5m1_2", text: "Max out <strong>Garden Rank, Upgrade Tree, Grass, and Fall Leaves</strong>." },
-          { id: "p5m1_3", text: "Go back to lower worlds: <strong>sauna, milestones, Light Points, Cosmic Rank/Level</strong>.", detail: "Catch up on anything skipped. LP upgrades give xRL and xRB." },
+          { id: "p5m1_3", text: "Go back to lower worlds: <strong>sauna, milestones, Light Points, Cosmic Rank/Level</strong>.", detail: "Catch up on anything skipped." },
           { id: "p5m1_4", text: "Start Flowers -- get <strong>Leaf upgrades</strong> and let Flower Fruit cut through Flower ranks." },
-          { id: "p5m1_5", text: "Craft <strong>Watermelons, Lemons, Mandarins</strong>.", detail: "Watermelons: x2.5 FL, x2.5 Flowers. Lemons: x5 FL, x3.5 Flowers, x175 Honey, x350 Snow. Mandarins: x5.5 FL, x5.75 Flowers, x1.5 Honey, x1.75 GP." },
-          { id: "p5m1_6", text: "Get first <strong>Flower Rank</strong>, then grab Honey rune.", detail: "Honey rune gives trillions-level Honey boost at this stage." },
-          { id: "p5m1_7", text: "Upgrade <strong>Bees</strong> to maximize Honey generation.", detail: "8 Bee types from Noob (0.02%/5s) to Queen of the Bees (1%/0.5s). Each upgradeable individually. Priority: Queen > King > Garden > Giant for generation rate." },
-          { id: "p5m1_8", text: "Farm Flowers until <strong>upper Quadrillions of Honey or early Qt</strong>." },
-          { id: "p5m1_9", text: "Get <strong>Honey runes</strong>. Check for rare runes (Abyss, Titan)." },
-          { id: "p5m1_10", text: "Craft <strong>Cherries, Plums, Avocados, Cucumbers</strong>.", detail: "Cherries: x5.5 FL, x5.75 Flowers, x1.5 Honey, x1.05 RB. Plums: x1.05 RB, x1.3 Grass. Avocados: x1.1 RB, x1.3 Grass. Cucumbers: x1.05 RB, x2 Grass." },
-          { id: "p5m1_11", text: "Farm runes and Flowers until first few upgrades lock in (<strong>no more resets</strong>)." },
-          { id: "p5m1_12", text: "Craft endgame Fruits: <strong>Papayas, Kiwifruit, Pumpkins, Dragon Fruit</strong>.", detail: "Papayas: x1.14 RB, x1.05 RL. Kiwifruit: x1.14 RB, x1.05 RL. Pumpkins: x1.14 RB, x1.05 RL. Dragon Fruit: x1.25 RB, x1.1 RL. ALL permanent and multiplicative!" },
-          { id: "p5m1_13", text: "Hit <strong>250-Oo Honey</strong> to skip to 1000." }
+          { id: "p5m1_5", text: "Get first <strong>Flower Rank</strong>, then grab Honey rune (trillions-level boost)." },
+          { id: "p5m1_6", text: "Farm Flowers until <strong>upper Qd Honey or early Qt</strong>." },
+          { id: "p5m1_7", text: "Get <strong>Honey runes</strong>. Check for rare runes (Abyss, Titan).", detail: "Rune 3 unlocks at 250T Honey -- another massive upgrade point." },
+          { id: "p5m1_8", text: "Farm runes and Flowers until first few upgrades lock in (<strong>no more resets</strong>)." },
+          { id: "p5m1_9", text: "Craft all remaining <strong>Fruits</strong> through Dragon Fruit.", detail: "Check the Fruit Tracker for order and gating. Dragon Fruit is the best single fruit (x1.25 RB, x1.1 RL)." },
+          { id: "p5m1_10", text: "Hit <strong>250-Oo Honey</strong> to skip to 1000." }
         ]
       },
       "method2": {
@@ -1629,11 +1618,10 @@ const DATA = [
     cls: "phase-6",
     items: [
       { id: "p6_1", text: "Finish <strong>Honey runes</strong>." },
-      { id: "p6_2", text: "Work on <strong>Perks</strong>. Grind 5x rein, grab 5 perks, skip rein.", detail: "Perk order: Mushroom -> Space -> Hell -> Late Garden. Essential perks (mine/fishing) early." },
-      { id: "p6_3", text: "Farm remaining <strong>Milestones and Sacrifices</strong>.", detail: "Milestones: Neptunite cascade (Kale Head -> Plutite -> Neptunite -> RB) is exponential and highest leverage." },
-      { id: "p6_4", text: "Focus <strong>Gold Point ticket upgrades</strong> (wait for 3x Singularity boost).", detail: "At 1900 with Garden Skill Tree boost, can make billions of Gold Points in minutes." },
-      { id: "p6_5", text: "Do final <strong>Sacrifices</strong> quickly." },
-      { id: "p6_6", text: "Hit <strong>P4</strong> and run through Garden as fast as possible to Singularity.", detail: "Singularity requires Reinc 100 + Prestige 4. After P4, Garden flows much faster." }
+      { id: "p6_2", text: "Work on <strong>Perks</strong>. Grind 5x rein, grab 5 perks, skip rein.", detail: "Order: Mushroom -> Space -> Hell -> Late Garden." },
+      { id: "p6_3", text: "Farm remaining <strong>Milestones and Sacrifices</strong>." },
+      { id: "p6_4", text: "Focus <strong>Gold Point ticket upgrades</strong> (wait for 3x Singularity boost).", detail: "At 1900 with Garden Skill Tree boost, can make billions of GP in minutes." },
+      { id: "p6_5", text: "Sacrifice quick, then hit <strong>P4</strong> and run through Garden to Singularity.", detail: "After P4, Garden flows much faster. Most pre-P4 time is just prep to fly through." }
     ]
   },
   {
@@ -2001,3 +1989,4 @@ function searchNotation(q) {
 </script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

@@ -918,6 +918,7 @@
   <button class="page-tab active" onclick="switchPageView('checklist')">Checklist</button>
   <button class="page-tab" onclick="switchPageView('wiki')">Wiki</button>
   <button class="page-tab" onclick="switchPageView('notation')">Notation</button>
+  <button class="page-tab" onclick="switchPageView('calculator')">Calculator</button>
 </div>
 
 <div id="checklistView" class="page-view active">
@@ -960,6 +961,7 @@
   <button class="wiki-tab" onclick="showWiki('wGacha')">Gacha</button>
   <button class="wiki-tab" onclick="showWiki('wMilestones')">Milestones</button>
   <button class="wiki-tab" onclick="showWiki('wFormulas')">Formulas</button>
+  <button class="wiki-tab" onclick="showWiki('wSecretRunes')">Secret Runes</button>
 </div>
 
 <div id="wikiSearchResults" style="display:none;"></div>
@@ -1393,6 +1395,25 @@ PHASE 4 - Late (Reinc 90-100):
   </div>
 </div>
 
+<!-- WIKI: Secret Runes -->
+<div class="wiki-section" id="wSecretRunes">
+  <div class="wiki-card">
+    <h3>Secret Runes <span class="tag tag-r">Endgame</span></h3>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:12px;">The rarest runes in the game. These are the final secret runes (believed to be the complete set). More data will be added as it becomes available.</p>
+    <table>
+      <tr><th>Rune</th><th>Rarity</th><th>Count</th><th>Bonus 1</th><th>Bonus 2</th><th>Bonus 3</th><th>Bonus 4</th></tr>
+      <tr><td class="wr">Nebula Storm</td><td>1 in 500NoDe</td><td class="wv">2.48k</td><td>x35Qn Tier Luck [MAX]</td><td>x25k Tier Bulk</td><td>x40 Rune Luck [MAX]</td><td>+10B Rune Bulk [MAX]</td></tr>
+      <tr><td class="wr">Shadow Eclipse</td><td>1 in 5Vt</td><td class="wv">2.58k</td><td>x45Qn Tier Luck [MAX]</td><td>x30k Tier Bulk [MAX]</td><td>x40 Rune Luck [MAX]</td><td>+12.5B Rune Bulk [MAX]</td></tr>
+      <tr><td class="wr">The Forgotten</td><td>1 in 50Vt</td><td class="wv">1.88k</td><td>x51.7Qn Tier Luck</td><td>x32.9k Tier Bulk</td><td>x45 Rune Luck [MAX]</td><td>+14.1B Rune Bulk</td></tr>
+      <tr><td class="wr">God Of The Bees</td><td>1 in 50TVt</td><td class="wv">25.2k</td><td>x63.09Sx Flowers</td><td>x2.52Sx Honey</td><td>x250 Rune Luck [MAX]</td><td>+250B Rune Bulk [MAX]</td></tr>
+      <tr><td class="wr">Icy Garden</td><td>1 in 200DVt</td><td class="wv">913k</td><td>x45.7Sx Tier Luck</td><td>x50k Tier Bulk [MAX]</td><td>+15B Rune Luck [MAX]</td><td>x35 Rune Luck [MAX]</td></tr>
+      <tr><td class="wr">Depths Of The Void</td><td class="verify-tag">1 in ???Vt</td><td class="verify-tag">~28.5k</td><td>x173Sp Ohxsnite</td><td>x69.4Sp Tehleatite</td><td>x1.15k Ore Multiplier</td><td>x15B Rune Bulk [MAX]</td></tr>
+      <tr><td class="wr">The Forgotten Sea</td><td>1 in 1DVt</td><td class="wv">1B</td><td>x1000OcDe Legendary Fish</td><td>x500SxDe Mythical Fish</td><td>x5No Divine Fish</td><td>x10M Multi Fish</td></tr>
+    </table>
+    <p style="color:var(--text-dim);font-size:0.78rem;margin-top:8px;"><span class="verify-tag">VERIFY</span> Depths Of The Void rarity and count are hard to read from screenshot -- need in-game confirmation. Ore names (Ohxsnite, Tehleatite) may have typos.</p>
+  </div>
+</div>
+
 </div><!-- end wikiView -->
 
 <div id="notationView" class="page-view">
@@ -1444,6 +1465,96 @@ The base suffixes cycle in groups of 10: <span style="color:var(--accent-light)"
 </div>
 
 </div><!-- end notationView -->
+
+<div id="calculatorView" class="page-view">
+
+<h2 style="font-family:'Russo One',sans-serif;color:var(--accent-light);text-align:center;margin:18px 0 6px">Rune Calculator</h2>
+<p style="text-align:center;color:var(--text-dim);font-size:0.78rem;margin-bottom:20px">Calculate discovery time and runes per hour with clone support</p>
+
+<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;backdrop-filter:blur(12px)">
+<h3 style="font-family:'Russo One',sans-serif;color:var(--accent-light);font-size:0.95em;margin-bottom:14px">Your Stats</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+  <div>
+    <label style="display:block;font-size:0.75rem;color:var(--text-dim);margin-bottom:4px;letter-spacing:0.5px">RUNE SPEED (x/s)</label>
+    <input type="text" id="calcSpeed" value=".26" oninput="runCalc()" style="width:100%;padding:10px 14px;background:rgba(10,10,26,0.8);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Chakra Petch',sans-serif;font-size:0.95em">
+  </div>
+  <div>
+    <label style="display:block;font-size:0.75rem;color:var(--text-dim);margin-bottom:4px;letter-spacing:0.5px">RUNE BULK</label>
+    <input type="text" id="calcBulk" value="540k" oninput="runCalc()" style="width:100%;padding:10px 14px;background:rgba(10,10,26,0.8);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Chakra Petch',sans-serif;font-size:0.95em">
+  </div>
+  <div>
+    <label style="display:block;font-size:0.75rem;color:var(--text-dim);margin-bottom:4px;letter-spacing:0.5px">RUNE LUCK (x)</label>
+    <input type="text" id="calcLuck" value="2.63b" oninput="runCalc()" style="width:100%;padding:10px 14px;background:rgba(10,10,26,0.8);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Chakra Petch',sans-serif;font-size:0.95em">
+  </div>
+  <div>
+    <label style="display:block;font-size:0.75rem;color:var(--text-dim);margin-bottom:4px;letter-spacing:0.5px">RUNE CLONE COUNT</label>
+    <input type="number" id="calcClone" value="5" oninput="runCalc()" style="width:100%;padding:10px 14px;background:rgba(10,10,26,0.8);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Chakra Petch',sans-serif;font-size:0.95em">
+  </div>
+  <div style="grid-column:1/-1">
+    <label style="display:block;font-size:0.75rem;color:var(--text-dim);margin-bottom:4px;letter-spacing:0.5px">RUNE CLONE CHANCE (%)</label>
+    <input type="number" id="calcCloneChance" value="5" step="0.1" oninput="runCalc()" style="width:100%;padding:10px 14px;background:rgba(10,10,26,0.8);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Chakra Petch',sans-serif;font-size:0.95em">
+  </div>
+</div>
+</div>
+
+<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px">
+<h3 style="font-family:'Russo One',sans-serif;color:var(--accent-light);font-size:0.95em;margin-bottom:14px">Select Rune</h3>
+<select id="calcRuneSelect" onchange="onRuneSelect()" style="width:100%;padding:10px 14px;background:rgba(10,10,26,0.8);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Chakra Petch',sans-serif;font-size:0.9em;margin-bottom:12px">
+  <option value="">-- Pick a rune --</option>
+</select>
+<div style="display:flex;gap:10px;align-items:end">
+  <div style="flex:1">
+    <label style="display:block;font-size:0.75rem;color:var(--text-dim);margin-bottom:4px;letter-spacing:0.5px">CUSTOM: 1 in X</label>
+    <input type="text" id="calcCustomChance" placeholder="e.g. 25Qn, 1e18, 500De" oninput="onCustomChance()" style="width:100%;padding:10px 14px;background:rgba(10,10,26,0.8);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Chakra Petch',sans-serif;font-size:0.95em">
+  </div>
+</div>
+<div id="calcSelectedInfo" style="margin-top:10px;font-size:0.8rem;color:var(--text-dim)"></div>
+</div>
+
+<div id="calcResults" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px">
+<h3 style="font-family:'Russo One',sans-serif;color:var(--gold);font-size:0.95em;margin-bottom:14px">Results</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+  <div style="text-align:center;padding:14px;background:rgba(124,58,237,0.08);border-radius:8px;border:1px solid rgba(124,58,237,0.15)">
+    <div style="font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Effective RPS</div>
+    <div id="resRps" style="font-family:'Russo One',sans-serif;font-size:1.1rem;color:var(--accent-light)">--</div>
+  </div>
+  <div style="text-align:center;padding:14px;background:rgba(124,58,237,0.08);border-radius:8px;border:1px solid rgba(124,58,237,0.15)">
+    <div style="font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">ETA to Discover</div>
+    <div id="resEta" style="font-family:'Russo One',sans-serif;font-size:1.1rem;color:var(--accent-light)">--</div>
+  </div>
+  <div style="text-align:center;padding:14px;background:rgba(34,197,94,0.08);border-radius:8px;border:1px solid rgba(34,197,94,0.15)">
+    <div style="font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Discoveries / Hour</div>
+    <div id="resDiscPerHr" style="font-family:'Russo One',sans-serif;font-size:1.1rem;color:var(--green)">--</div>
+  </div>
+  <div style="text-align:center;padding:14px;background:rgba(251,191,36,0.08);border-radius:8px;border:1px solid rgba(251,191,36,0.15)">
+    <div style="font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Runes / Hour (with Clones)</div>
+    <div id="resRunesPerHr" style="font-family:'Russo One',sans-serif;font-size:1.1rem;color:var(--gold)">--</div>
+  </div>
+</div>
+<div id="resCloneNote" style="margin-top:10px;font-size:0.78rem;color:var(--text-dim);text-align:center"></div>
+</div>
+
+<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px">
+<h3 style="font-family:'Russo One',sans-serif;color:var(--accent-light);font-size:0.95em;margin-bottom:10px">How It Works</h3>
+<div class="formula-box">Rune Speed = how fast you roll (cap 0.15s = 6.67 rolls/sec)
+Rune Bulk  = how many dice you roll each time
+Rune Luck  = multiplier on your chance to hit a rune
+
+Effective RPS = Speed x Bulk x Luck*
+ETA (seconds) = Rune Rarity / Effective RPS
+Discoveries/Hour = 3600 / ETA
+
+Clone Chance = % chance a discovered rune gets cloned
+Clone Count  = how many copies you get if cloned
+Avg Runes/Discovery = 1 + (Clone Chance% x Clone Count / 100)
+Runes/Hour = Discoveries/Hour x Avg Runes/Discovery
+
+* Luck does NOT apply to Secret/Damnation/Galaxy runes</div>
+</div>
+
+<p style="text-align:center;font-size:0.65rem;color:#444466;margin-top:12px">Rune data sourced from <a href="https://truthuntold.github.io/gi-calc/" style="color:var(--accent);text-decoration:none">truthuntold's GI Rune Calculator</a></p>
+
+</div><!-- end calculatorView -->
 
 <div class="footer">Garden Incremental -- Singularity Optimization v3</div>
 
@@ -1520,8 +1631,10 @@ const DATA = [
     title: "Reinc 61-75: World 8 (Space) + World 9 (Heaven)",
     cls: "phase-w89",
     items: [
-      { id: "w89_1", text: "<strong>Reinc 61-65:</strong> Fastest path to World 8: World 6 get 1 fish + pearls, World 7 score milestone 11, glowy crystals + magic energy, unlock <strong>World 8</strong>.", detail: "With cosmic rarity glitch + Sing 6 (keep planetify): press moonlite button first, open first 2 runes, hit moonlite again, farm third rune." },
-      { id: "w89_2", text: "Upgrade <strong>Planetify to rank 9</strong>. Do milestones with <strong>NO UPGRADES</strong> first (they glitch otherwise, need relog to fix).", detail: "After milestones with no upgrades: grab all upgrades for dirtite through uranite, do milestones again, skip reinc 61-65." },
+      { id: "w89_1", text: "<strong>Reinc 61-65:</strong> Fastest path to World 8: World 6 get 1 fish + pearls, World 7 score milestone 11, glowy crystals + magic energy, unlock <strong>World 8</strong>." },
+      { id: "w89_1b", text: "Level <strong>Planetify</strong> by pressing each currency button in order (moonlite, etc.) -- <strong>do NOT buy upgrades</strong>, just hit buttons through each currency to planetify each level.", detail: "With cosmic rarity glitch + Sing 6 (keep planetify): press moonlite button first, open first 2 runes, hit moonlite again, farm third rune. Upgrade Planetify to rank 9." },
+      { id: "w89_2", text: "Do milestones with <strong>NO UPGRADES</strong> first (they glitch otherwise, need relog to fix).", detail: "After milestones with no upgrades: grab all upgrades for dirtite through uranite, do milestones again, skip reinc 61-65." },
+      { id: "w89_2b", text: "Go to <strong>Heaven upgrade tree</strong> and get the <strong>'Don't Lose Planetify On Reincarnation'</strong> node before reincarnating.", detail: "Critical -- without this, you lose planetify progress when you reinc for perks." },
       { id: "w89_3", text: "<strong>Reinc 66-70:</strong> Skip." },
       { id: "w89_4", text: "<strong>Reinc 70 perks:</strong> Go to World 7, do all perks available for reinc 70 (easy since you keep planetify). Grab <strong>World 6 perks first</strong>." },
       { id: "w89_5", text: "<strong>World 6 equipment:</strong> Buy all fishermen, craft last fishing rod." },
@@ -1533,11 +1646,10 @@ const DATA = [
     cls: "phase-pre",
     items: [
       { id: "pre_1", text: "Max <strong>Cosmic Rank/Rarity</strong> as high as possible.", detail: "Doesn't reset until you disconnect -- lets you open the first 5 Space runes immediately next run." },
-      { id: "pre_2", text: "Get <strong>Computer upgrades</strong> up to the point of needing Strawberries." },
-      { id: "pre_3", text: "Farm all <strong>Sacrifices and Milestones</strong> before entering Garden." },
-      { id: "pre_4", text: "Finish <strong>Perks</strong> in Hell before moving to Garden.", detail: "Perk order: Mushroom (5 reinc at a time) -> Space (easy after 3rd rune set) -> Hell (easy after runes + tree)." },
-      { id: "pre_5", text: "Run to <strong>Space first</strong> before opening any runes.", detail: "Light Point upgrades give xRL and xRB. Always grab these before sitting on runes." },
-      { id: "pre_6", text: "Equip <strong>Archangel passive</strong> for Garden." }
+      { id: "pre_2", text: "Run to <strong>Space first</strong> before opening any runes.", detail: "Light Point upgrades give xRL and xRB. Always grab these before sitting on runes." },
+      { id: "pre_3", text: "Get <strong>Computer upgrades</strong> up to the point of needing Strawberries." },
+      { id: "pre_4", text: "Farm all <strong>Sacrifices and Milestones</strong> before entering Garden." },
+      { id: "pre_5", text: "Equip <strong>Archangel passive</strong> for Garden." }
     ]
   },
   {
@@ -1554,6 +1666,7 @@ const DATA = [
     title: "Phase 2: Garden Reincarnations (Speed Through)",
     cls: "phase-2",
     items: [
+      { id: "p2_0", text: "<strong>Use spare reincs for Perks.</strong> If you only need 2 reincs to advance (e.g., 89 to 91) but can skip 5 at a time, spend the 3 spare reincs grabbing perks.", detail: "Each perk costs 1 reincarnation. Can't drop below Reinc 85. So on any skip where you have room, go grab perks first. Order: Mushroom -> Space -> Hell -> Late Garden." },
       { id: "p2_1", text: "Push through <strong>Garden reincs</strong> as fast as possible -- reinc when you can, don't stall.", detail: "Speed over optimization. This is the fastest path to Garden Point reincs." },
       { id: "p2_2", text: "Rank up <strong>Garden Rank</strong> whenever you meet requirements.", detail: "Resets FL + Strawberries but gives permanent multipliers. Worth it." },
       { id: "p2_3", text: "Craft <strong>Fruits</strong> as materials become available." },
@@ -1906,7 +2019,7 @@ function showWiki(id) {
   const sec = document.getElementById(id);
   if (sec) sec.classList.add('active');
   const tabs = document.querySelectorAll('.wiki-tab');
-  const names = {wOverview:'overview',wBoards:'boards',wPrestige:'prestige',wFruits:'fruits',wCombat:'combat',wBees:'bees',wGacha:'gacha',wMilestones:'milestones',wFormulas:'formulas'};
+  const names = {wOverview:'overview',wBoards:'boards',wPrestige:'prestige',wFruits:'fruits',wCombat:'combat',wBees:'bees',wGacha:'gacha',wMilestones:'milestones',wFormulas:'formulas',wSecretRunes:'secret runes'};
   tabs.forEach(t => { if (t.textContent.toLowerCase() === names[id]) t.classList.add('active'); });
   document.getElementById('wikiSearchResults').style.display = 'none';
   document.getElementById('wikiSearchInput').value = '';
@@ -1941,11 +2054,11 @@ const WIKI_SEARCH_DATA = [
 ];
 function wikiSearch(q) {
   const res = document.getElementById('wikiSearchResults');
-  if (!q.trim()) { res.style.display='none'; document.querySelectorAll('.wiki-section').forEach(s=>s.style.display=''); return; }
+  if (\!q.trim()) { res.style.display='none'; document.querySelectorAll('.wiki-section').forEach(s=>s.style.display=''); return; }
   const ql = q.toLowerCase();
   const hits = WIKI_SEARCH_DATA.filter(d => d.t.toLowerCase().includes(ql)||d.d.toLowerCase().includes(ql));
-  if (!hits.length) { res.innerHTML='<div class="wiki-card"><p style="color:var(--text-dim)">No results.</p></div>'; }
-  else { res.innerHTML=hits.map(h=>`<div class="wiki-card" style="cursor:pointer" onclick="showWiki('${h.sec}')"><h3>${h.t}</h3><p style="color:var(--text-dim);font-size:0.8rem;">${h.d}</p></div>`).join(''); }
+  if (\!hits.length) { res.innerHTML='<div class="wiki-card"><p style="color:var(--text-dim)">No results.</p></div>'; }
+  else { res.innerHTML=hits.map(h=>`<div class="wiki-card" style="cursor:pointer" onclick="showWiki(\'${h.sec}\')"><h3>${h.t}</h3><p style="color:var(--text-dim);font-size:0.8rem;">${h.d}</p></div>`).join(''); }
   res.style.display='block';
   document.querySelectorAll('.wiki-section').forEach(s=>s.classList.remove('active'));
 }
@@ -1966,19 +2079,16 @@ const NOTATION_MAP = [
 ];
 function searchNotation(q) {
   const el = document.getElementById('notationResult');
-  if (!q.trim()) { el.textContent = ''; return; }
+  if (\!q.trim()) { el.textContent = ''; return; }
   q = q.trim();
-  // Try matching as exponent number
   const asNum = parseInt(q);
-  if (!isNaN(asNum)) {
+  if (\!isNaN(asNum)) {
     const match = NOTATION_MAP.find(n => n[1] === asNum);
     if (match) { el.innerHTML = `<strong style="color:var(--gold)">${match[0]}</strong> = 10<sup>${match[1]}</sup>`; return; }
   }
-  // Try matching as suffix (case-sensitive first, then insensitive)
   let match = NOTATION_MAP.find(n => n[0] === q);
-  if (!match) match = NOTATION_MAP.find(n => n[0].toLowerCase() === q.toLowerCase());
+  if (\!match) match = NOTATION_MAP.find(n => n[0].toLowerCase() === q.toLowerCase());
   if (match) { el.innerHTML = `<strong style="color:var(--gold)">${match[0]}</strong> = 10<sup>${match[1]}</sup>`; return; }
-  // Partial match
   const partials = NOTATION_MAP.filter(n => n[0].toLowerCase().includes(q.toLowerCase()));
   if (partials.length > 0 && partials.length <= 10) {
     el.innerHTML = partials.map(p => `<strong style="color:var(--gold)">${p[0]}</strong>=10<sup>${p[1]}</sup>`).join(' &nbsp; ');
@@ -1986,7 +2096,173 @@ function searchNotation(q) {
     el.textContent = 'No match';
   }
 }
+
+// === RUNE CALCULATOR ===
+// [name, source, rarity_string, is_secret, is_noluck]
+const RUNE_DB = [
+["Common","Basic Rune","1.54",0,0],["Uncommon","Basic Rune","4",0,0],["Rare","Basic Rune","10",0,0],["Epic","Basic Rune","100",0,0],["Legendary","Basic Rune","50k",0,0],["Mythic","Basic Rune","1m",0,0],["Secret","Basic Rune","15m",1,0],["Garden Tree","Basic Rune","10Qn",0,0],["Garden Artifact","Basic Rune","10Oc",0,0],["The Unknown Garden","Basic Rune","5OcDe",0,0],["The Secret Garden","Basic Rune","5TDe",0,0],
+["Cold","Frost Rune","1.54",0,0],["Igloo","Frost Rune","4.44",0,0],["Snowboard","Frost Rune","8",0,0],["Snowstorm","Frost Rune","1k",0,0],["Snowdemon","Frost Rune","100k",0,0],["Yeti","Frost Rune","5m",0,0],["Ice Dragon","Frost Rune","25m",0,0],["Ragnarok","Frost Rune","500m",0,0],["Frozen Core","Frost Rune","17.5Qn",0,0],["Subzero","Frost Rune","450UDe",0,0],["Snowy Garden","Frost Rune","5OcDe",0,0],["Corrupted Ice","Frost Rune","150SxDe",0,0],
+["Aridic","Sun Rune","1.54",0,0],["Mirage","Sun Rune","4.44",0,0],["Dunebound","Sun Rune","8",0,0],["Scorched","Sun Rune","500k",0,0],["Desolate","Sun Rune","25m",0,0],["Cacti","Sun Rune","100m",0,0],["Oasis","Sun Rune","1B",0,0],["Sun God","Sun Rune","50B",0,0],["Temple God","Sun Rune","25Qn",0,0],["Desert God","Sun Rune","25SpDe",0,0],["Passive God","Sun Rune","4OcDe",0,0],
+["Common","Tunnel Rune","1.18",0,0],["Glimmer","Tunnel Rune","1.25",0,0],["Hollow","Tunnel Rune","6.67",0,0],["Lumen","Tunnel Rune","25",0,0],["Vault","Tunnel Rune","200",0,0],["Ironveil","Tunnel Rune","2.5m",0,0],["Abyssal","Tunnel Rune","25B",0,0],["Eclipse","Tunnel Rune","100B",0,0],["Eternis","Tunnel Rune","1T",0,0],["Eternal Gateway","Tunnel Rune","35Qn",0,0],["Unstable Gateway","Tunnel Rune","5No",0,0],["Secret Gateway","Tunnel Rune","35QdDe",0,0],
+["Drift","Cavern Rune","1.18",0,0],["Grotto","Cavern Rune","50",0,0],["Echoes","Cavern Rune","400",0,0],["Stoneveil","Cavern Rune","25m",0,0],["Netherdeep","Cavern Rune","100B",0,0],["Oblivion","Cavern Rune","1T",0,0],["Voidspire","Cavern Rune","10T",0,0],["Deepest Depths","Cavern Rune","55Qn",0,0],["Darkest Depths","Cavern Rune","10No",0,0],["Secret Depths","Cavern Rune","250QdDe",0,0],
+["Glow","Lantern Rune","1.11",0,0],["Beacon","Lantern Rune","44.4",0,0],["Radiant","Lantern Rune","1k",0,0],["Lightveil","Lantern Rune","1B",0,0],["Solflare","Lantern Rune","1T",0,0],["Luminaris","Lantern Rune","5T",0,0],["Eclipsion","Lantern Rune","50T",0,0],["Starlight Sun","Lantern Rune","75Qn",0,0],["Supernova Star","Lantern Rune","25No",0,0],["Secret Element","Lantern Rune","1.5QnDe",0,0],
+["Sparix","Energy Rune","1.09",0,0],["Eneris","Energy Rune","20",0,0],["Voltryn","Energy Rune","50",0,0],["Dynara","Energy Rune","1k",0,0],["Arkanix","Energy Rune","25B",0,0],["Fluxion","Energy Rune","75T",0,0],["Luxen","Energy Rune","1Qd",0,0],["Radiyn","Energy Rune","75Qd",0,0],["Omnion","Energy Rune","5Qn",0,0],["Onion","Energy Rune","15Qn",0,0],["Nexus Entity","Energy Rune","125Qn",0,0],["Cybernetic Secrets","Energy Rune","2.5TDe",0,0],["Error 404","Energy Rune","2.5OcDe",0,0],
+["Nai","Waves Rune","1.02",0,0],["Rill","Waves Rune","50.8",0,0],["Maru","Waves Rune","3.33k",0,0],["Vash","Waves Rune","5m",0,0],["Selyn","Waves Rune","5Qn",0,0],["Korren","Waves Rune","100Qn",0,0],["Pelara","Waves Rune","2.5Sx",0,0],["Thaln","Waves Rune","30Sx",0,0],["Abyen","Waves Rune","750Sx",0,0],["Levath","Waves Rune","20Sp",0,0],["Maerion","Waves Rune","1.5Oc",0,0],["The Deepest Sea","Waves Rune","20Oc",0,0],["The Darkest Sea","Waves Rune","750UDe",0,0],["The Unknown Sea","Waves Rune","2.5OcDe",0,0],["The Secret Sea","Waves Rune","2QnDe",0,0],
+["Myrt","Capstone Rune","1",0,0],["Spyrn","Capstone Rune","500",0,0],["Glisq","Capstone Rune","1m",0,0],["Thryl","Capstone Rune","5B",0,0],["Micruan","Capstone Rune","30Sp",0,0],["Faeclot","Capstone Rune","600Sp",0,0],["Brumelle","Capstone Rune","15Oc",0,0],["Cytherin","Capstone Rune","200Oc",0,0],["Mycoshard","Capstone Rune","1.5No",0,0],["Sporethane","Capstone Rune","25No",0,0],["Echomycra","Capstone Rune","500No",0,0],["Midnight Bloom","Capstone Rune","20SxDe",0,0],
+["Dustfall","Astryx Rune","1",0,0],["Meteorite","Astryx Rune","200k",0,0],["Cometborn","Astryx Rune","1T",0,0],["Cryostone","Astryx Rune","5No",0,0],["Lunaris","Astryx Rune","75No",0,0],["Auralite","Astryx Rune","1De",0,0],["Nebulite","Astryx Rune","25De",0,0],
+["Orbitfall","Vornel Rune","1",0,0],["Galaxium","Vornel Rune","500k",0,0],["Nova Spark","Vornel Rune","100B",0,0],["Horizon","Vornel Rune","25Qd",0,0],["Quasarlight","Vornel Rune","350No",0,0],["Voidcore","Vornel Rune","1.25De",0,0],["Darkmatter","Vornel Rune","5De",0,0],["Hypercore","Vornel Rune","25De",0,0],["Astral Crown","Vornel Rune","100De",0,0],["Celestium","Vornel Rune","500De",0,0],["Eternal Eclipse","Vornel Rune","10UDe",0,0],
+["Faded","Heavenly Rune","1",0,0],["Blesed","Heavenly Rune","2m",0,0],["Hallowed","Heavenly Rune","4T",0,0],["Radiantly","Heavenly Rune","7.5Qn",0,0],["Anglelic","Heavenly Rune","75UDe",0,0],["Seraphic","Heavenly Rune","600UDe",0,0],["Empyrean","Heavenly Rune","5DDe",0,0],["Celestial","Heavenly Rune","42.5DDe",0,0],["Ascended","Heavenly Rune","350DDe",0,0],["Absolute Divinity","Heavenly Rune","10TDe",0,0],["Astral Divinity","Heavenly Rune","350QnDe",0,0],
+["Wormhole","Starlight Rune","1",0,0],["Sunlight","Starlight Rune","1m",0,0],["Universal","Starlight Rune","1T",0,0],["Alien","Starlight Rune","250Qd",0,0],["Lightyear","Starlight Rune","10De",0,0],["Ultranova","Starlight Rune","2.5UDe",0,0],["Neutron Star","Starlight Rune","35UDe",0,0],["Intergalactic","Starlight Rune","500UDe",0,0],["The Unknown","Starlight Rune","25DDe",0,0],
+["Ashbound","Damnation Rune","1",0,1],["Sootmarked","Damnation Rune","10m",0,1],["Pitforged","Damnation Rune","1Sx",0,1],["Cinderbrand","Damnation Rune","100T",0,1],["SinWrought","Damnation Rune","1TDe",0,1],["Bloodcrowned","Damnation Rune","15TDe",0,1],["Netherbound","Damnation Rune","225TDe",0,1],["Hell Anointed","Damnation Rune","3.5QdDe",0,1],["Doom Sovereign","Damnation Rune","55QdDe",0,1],["Archfiend Ascended","Damnation Rune","750QdDe",0,1],["Cataclysm Unbound","Damnation Rune","20QnDe",0,1],
+["Moonlight","Galaxy Rune","1",0,1],["Midnight Star","Galaxy Rune","100B",0,1],["Starstrike","Galaxy Rune","10Sx",0,1],["Alien Invasion","Galaxy Rune","750TDe",0,1],["Solar Flare","Galaxy Rune","5QdDe",0,1],["Interstellar","Galaxy Rune","30QdDe",0,1],["Destruction","Galaxy Rune","1.5QnDe",0,1],["Creation","Galaxy Rune","1.5QnDe",0,1],["Unknown Otherworldly","Galaxy Rune","35QnDe",0,1],["Forgotten Dimension","Galaxy Rune","250OcDe",0,1],
+["Apple","Aetheris","1",0,1],["Banana","Aetheris","3T",0,1],["Lemon","Aetheris","10Sp",0,1],["Avocado","Aetheris","5SxDe",0,1],["Blueberry","Aetheris","25SxDe",0,1],["Blue Carrot","Aetheris","125SxDe",0,1],["Plums","Aetheris","625SxDe",0,1],["Albino Strawberry","Aetheris","5SpDe",0,1],
+["Dirt","Nythera","1",0,1],["Water","Nythera","1B",0,1],["Flower","Nythera","1Qn",0,1],["Black Sand","Nythera","1Oc",0,1],["Sunny","Nythera","20SxDe",0,1],["Cloudy","Nythera","150SxDe",0,1],["Potting Soil","Nythera","1.25SpDe",0,1],["Fall","Nythera","10SpDe",0,1],["Magical Garden","Nythera","200SpDe",0,1],
+["Planted","Veydris","1",0,1],["Pond","Veydris","22.5B",0,1],["Toxic Flower","Veydris","450Qn",0,1],["Honey","Veydris","10No",0,1],["Blossom","Veydris","10SpDe",0,1],["Deadly Bush","Veydris","45SpDe",0,1],["Autumn Garden","Veydris","225SpDe",0,1],["Mystical Garden","Veydris","1OcDe",0,1],["Garden Relic","Veydris","5OcDe",0,1],["Poisonous Wasp","Veydris","25OcDe",0,1],["The Bee Hive","Veydris","500OcDe",0,1],
+["Nebula Storm","Secret Rune","500NoDe",1,0],["Shadow Eclipse","Secret Rune","5Vt",1,0],["The Forgotten","Secret Rune","50Vt",1,0],["God Of The Bees","Secret Rune","50TVt",1,0],["Icy Garden","Secret Rune","200DVt",1,0],["Depths Of The Void","Secret Rune","2500Vt",1,0],["The Forgotten Sea","Secret Rune","1DVt",1,0]
+];
+
+// Scales for parsing suffix notation
+const CALC_SCALES = {
+  'K':1e3,'M':1e6,'B':1e9,'T':1e12,'Qd':1e15,'Qn':1e18,'Sx':1e21,'Sp':1e24,'Oc':1e27,'No':1e30,
+  'De':1e33,'UDe':1e36,'DDe':1e39,'TDe':1e42,'QdDe':1e45,'QnDe':1e48,'SxDe':1e51,'SpDe':1e54,'OcDe':1e57,'NoDe':1e60,
+  'Vt':1e63,'UVt':1e66,'DVt':1e69,'TVt':1e72,'QdVt':1e75,'QnVt':1e78,'SxVt':1e81,'SpVt':1e84,'OcVt':1e87,'NoVt':1e90,
+  'Tg':1e93,'UTg':1e96,'DTg':1e99,'TTg':1e102,'QdTg':1e105,'QnTg':1e108,'SxTg':1e111,'SpTg':1e114,'OcTg':1e117,'NoTg':1e120
+};
+
+function parseCalcNum(text) {
+  if (\!text) return 0;
+  text = text.trim();
+  if (text.includes('e') || text.includes('E')) {
+    const v = parseFloat(text);
+    return isNaN(v) ? 0 : v;
+  }
+  const upper = text.toUpperCase();
+  const suffixes = Object.keys(CALC_SCALES).sort((a,b) => b.length - a.length);
+  for (const suf of suffixes) {
+    if (upper.endsWith(suf.toUpperCase())) {
+      const numPart = text.slice(0, text.length - suf.length);
+      const v = parseFloat(numPart);
+      return isNaN(v) ? 0 : v * CALC_SCALES[suf];
+    }
+  }
+  const v = parseFloat(text);
+  return isNaN(v) ? 0 : v;
+}
+
+function formatBigNum(n) {
+  if (n === 0) return '0';
+  if (n === Infinity) return 'Never';
+  if (n < 0.01) return n.toExponential(2);
+  if (n < 1000) return n.toFixed(2);
+  const suffixes = Object.entries(CALC_SCALES).sort((a,b) => b[1] - a[1]);
+  for (const [suf, val] of suffixes) {
+    if (n >= val) return (n/val).toFixed(2) + ' ' + suf;
+  }
+  return n.toFixed(2);
+}
+
+function formatTime(seconds) {
+  if (seconds <= 0 || \!isFinite(seconds)) return 'Instant';
+  if (seconds < 1) return (seconds*1000).toFixed(0) + 'ms';
+  if (seconds < 60) return seconds.toFixed(1) + 's';
+  if (seconds < 3600) return (seconds/60).toFixed(1) + 'm';
+  if (seconds < 86400) return (seconds/3600).toFixed(1) + 'h';
+  if (seconds < 604800) return (seconds/86400).toFixed(1) + 'd';
+  if (seconds < 31536000) return (seconds/604800).toFixed(1) + 'w';
+  return (seconds/31536000).toFixed(1) + 'y';
+}
+
+// Populate rune dropdown grouped by source
+(function initCalcDropdown() {
+  const sel = document.getElementById('calcRuneSelect');
+  if (\!sel) return;
+  const groups = {};
+  RUNE_DB.forEach((r, i) => {
+    if (\!groups[r[1]]) groups[r[1]] = [];
+    groups[r[1]].push({name: r[0], idx: i, rarity: r[2]});
+  });
+  Object.keys(groups).forEach(source => {
+    const og = document.createElement('optgroup');
+    og.label = source;
+    groups[source].forEach(r => {
+      const opt = document.createElement('option');
+      opt.value = r.idx;
+      opt.textContent = r.name + ' (1 in ' + r.rarity + ')';
+      og.appendChild(opt);
+    });
+    sel.appendChild(og);
+  });
+})();
+
+let calcSelectedRarity = 0;
+let calcSelectedIsNoluck = false;
+
+function onRuneSelect() {
+  const sel = document.getElementById('calcRuneSelect');
+  const custom = document.getElementById('calcCustomChance');
+  const info = document.getElementById('calcSelectedInfo');
+  if (sel.value === '') { calcSelectedRarity = 0; info.textContent = ''; runCalc(); return; }
+  const r = RUNE_DB[parseInt(sel.value)];
+  calcSelectedRarity = parseCalcNum(r[2]);
+  calcSelectedIsNoluck = r[3] === 1 || r[4] === 1;
+  custom.value = '';
+  const tags = [];
+  if (r[3]) tags.push('Secret');
+  if (r[4]) tags.push('No Luck');
+  info.innerHTML = '<strong style="color:var(--accent-light)">' + r[0] + '</strong> (' + r[1] + ') -- 1 in ' + r[2] + (tags.length ? ' <span style="color:var(--cta)">[' + tags.join(', ') + ']</span>' : '');
+  runCalc();
+}
+
+function onCustomChance() {
+  const custom = document.getElementById('calcCustomChance');
+  const sel = document.getElementById('calcRuneSelect');
+  const info = document.getElementById('calcSelectedInfo');
+  sel.value = '';
+  calcSelectedRarity = parseCalcNum(custom.value);
+  calcSelectedIsNoluck = false;
+  if (calcSelectedRarity > 0) {
+    info.innerHTML = 'Custom rune -- 1 in ' + formatBigNum(calcSelectedRarity);
+  } else {
+    info.textContent = '';
+  }
+  runCalc();
+}
+
+function runCalc() {
+  const speed = parseCalcNum(document.getElementById('calcSpeed').value);
+  const bulk = parseCalcNum(document.getElementById('calcBulk').value);
+  const luck = parseCalcNum(document.getElementById('calcLuck').value);
+  const cloneCount = parseFloat(document.getElementById('calcClone').value) || 0;
+  const cloneChance = parseFloat(document.getElementById('calcCloneChance').value) || 0;
+
+  const baseRps = speed * bulk;
+  const effectiveRps = calcSelectedIsNoluck ? baseRps : baseRps * luck;
+
+  document.getElementById('resRps').textContent = formatBigNum(effectiveRps);
+
+  if (calcSelectedRarity <= 0 || effectiveRps <= 0) {
+    document.getElementById('resEta').textContent = '--';
+    document.getElementById('resDiscPerHr').textContent = '--';
+    document.getElementById('resRunesPerHr').textContent = '--';
+    document.getElementById('resCloneNote').textContent = '';
+    return;
+  }
+
+  const etaSec = calcSelectedRarity / effectiveRps;
+  document.getElementById('resEta').textContent = formatTime(etaSec);
+
+  const discPerHr = 3600 / etaSec;
+  document.getElementById('resDiscPerHr').textContent = discPerHr >= 1 ? formatBigNum(discPerHr) : discPerHr.toFixed(4);
+
+  const avgPerDisc = 1 + (cloneChance / 100 * cloneCount);
+  const runesPerHr = discPerHr * avgPerDisc;
+  document.getElementById('resRunesPerHr').textContent = runesPerHr >= 1 ? formatBigNum(runesPerHr) : runesPerHr.toFixed(4);
+
+  const clonePct = ((avgPerDisc - 1) * 100).toFixed(1);
+  document.getElementById('resCloneNote').textContent = calcSelectedIsNoluck
+    ? 'Luck NOT applied (Secret/Damnation/Galaxy rune). Clone bonus: +' + clonePct + '% per discovery (avg ' + avgPerDisc.toFixed(2) + ' runes each).'
+    : 'Clone bonus: +' + clonePct + '% per discovery (avg ' + avgPerDisc.toFixed(2) + ' runes each).';
+}
 </script>
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

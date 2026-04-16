@@ -1567,10 +1567,10 @@ Prob = (1/Chance x Luck) / SourcePoolWeight
 ETA = 1 / (Prob x RPS)
 Runes/Hr = Prob x RPS x 3600 x (1 + Clone% x Clone#)
 
-Each rune button is a weighted pool. Pool weight =
-sum of 1/chance for all runes on that button.
-No-luck runes: Luck not applied (Damnation, Galaxy,
-Aetheris, Nythera, Veydris).</div>
+Each rune button is a weighted pool.
+Weight per rune = min(1, Luck / Rarity).
+Pool total = sum of all weights on that button.
+Share = your weight / pool total.</div>
 </div>
 
 <p style="text-align:center;font-size:0.6rem;color:#444466;margin-top:8px">Rune data from <a href="https://truthuntold.github.io/gi-calc/" style="color:var(--accent);text-decoration:none">truthuntold GI Calc</a></p>
@@ -2121,27 +2121,27 @@ function searchNotation(q) {
 }
 
 // === RUNE CALCULATOR ===
-// [name, source, rarity_string, is_secret, is_noluck]
+// [name, source, rarity_string, is_secret]
 const RUNE_DB = [
-["Common","Basic Rune","1.54",0,0],["Uncommon","Basic Rune","4",0,0],["Rare","Basic Rune","10",0,0],["Epic","Basic Rune","100",0,0],["Legendary","Basic Rune","50k",0,0],["Mythical","Basic Rune","1m",0,0],["Secret","Basic Rune","15m",1,0],["Garden Tree","Basic Rune","10Qn",0,0],["Garden Artifact","Basic Rune","10Oc",0,0],["The Secret Garden","Basic Rune","5TDe",0,0],["The Unknown Garden","Basic Rune","5OcDe",0,0],
-["Cold","Frost Rune","1.54",0,0],["Igloo","Frost Rune","4.44",0,0],["SnowBoard","Frost Rune","8",0,0],["SnowStorm","Frost Rune","1k",0,0],["SnowDemon","Frost Rune","100k",0,0],["Yeti","Frost Rune","5m",0,0],["IceDragon","Frost Rune","25m",0,0],["Ragnarok","Frost Rune","500m",0,0],["Frozen Core","Frost Rune","17.5Qn",0,0],["Subzero","Frost Rune","450UDe",0,0],["Corrupted Ice","Frost Rune","150SxDe",0,0],["Snowy Garden","Frost Rune","5OcDe",0,0],
-["Aridic","Sun Rune","1.54",0,0],["Mirage","Sun Rune","4.44",0,0],["Dunebound","Sun Rune","8",0,0],["Scorched","Sun Rune","500k",0,0],["Desolate","Sun Rune","25m",0,0],["Cacti","Sun Rune","100m",0,0],["Oasis","Sun Rune","1B",0,0],["Sun God","Sun Rune","50B",0,0],["Temple God","Sun Rune","25Qn",0,0],["Desert God","Sun Rune","25SpDe",0,0],["Passive God","Sun Rune","4OcDe",0,0],
-["Glimmer","Tunnel Rune","1.25",0,0],["Hollow","Tunnel Rune","6.67",0,0],["Lumen","Tunnel Rune","25",0,0],["Vault","Tunnel Rune","200",0,0],["Ironveil","Tunnel Rune","2.5m",0,0],["Abyssal","Tunnel Rune","25B",0,0],["Eclipse","Tunnel Rune","100B",0,0],["Eternis","Tunnel Rune","1T",0,0],["Eternal Gateway","Tunnel Rune","35Qn",0,0],["Unstable Gateway","Tunnel Rune","5No",0,0],["Secret Gateway","Tunnel Rune","35QdDe",0,0],
-["Drift","Cavern Rune","1.18",0,0],["Chasm","Cavern Rune","8",0,0],["Grotto","Cavern Rune","50",0,0],["Echoes","Cavern Rune","400",0,0],["Stoneveil","Cavern Rune","25m",0,0],["Netherdeep","Cavern Rune","100B",0,0],["Oblivion","Cavern Rune","1T",0,0],["Voidspire","Cavern Rune","10T",0,0],["Deepest Depths","Cavern Rune","55Qn",0,0],["Darkest Depths","Cavern Rune","10No",0,0],["Secret Depths","Cavern Rune","250QdDe",0,0],
-["Glow","Lantern Rune","1.11",0,0],["Flicker","Lantern Rune","13.3",0,0],["Beacon","Lantern Rune","44.4",0,0],["Radiant","Lantern Rune","1k",0,0],["Lightveil","Lantern Rune","1B",0,0],["Solflare","Lantern Rune","1T",0,0],["Luminaris","Lantern Rune","5T",0,0],["Eclipsion","Lantern Rune","50T",0,0],["Starlight Sun","Lantern Rune","75Qn",0,0],["Supernova Star","Lantern Rune","25No",0,0],["Secret Element","Lantern Rune","1.5QnDe",0,0],
-["Sparix","Energy Rune","1.09",0,0],["Eneris","Energy Rune","20",0,0],["Voltryn","Energy Rune","50",0,0],["Dynara","Energy Rune","1k",0,0],["Arkanix","Energy Rune","25B",0,0],["Fluxion","Energy Rune","75T",0,0],["Luxen","Energy Rune","1Qd",0,0],["Radiyn","Energy Rune","75Qd",0,0],["Omnion","Energy Rune","5Qn",0,0],["Onion","Energy Rune","15Qn",0,0],["Nexus Entity","Energy Rune","125Qn",0,0],["Cybernetic Secrets","Energy Rune","2.5TDe",0,0],["Error 404","Energy Rune","2.5OcDe",0,0],
-["Nai","Waves Rune","1.02",0,0],["Rill","Waves Rune","50.8",0,0],["Maru","Waves Rune","3.33k",0,0],["Vash","Waves Rune","5m",0,0],["Selyn","Waves Rune","5Qn",0,0],["Korren","Waves Rune","100Qn",0,0],["Pelara","Waves Rune","2.5Sx",0,0],["Thain","Waves Rune","30Sx",0,0],["Abyen","Waves Rune","750Sx",0,0],["Levath","Waves Rune","20Sp",0,0],["Maerion","Waves Rune","1.5Oc",0,0],["The Deepest Sea","Waves Rune","20Oc",0,0],["The Darkest Sea","Waves Rune","750UDe",0,0],["The Secret Sea","Waves Rune","2QnDe",0,0],["The Unknown Sea","Waves Rune","2.5OcDe",0,0],
-["Myrt","Capstone Rune","1",0,0],["Spyrn","Capstone Rune","500",0,0],["Glisq","Capstone Rune","1m",0,0],["Thryl","Capstone Rune","5B",0,0],["Micraun","Capstone Rune","30Sp",0,0],["Faeclot","Capstone Rune","600Sp",0,0],["Brumelle","Capstone Rune","150Oc",0,0],["Mycoshard","Capstone Rune","1.5No",0,0],["Cytherin","Capstone Rune","2000Oc",0,0],["Sporethane","Capstone Rune","25No",0,0],["Echomycra","Capstone Rune","500No",0,0],["Midnight Bloom","Capstone Rune","20SxDe",0,0],
-["Dustfall","Astryx Rune","1",0,0],["Meteorite","Astryx Rune","200k",0,0],["Cometborn","Astryx Rune","1T",0,0],["Crystone","Astryx Rune","5No",0,0],["Lunaris","Astryx Rune","75No",0,0],["Auralite","Astryx Rune","1De",0,0],["Nebulite","Astryx Rune","25De",0,0],
-["Orbitfall","Vornel Rune","1",0,0],["Galaxium","Vornel Rune","500k",0,0],["Nova Spark","Vornel Rune","100B",0,0],["Horizon","Vornel Rune","25Qd",0,0],["Quasarlight","Vornel Rune","350No",0,0],["Voidcore","Vornel Rune","1.5De",0,0],["Darkmatter","Vornel Rune","5De",0,0],["Hypercore","Vornel Rune","25De",0,0],["Astral Crown","Vornel Rune","100De",0,0],["Celestium","Vornel Rune","500De",0,0],["Eternal Eclipse","Vornel Rune","10UDe",0,0],
-["Faded","Heavenly Rune","1",0,0],["Blessed","Heavenly Rune","2m",0,0],["Hallowed","Heavenly Rune","4T",0,0],["Radiantly","Heavenly Rune","7.5Qn",0,0],["Angelic","Heavenly Rune","75UDe",0,0],["Seraphic","Heavenly Rune","600UDe",0,0],["Empyrean","Heavenly Rune","5DDe",0,0],["Celestial","Heavenly Rune","42.5DDe",0,0],["Ascended","Heavenly Rune","350DDe",0,0],["Absolute Divinity","Heavenly Rune","10TDe",0,0],["Astral Divinity","Heavenly Rune","350QnDe",0,0],
-["Wormhole","Starlight Rune","1",0,0],["Sunlight","Starlight Rune","1m",0,0],["Universal","Starlight Rune","1T",0,0],["Alien","Starlight Rune","250Qd",0,0],["Lightyear","Starlight Rune","10De",0,0],["Black Hole","Starlight Rune","150De",0,0],["Ultranova","Starlight Rune","2.5UDe",0,0],["Neutron Star","Starlight Rune","35UDe",0,0],["Intergalactic","Starlight Rune","500UDe",0,0],["The Unknown","Starlight Rune","25DDe",0,0],
-["Ashbound","Damnation Rune","1",0,1],["Sootmarked","Damnation Rune","10m",0,1],["Cinderbrand","Damnation Rune","100T",0,1],["Pitforged","Damnation Rune","15Sx",0,1],["SinWrought","Damnation Rune","1TDe",0,1],["Bloodcrowned","Damnation Rune","15TDe",0,1],["Netherbound","Damnation Rune","225TDe",0,1],["Hell Anointed","Damnation Rune","3.5QdDe",0,1],["Doom Sovereign","Damnation Rune","55QdDe",0,1],["Archfiend Ascended","Damnation Rune","750QdDe",0,1],["Cataclysm Unbound","Damnation Rune","20QnDe",0,1],
-["Moonlight","Galaxy Rune","1",0,1],["Midnight Star","Galaxy Rune","100B",0,1],["Starstrike","Galaxy Rune","10Sx",0,1],["Alien Invasion","Galaxy Rune","750TDe",0,1],["Solar Flare","Galaxy Rune","5QdDe",0,1],["Interstellar","Galaxy Rune","30QdDe",0,1],["Dark Elemental","Galaxy Rune","200QdDe",0,1],["Destruction","Galaxy Rune","1.5QnDe",0,1],["Creation","Galaxy Rune","1.5QnDe",0,1],["Unknown Otherworldly","Galaxy Rune","55QnDe",0,1],["Forgotten Dimension","Galaxy Rune","250OcDe",0,1],
-["Apple","Aetheris","1",0,1],["Banana","Aetheris","3T",0,1],["Lemon","Aetheris","10Sp",0,1],["Avocado","Aetheris","5SxDe",0,1],["Blueberry","Aetheris","25SxDe",0,1],["Blue Carrot","Aetheris","125SxDe",0,1],["Plums","Aetheris","625SxDe",0,1],["Albino Strawberry","Aetheris","5SpDe",0,1],
-["Dirt","Nythera","1",0,1],["Water","Nythera","1B",0,1],["Flower","Nythera","1Qn",0,1],["Black Sand","Nythera","1Oc",0,1],["Sunny","Nythera","20SxDe",0,1],["Cloudy","Nythera","150SxDe",0,1],["Potting Soil","Nythera","1.25SpDe",0,1],["Fall","Nythera","10SpDe",0,1],["Magical Garden","Nythera","200SpDe",0,1],
-["Planted","Veydris","1",0,1],["Pond","Veydris","22.5B",0,1],["Toxic Flower","Veydris","450Qn",0,1],["Honey","Veydris","10No",0,1],["Blossom","Veydris","10SpDe",0,1],["Deadly Bush","Veydris","45SpDe",0,1],["Autumn Garden","Veydris","225SpDe",0,1],["Mystical Garden","Veydris","1OcDe",0,1],["Garden Relic","Veydris","5OcDe",0,1],["Poisonous Wasp","Veydris","25OcDe",0,1],["The Bee Hive","Veydris","500OcDe",0,1],
-["Nebula Storm","Secret Rune","500NoDe",1,0],["Shadow Eclipse","Secret Rune","5Vt",1,0],["The Forgotten","Secret Rune","50Vt",1,0],["Depths Of The Void","Secret Rune","2500Vt",1,0],["The Forgotten Sea","Secret Rune","1DVt",1,0],["Icy Garden","Secret Rune","200DVt",1,0],["God Of The Bees","Secret Rune","50TVt",1,0]
+["Common","Basic Rune","1.54",0],["Uncommon","Basic Rune","4",0],["Rare","Basic Rune","10",0],["Epic","Basic Rune","100",0],["Legendary","Basic Rune","50k",0],["Mythical","Basic Rune","1m",0],["Secret","Basic Rune","15m",1],["Garden Tree","Basic Rune","10Qn",0],["Garden Artifact","Basic Rune","10Oc",0],["The Secret Garden","Basic Rune","5TDe",0],["The Unknown Garden","Basic Rune","5OcDe",0],
+["Cold","Frost Rune","1.54",0],["Igloo","Frost Rune","4.44",0],["SnowBoard","Frost Rune","8",0],["SnowStorm","Frost Rune","1k",0],["SnowDemon","Frost Rune","100k",0],["Yeti","Frost Rune","5m",0],["IceDragon","Frost Rune","25m",0],["Ragnarok","Frost Rune","500m",0],["Frozen Core","Frost Rune","17.5Qn",0],["Subzero","Frost Rune","450UDe",0],["Corrupted Ice","Frost Rune","150SxDe",0],["Snowy Garden","Frost Rune","5OcDe",0],
+["Aridic","Sun Rune","1.54",0],["Mirage","Sun Rune","4.44",0],["Dunebound","Sun Rune","8",0],["Scorched","Sun Rune","500k",0],["Desolate","Sun Rune","25m",0],["Cacti","Sun Rune","100m",0],["Oasis","Sun Rune","1B",0],["Sun God","Sun Rune","50B",0],["Temple God","Sun Rune","25Qn",0],["Desert God","Sun Rune","25SpDe",0],["Passive God","Sun Rune","4OcDe",0],
+["Glimmer","Tunnel Rune","1.25",0],["Hollow","Tunnel Rune","6.67",0],["Lumen","Tunnel Rune","25",0],["Vault","Tunnel Rune","200",0],["Ironveil","Tunnel Rune","2.5m",0],["Abyssal","Tunnel Rune","25B",0],["Eclipse","Tunnel Rune","100B",0],["Eternis","Tunnel Rune","1T",0],["Eternal Gateway","Tunnel Rune","35Qn",0],["Unstable Gateway","Tunnel Rune","5No",0],["Secret Gateway","Tunnel Rune","35QdDe",0],
+["Drift","Cavern Rune","1.18",0],["Chasm","Cavern Rune","8",0],["Grotto","Cavern Rune","50",0],["Echoes","Cavern Rune","400",0],["Stoneveil","Cavern Rune","25m",0],["Netherdeep","Cavern Rune","100B",0],["Oblivion","Cavern Rune","1T",0],["Voidspire","Cavern Rune","10T",0],["Deepest Depths","Cavern Rune","55Qn",0],["Darkest Depths","Cavern Rune","10No",0],["Secret Depths","Cavern Rune","250QdDe",0],
+["Glow","Lantern Rune","1.11",0],["Flicker","Lantern Rune","13.3",0],["Beacon","Lantern Rune","44.4",0],["Radiant","Lantern Rune","1k",0],["Lightveil","Lantern Rune","1B",0],["Solflare","Lantern Rune","1T",0],["Luminaris","Lantern Rune","5T",0],["Eclipsion","Lantern Rune","50T",0],["Starlight Sun","Lantern Rune","75Qn",0],["Supernova Star","Lantern Rune","25No",0],["Secret Element","Lantern Rune","1.5QnDe",0],
+["Sparix","Energy Rune","1.09",0],["Eneris","Energy Rune","20",0],["Voltryn","Energy Rune","50",0],["Dynara","Energy Rune","1k",0],["Arkanix","Energy Rune","25B",0],["Fluxion","Energy Rune","75T",0],["Luxen","Energy Rune","1Qd",0],["Radiyn","Energy Rune","75Qd",0],["Omnion","Energy Rune","5Qn",0],["Onion","Energy Rune","15Qn",0],["Nexus Entity","Energy Rune","125Qn",0],["Cybernetic Secrets","Energy Rune","2.5TDe",0],["Error 404","Energy Rune","2.5OcDe",0],
+["Nai","Waves Rune","1.02",0],["Rill","Waves Rune","50.8",0],["Maru","Waves Rune","3.33k",0],["Vash","Waves Rune","5m",0],["Selyn","Waves Rune","5Qn",0],["Korren","Waves Rune","100Qn",0],["Pelara","Waves Rune","2.5Sx",0],["Thain","Waves Rune","30Sx",0],["Abyen","Waves Rune","750Sx",0],["Levath","Waves Rune","20Sp",0],["Maerion","Waves Rune","1.5Oc",0],["The Deepest Sea","Waves Rune","20Oc",0],["The Darkest Sea","Waves Rune","750UDe",0],["The Secret Sea","Waves Rune","2QnDe",0],["The Unknown Sea","Waves Rune","2.5OcDe",0],
+["Myrt","Capstone Rune","1",0],["Spyrn","Capstone Rune","500",0],["Glisq","Capstone Rune","1m",0],["Thryl","Capstone Rune","5B",0],["Micraun","Capstone Rune","30Sp",0],["Faeclot","Capstone Rune","600Sp",0],["Brumelle","Capstone Rune","150Oc",0],["Mycoshard","Capstone Rune","1.5No",0],["Cytherin","Capstone Rune","2000Oc",0],["Sporethane","Capstone Rune","25No",0],["Echomycra","Capstone Rune","500No",0],["Midnight Bloom","Capstone Rune","20SxDe",0],
+["Dustfall","Astryx Rune","1",0],["Meteorite","Astryx Rune","200k",0],["Cometborn","Astryx Rune","1T",0],["Crystone","Astryx Rune","5No",0],["Lunaris","Astryx Rune","75No",0],["Auralite","Astryx Rune","1De",0],["Nebulite","Astryx Rune","25De",0],
+["Orbitfall","Vornel Rune","1",0],["Galaxium","Vornel Rune","500k",0],["Nova Spark","Vornel Rune","100B",0],["Horizon","Vornel Rune","25Qd",0],["Quasarlight","Vornel Rune","350No",0],["Voidcore","Vornel Rune","1.5De",0],["Darkmatter","Vornel Rune","5De",0],["Hypercore","Vornel Rune","25De",0],["Astral Crown","Vornel Rune","100De",0],["Celestium","Vornel Rune","500De",0],["Eternal Eclipse","Vornel Rune","10UDe",0],
+["Faded","Heavenly Rune","1",0],["Blessed","Heavenly Rune","2m",0],["Hallowed","Heavenly Rune","4T",0],["Radiantly","Heavenly Rune","7.5Qn",0],["Angelic","Heavenly Rune","75UDe",0],["Seraphic","Heavenly Rune","600UDe",0],["Empyrean","Heavenly Rune","5DDe",0],["Celestial","Heavenly Rune","42.5DDe",0],["Ascended","Heavenly Rune","350DDe",0],["Absolute Divinity","Heavenly Rune","10TDe",0],["Astral Divinity","Heavenly Rune","350QnDe",0],
+["Wormhole","Starlight Rune","1",0],["Sunlight","Starlight Rune","1m",0],["Universal","Starlight Rune","1T",0],["Alien","Starlight Rune","250Qd",0],["Lightyear","Starlight Rune","10De",0],["Black Hole","Starlight Rune","150De",0],["Ultranova","Starlight Rune","2.5UDe",0],["Neutron Star","Starlight Rune","35UDe",0],["Intergalactic","Starlight Rune","500UDe",0],["The Unknown","Starlight Rune","25DDe",0],
+["Ashbound","Damnation Rune","1",0],["Sootmarked","Damnation Rune","10m",0],["Cinderbrand","Damnation Rune","100T",0],["Pitforged","Damnation Rune","15Sx",0],["SinWrought","Damnation Rune","1TDe",0],["Bloodcrowned","Damnation Rune","15TDe",0],["Netherbound","Damnation Rune","225TDe",0],["Hell Anointed","Damnation Rune","3.5QdDe",0],["Doom Sovereign","Damnation Rune","55QdDe",0],["Archfiend Ascended","Damnation Rune","750QdDe",0],["Cataclysm Unbound","Damnation Rune","20QnDe",0],
+["Moonlight","Galaxy Rune","1",0],["Midnight Star","Galaxy Rune","100B",0],["Starstrike","Galaxy Rune","10Sx",0],["Alien Invasion","Galaxy Rune","750TDe",0],["Solar Flare","Galaxy Rune","5QdDe",0],["Interstellar","Galaxy Rune","30QdDe",0],["Dark Elemental","Galaxy Rune","200QdDe",0],["Destruction","Galaxy Rune","1.5QnDe",0],["Creation","Galaxy Rune","1.5QnDe",0],["Unknown Otherworldly","Galaxy Rune","55QnDe",0],["Forgotten Dimension","Galaxy Rune","250OcDe",0],
+["Apple","Aetheris","1",0],["Banana","Aetheris","3T",0],["Lemon","Aetheris","10Sp",0],["Avocado","Aetheris","5SxDe",0],["Blueberry","Aetheris","25SxDe",0],["Blue Carrot","Aetheris","125SxDe",0],["Plums","Aetheris","625SxDe",0],["Albino Strawberry","Aetheris","5SpDe",0],
+["Dirt","Nythera","1",0],["Water","Nythera","1B",0],["Flower","Nythera","1Qn",0],["Black Sand","Nythera","1Oc",0],["Sunny","Nythera","20SxDe",0],["Cloudy","Nythera","150SxDe",0],["Potting Soil","Nythera","1.25SpDe",0],["Fall","Nythera","10SpDe",0],["Magical Garden","Nythera","200SpDe",0],
+["Planted","Veydris","1",0],["Pond","Veydris","22.5B",0],["Toxic Flower","Veydris","450Qn",0],["Honey","Veydris","10No",0],["Blossom","Veydris","10SpDe",0],["Deadly Bush","Veydris","45SpDe",0],["Autumn Garden","Veydris","225SpDe",0],["Mystical Garden","Veydris","1OcDe",0],["Garden Relic","Veydris","5OcDe",0],["Poisonous Wasp","Veydris","25OcDe",0],["The Bee Hive","Veydris","500OcDe",0],
+["Nebula Storm","Secret Rune","500NoDe",1],["Shadow Eclipse","Secret Rune","5Vt",1],["The Forgotten","Secret Rune","50Vt",1],["Depths Of The Void","Secret Rune","2500Vt",1],["The Forgotten Sea","Secret Rune","1DVt",1],["Icy Garden","Secret Rune","200DVt",1],["God Of The Bees","Secret Rune","50TVt",1]
 ];
 
 // Scales for parsing suffix notation
@@ -2159,9 +2159,9 @@ const CALC_SCALES = {
   'Ce':1e303,'UCe':1e306,'DCe':1e309,'TCe':1e312,'QdCe':1e315
 };
 
-// Weighted probability pool: compute total weight per source group
-// (matches truthuntold's lM function — chance=1 gets weight 0.1, else 1/chance)
-const SOURCE_WEIGHTS = {};
+// Source weight cache (recomputed when luck changes)
+var SOURCE_WEIGHTS = {};
+var _lastLuck = -1;
 
 function parseCalcNum(text) {
   if (!text) return 0;
@@ -2223,6 +2223,23 @@ const RUNE_SOURCE_ORDER = [
 ];
 // Secret Rune is always available (not tied to a specific button)
 const ALWAYS_AVAILABLE = ['Secret Rune'];
+
+// Helper: compute luck-adjusted weight for a rune (matches optimizer formula)
+function runeWeight(rarity, luck) {
+  return Math.min(1, luck / rarity);
+}
+
+// Compute total luck-adjusted pool weight for a source
+function computeSourceWeight(source, luck) {
+  var total = 0;
+  for (var i = 0; i < RUNE_DB.length; i++) {
+    if (RUNE_DB[i][1] !== source) continue;
+    var rarity = parseCalcNum(RUNE_DB[i][2]);
+    if (rarity <= 0) continue;
+    total += runeWeight(rarity, luck);
+  }
+  return total;
+}
 
 // Populate unlock checkboxes
 (function initUnlockChecks() {
@@ -2299,7 +2316,6 @@ function rebuildRuneDropdown() {
   } else {
     sel.value = '';
     calcSelectedRarity = 0;
-    calcSelectedIsNoluck = false;
     calcSelectedSource = '';
   }
 }
@@ -2312,19 +2328,20 @@ function onUnlockChange() {
   renderRuneList();
 }
 
-// Initialize source weights now that parseCalcNum is available
-(function initSourceWeights() {
-  RUNE_DB.forEach(function(r) {
-    var source = r[1];
-    var chance = parseCalcNum(r[2]);
-    if (chance <= 0) return;
-    var w = (chance === 1) ? 0.1 : 1 / chance;
-    SOURCE_WEIGHTS[source] = (SOURCE_WEIGHTS[source] || 0) + w;
-  });
-})();
+// Refresh source weight cache when luck changes
+function refreshSourceWeights(luck) {
+  if (luck === _lastLuck) return;
+  _lastLuck = luck;
+  SOURCE_WEIGHTS = {};
+  for (var i = 0; i < RUNE_DB.length; i++) {
+    var src = RUNE_DB[i][1];
+    var rarity = parseCalcNum(RUNE_DB[i][2]);
+    if (rarity <= 0) continue;
+    SOURCE_WEIGHTS[src] = (SOURCE_WEIGHTS[src] || 0) + runeWeight(rarity, luck);
+  }
+}
 
 let calcSelectedRarity = 0;
-let calcSelectedIsNoluck = false;
 let calcSelectedSource = '';
 
 // Save/load calculator stats — uses URL hash (works on file:// and GitHub Pages)
@@ -2378,12 +2395,10 @@ function onRuneSelect() {
   if (sel.value === '') { calcSelectedRarity = 0; info.textContent = ''; runCalc(); return; }
   const r = RUNE_DB[parseInt(sel.value)];
   calcSelectedRarity = parseCalcNum(r[2]);
-  calcSelectedIsNoluck = r[4] === 1;
   calcSelectedSource = r[1];
   custom.value = '';
   const tags = [];
   if (r[3]) tags.push('Secret');
-  if (r[4]) tags.push('No Luck');
   info.innerHTML = '<strong style="color:var(--accent-light)">' + r[0] + '</strong> (' + r[1] + ') -- 1 in ' + r[2] + (tags.length ? ' <span style="color:var(--cta)">[' + tags.join(', ') + ']</span>' : '');
   runCalc();
 }
@@ -2394,7 +2409,6 @@ function onCustomChance() {
   const info = document.getElementById('calcSelectedInfo');
   sel.value = '';
   calcSelectedRarity = parseCalcNum(custom.value);
-  calcSelectedIsNoluck = false;
   calcSelectedSource = '';
   if (calcSelectedRarity > 0) {
     info.innerHTML = 'Custom rune -- 1 in ' + formatBigNum(calcSelectedRarity);
@@ -2424,10 +2438,13 @@ function runCalc() {
     return;
   }
 
-  // Weighted probability pool (matches truthuntold's formula)
+  // Refresh source weights for current luck value
+  refreshSourceWeights(luck);
+
+  // Weighted probability pool (matches optimizer: weight = min(1, luck/rarity), share = weight/totalWeight)
+  var myWeight = runeWeight(calcSelectedRarity, luck);
   var sourceWeight = calcSelectedSource ? (SOURCE_WEIGHTS[calcSelectedSource] || 1) : 1;
-  var baseProb = (calcSelectedRarity === 1) ? 0.1 : 1 / calcSelectedRarity;
-  var prob = calcSelectedIsNoluck ? baseProb / sourceWeight : (baseProb * luck) / sourceWeight;
+  var prob = sourceWeight > 0 ? myWeight / sourceWeight : 0;
   var etaSec = (prob > 0 && baseRps > 0) ? 1 / (prob * baseRps) : Infinity;
 
   document.getElementById('resEta').textContent = formatTime(etaSec);
@@ -2440,9 +2457,7 @@ function runCalc() {
   document.getElementById('resRunesPerHr').textContent = runesPerHr >= 1 ? formatBigNum(runesPerHr) : runesPerHr.toFixed(4);
 
   const clonePct = ((avgPerDisc - 1) * 100).toFixed(1);
-  document.getElementById('resCloneNote').textContent = calcSelectedIsNoluck
-    ? 'Luck NOT applied (No-luck rune). Clone bonus: +' + clonePct + '% per discovery (avg ' + avgPerDisc.toFixed(2) + ' runes each).'
-    : 'Clone bonus: +' + clonePct + '% per discovery (avg ' + avgPerDisc.toFixed(2) + ' runes each).';
+  document.getElementById('resCloneNote').textContent = 'Clone bonus: +' + clonePct + '% per discovery (avg ' + avgPerDisc.toFixed(2) + ' runes each).';
 }
 
 function renderRuneList() {
@@ -2457,6 +2472,7 @@ function renderRuneList() {
   var secretsOnly = document.getElementById('filterSecretsOnly').checked;
   var avgPerDisc = 1 + (cloneChance / 100 * cloneCount);
 
+  refreshSourceWeights(luck);
   var unlocked = getUnlockedSources();
 
   // Build rows grouped by source
@@ -2467,11 +2483,10 @@ function renderRuneList() {
     var source = r[1];
     if (unlocked.indexOf(source) === -1) continue;
     var rarity = parseCalcNum(r[2]);
-    var isNoluck = r[4] === 1;
     var isSecret = r[3] === 1;
+    var myWeight = runeWeight(rarity, luck);
     var sourceWeight = SOURCE_WEIGHTS[source] || 1;
-    var baseProb = (rarity === 1) ? 0.1 : (rarity > 0 ? 1 / rarity : 0);
-    var prob = isNoluck ? baseProb / sourceWeight : (baseProb * luck) / sourceWeight;
+    var prob = sourceWeight > 0 ? myWeight / sourceWeight : 0;
     var eta = (prob > 0 && baseRps > 0) ? 1 / (prob * baseRps) : Infinity;
     var discPerHr = prob * baseRps * 3600;
     var runesPerHr = discPerHr * avgPerDisc;
@@ -2479,7 +2494,7 @@ function renderRuneList() {
     if (under1hr && eta > 3600) continue;
     if (secretsOnly && !isSecret) continue;
     if (!sourceGroups[source]) sourceGroups[source] = [];
-    sourceGroups[source].push({name: r[0], source: source, rarityStr: r[2], rarity: rarity, eta: eta, discPerHr: discPerHr, runesPerHr: runesPerHr, isNoluck: isNoluck, isSecret: isSecret});
+    sourceGroups[source].push({name: r[0], source: source, rarityStr: r[2], rarity: rarity, eta: eta, discPerHr: discPerHr, runesPerHr: runesPerHr, isSecret: isSecret});
     totalShown++;
   }
 
@@ -2513,31 +2528,4 @@ function renderRuneList() {
 
     for (var j = 0; j < group.length; j++) {
       var row = group[j];
-      var etaStr = formatTime(row.eta);
-      var rphStr = row.runesPerHr >= 1 ? formatBigNum(row.runesPerHr) : row.runesPerHr > 0 ? row.runesPerHr.toFixed(4) : '0';
-      var nameColor = row.isSecret ? 'var(--cta)' : row.isNoluck ? 'var(--gold)' : 'var(--text)';
-      var tags = '';
-      if (row.isNoluck) tags = ' <span style="font-size:0.6rem;color:var(--text-dim)">[NL]</span>';
-
-      html += '<tr style="border-bottom:1px solid rgba(124,58,237,0.04)">';
-      html += '<td style="padding:4px 6px;color:' + nameColor + ';font-weight:600">' + row.name + tags + '</td>';
-      html += '<td style="padding:4px 6px;text-align:right;color:var(--text-dim);font-family:monospace;font-size:0.72rem">1 in ' + row.rarityStr + '</td>';
-      html += '<td style="padding:4px 6px;text-align:right;color:var(--accent-light);font-weight:600">' + etaStr + '</td>';
-      html += '<td style="padding:4px 6px;text-align:right;color:var(--green);font-weight:600">' + rphStr + '</td>';
-      html += '</tr>';
-    }
-
-    html += '</tbody></table>';
-  }
-  document.getElementById('runeListTable').innerHTML = html;
-}
-
-// Hook rune list to stat changes
-var origRunCalc = runCalc;
-runCalc = function() { origRunCalc(); renderRuneList(); };
-
-// Initial render on page load (rebuild dropdown after loadCalcStats restores checkboxes)
-setTimeout(function() { rebuildRuneDropdown(); renderRuneList(); }, 100);
-</script>
-</body>
-</html>
+      var etaStr = formatTime

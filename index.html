@@ -2054,11 +2054,11 @@ const WIKI_SEARCH_DATA = [
 ];
 function wikiSearch(q) {
   const res = document.getElementById('wikiSearchResults');
-  if (\!q.trim()) { res.style.display='none'; document.querySelectorAll('.wiki-section').forEach(s=>s.style.display=''); return; }
+  if (!q.trim()) { res.style.display='none'; document.querySelectorAll('.wiki-section').forEach(s=>s.style.display=''); return; }
   const ql = q.toLowerCase();
   const hits = WIKI_SEARCH_DATA.filter(d => d.t.toLowerCase().includes(ql)||d.d.toLowerCase().includes(ql));
-  if (\!hits.length) { res.innerHTML='<div class="wiki-card"><p style="color:var(--text-dim)">No results.</p></div>'; }
-  else { res.innerHTML=hits.map(h=>`<div class="wiki-card" style="cursor:pointer" onclick="showWiki(\'${h.sec}\')"><h3>${h.t}</h3><p style="color:var(--text-dim);font-size:0.8rem;">${h.d}</p></div>`).join(''); }
+  if (!hits.length) { res.innerHTML='<div class="wiki-card"><p style="color:var(--text-dim)">No results.</p></div>'; }
+  else { res.innerHTML=hits.map(h=>`<div class="wiki-card" style="cursor:pointer" onclick="showWiki('${h.sec}')"><h3>${h.t}</h3><p style="color:var(--text-dim);font-size:0.8rem;">${h.d}</p></div>`).join(''); }
   res.style.display='block';
   document.querySelectorAll('.wiki-section').forEach(s=>s.classList.remove('active'));
 }
@@ -2079,15 +2079,15 @@ const NOTATION_MAP = [
 ];
 function searchNotation(q) {
   const el = document.getElementById('notationResult');
-  if (\!q.trim()) { el.textContent = ''; return; }
+  if (!q.trim()) { el.textContent = ''; return; }
   q = q.trim();
   const asNum = parseInt(q);
-  if (\!isNaN(asNum)) {
+  if (!isNaN(asNum)) {
     const match = NOTATION_MAP.find(n => n[1] === asNum);
     if (match) { el.innerHTML = `<strong style="color:var(--gold)">${match[0]}</strong> = 10<sup>${match[1]}</sup>`; return; }
   }
   let match = NOTATION_MAP.find(n => n[0] === q);
-  if (\!match) match = NOTATION_MAP.find(n => n[0].toLowerCase() === q.toLowerCase());
+  if (!match) match = NOTATION_MAP.find(n => n[0].toLowerCase() === q.toLowerCase());
   if (match) { el.innerHTML = `<strong style="color:var(--gold)">${match[0]}</strong> = 10<sup>${match[1]}</sup>`; return; }
   const partials = NOTATION_MAP.filter(n => n[0].toLowerCase().includes(q.toLowerCase()));
   if (partials.length > 0 && partials.length <= 10) {
@@ -2130,7 +2130,7 @@ const CALC_SCALES = {
 };
 
 function parseCalcNum(text) {
-  if (\!text) return 0;
+  if (!text) return 0;
   text = text.trim();
   if (text.includes('e') || text.includes('E')) {
     const v = parseFloat(text);
@@ -2162,7 +2162,7 @@ function formatBigNum(n) {
 }
 
 function formatTime(seconds) {
-  if (seconds <= 0 || \!isFinite(seconds)) return 'Instant';
+  if (seconds <= 0 || !isFinite(seconds)) return 'Instant';
   if (seconds < 1) return (seconds*1000).toFixed(0) + 'ms';
   if (seconds < 60) return seconds.toFixed(1) + 's';
   if (seconds < 3600) return (seconds/60).toFixed(1) + 'm';
@@ -2175,10 +2175,10 @@ function formatTime(seconds) {
 // Populate rune dropdown grouped by source
 (function initCalcDropdown() {
   const sel = document.getElementById('calcRuneSelect');
-  if (\!sel) return;
+  if (!sel) return;
   const groups = {};
   RUNE_DB.forEach((r, i) => {
-    if (\!groups[r[1]]) groups[r[1]] = [];
+    if (!groups[r[1]]) groups[r[1]] = [];
     groups[r[1]].push({name: r[0], idx: i, rarity: r[2]});
   });
   Object.keys(groups).forEach(source => {

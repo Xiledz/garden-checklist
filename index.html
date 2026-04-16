@@ -2144,6 +2144,10 @@ const CALC_SCALES = {
   'Tg':1e93,'UTg':1e96,'DTg':1e99,'TTg':1e102,'QdTg':1e105,'QnTg':1e108,'SxTg':1e111,'SpTg':1e114,'OcTg':1e117,'NoTg':1e120
 };
 
+// Weighted probability pool: compute total weight per source group
+// (matches truthuntold's lM function — chance=1 gets weight 0.1, else 1/chance)
+const SOURCE_WEIGHTS = {};
+
 function parseCalcNum(text) {
   if (!text) return 0;
   text = text.trim();
@@ -2209,8 +2213,20 @@ function formatTime(seconds) {
   });
 })();
 
+// Initialize source weights now that parseCalcNum is available
+(function initSourceWeights() {
+  RUNE_DB.forEach(function(r) {
+    var source = r[1];
+    var chance = parseCalcNum(r[2]);
+    if (chance <= 0) return;
+    var w = (chance === 1) ? 0.1 : 1 / chance;
+    SOURCE_WEIGHTS[source] = (SOURCE_WEIGHTS[source] || 0) + w;
+  });
+})();
+
 let calcSelectedRarity = 0;
 let calcSelectedIsNoluck = false;
+let calcSelectedSource = '';
 
 // Save/load calculator stats
 const CALC_STAT_IDS = ['calcSpeed','calcBulk','calcLuck','calcClone','calcCloneChance'];
@@ -2237,6 +2253,7 @@ function onRuneSelect() {
   const r = RUNE_DB[parseInt(sel.value)];
   calcSelectedRarity = parseCalcNum(r[2]);
   calcSelectedIsNoluck = r[4] === 1;
+  calcSelectedSource = r[1];
   custom.value = '';
   const tags = [];
   if (r[3]) tags.push('Secret');
@@ -2252,6 +2269,7 @@ function onCustomChance() {
   sel.value = '';
   calcSelectedRarity = parseCalcNum(custom.value);
   calcSelectedIsNoluck = false;
+  calcSelectedSource = '';
   if (calcSelectedRarity > 0) {
     info.innerHTML = 'Custom rune -- 1 in ' + formatBigNum(calcSelectedRarity);
   } else {
@@ -2269,11 +2287,10 @@ function runCalc() {
   const cloneChance = parseFloat(document.getElementById('calcCloneChance').value) || 0;
 
   const baseRps = speed > 0 ? bulk / speed : 0;
-  const effectiveRps = calcSelectedIsNoluck ? baseRps : baseRps * luck;
 
-  document.getElementById('resRps').textContent = formatBigNum(effectiveRps);
+  document.getElementById('resRps').textContent = formatBigNum(baseRps);
 
-  if (calcSelectedRarity <= 0 || effectiveRps <= 0) {
+  if (calcSelectedRarity <= 0 || baseRps <= 0) {
     document.getElementById('resEta').textContent = '--';
     document.getElementById('resDiscPerHr').textContent = '--';
     document.getElementById('resRunesPerHr').textContent = '--';
@@ -2281,10 +2298,15 @@ function runCalc() {
     return;
   }
 
-  const etaSec = calcSelectedRarity / effectiveRps;
+  // Weighted probability pool (matches truthuntold's formula)
+  var sourceWeight = calcSelectedSource ? (SOURCE_WEIGHTS[calcSelectedSource] || 1) : 1;
+  var baseProb = (calcSelectedRarity === 1) ? 0.1 : 1 / calcSelectedRarity;
+  var prob = calcSelectedIsNoluck ? baseProb / sourceWeight : (baseProb * luck) / sourceWeight;
+  var etaSec = (prob > 0 && baseRps > 0) ? 1 / (prob * baseRps) : Infinity;
+
   document.getElementById('resEta').textContent = formatTime(etaSec);
 
-  const discPerHr = 3600 / etaSec;
+  const discPerHr = prob * baseRps * 3600;
   document.getElementById('resDiscPerHr').textContent = discPerHr >= 1 ? formatBigNum(discPerHr) : discPerHr.toFixed(4);
 
   const avgPerDisc = 1 + (cloneChance / 100 * cloneCount);
@@ -2293,7 +2315,7 @@ function runCalc() {
 
   const clonePct = ((avgPerDisc - 1) * 100).toFixed(1);
   document.getElementById('resCloneNote').textContent = calcSelectedIsNoluck
-    ? 'Luck NOT applied (Secret/Damnation/Galaxy rune). Clone bonus: +' + clonePct + '% per discovery (avg ' + avgPerDisc.toFixed(2) + ' runes each).'
+    ? 'Luck NOT applied (No-luck rune). Clone bonus: +' + clonePct + '% per discovery (avg ' + avgPerDisc.toFixed(2) + ' runes each).'
     : 'Clone bonus: +' + clonePct + '% per discovery (avg ' + avgPerDisc.toFixed(2) + ' runes each).';
 }
 
@@ -2313,11 +2335,14 @@ function renderRuneList() {
   for (var i = 0; i < RUNE_DB.length; i++) {
     var r = RUNE_DB[i];
     var rarity = parseCalcNum(r[2]);
+    var source = r[1];
     var isNoluck = r[4] === 1;
     var isSecret = r[3] === 1;
-    var effRps = isNoluck ? baseRps : baseRps * luck;
-    var eta = effRps > 0 ? rarity / effRps : Infinity;
-    var discPerHr = eta > 0 ? 3600 / eta : 0;
+    var sourceWeight = SOURCE_WEIGHTS[source] || 1;
+    var baseProb = (rarity === 1) ? 0.1 : (rarity > 0 ? 1 / rarity : 0);
+    var prob = isNoluck ? baseProb / sourceWeight : (baseProb * luck) / sourceWeight;
+    var eta = (prob > 0 && baseRps > 0) ? 1 / (prob * baseRps) : Infinity;
+    var discPerHr = prob * baseRps * 3600;
     var runesPerHr = discPerHr * avgPerDisc;
     if (hideInstant && eta < 0.001) continue;
     if (under1hr && eta > 3600) continue;

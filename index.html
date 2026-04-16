@@ -2349,4 +2349,22 @@ function renderRuneList() {
     html += '<tr style="border-bottom:1px solid rgba(124,58,237,0.06)">';
     html += '<td style="padding:5px 6px;color:' + nameColor + ';font-weight:600">' + row.name + tags + '</td>';
     html += '<td style="padding:5px 6px;color:var(--text-dim)">' + row.source + '</td>';
-    html += '<td style="padding:5px 6px;text-align:right;color:var(--text-dim);font
+    html += '<td style="padding:5px 6px;text-align:right;color:var(--text-dim);font-family:monospace;font-size:0.72rem">1 in ' + row.rarityStr + '</td>';
+    html += '<td style="padding:5px 6px;text-align:right;color:var(--accent-light);font-weight:600">' + etaStr + '</td>';
+    html += '<td style="padding:5px 6px;text-align:right;color:var(--green);font-weight:600">' + rphStr + '</td>';
+    html += '</tr>';
+  }
+
+  html += '</tbody></table>';
+  document.getElementById('runeListTable').innerHTML = html;
+}
+
+// Hook rune list to stat changes
+var origRunCalc = runCalc;
+runCalc = function() { origRunCalc(); renderRuneList(); };
+
+// Initial render on page load
+setTimeout(renderRuneList, 100);
+</script>
+</body>
+</html>

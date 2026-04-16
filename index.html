@@ -2327,35 +2327,48 @@ let calcSelectedRarity = 0;
 let calcSelectedIsNoluck = false;
 let calcSelectedSource = '';
 
-// Save/load calculator stats
+// Save/load calculator stats — uses URL hash (works on file:// and GitHub Pages)
+// Falls back to localStorage as secondary persistence
 const CALC_STAT_IDS = ['calcSpeed','calcBulk','calcLuck','calcClone','calcCloneChance'];
+
 function saveCalcStats() {
   var data = {};
   CALC_STAT_IDS.forEach(function(id) { data[id] = document.getElementById(id).value; });
-  // Save unlock checkbox states
   var unlocks = [];
   RUNE_SOURCE_ORDER.forEach(function(src, i) {
     var cb = document.getElementById('unlockCb' + i);
     if (cb && cb.checked) unlocks.push(i);
   });
   data.unlocks = unlocks;
-  localStorage.setItem('singularity_calc_stats', JSON.stringify(data));
+  // Primary: URL hash (always works)
+  try { history.replaceState(null, '', '#calc=' + encodeURIComponent(JSON.stringify(data))); } catch(e) {}
+  // Secondary: localStorage (may fail on file://)
+  try { localStorage.setItem('singularity_calc_stats', JSON.stringify(data)); } catch(e) {}
 }
+
 (function loadCalcStats() {
+  var data = null;
+  // Try URL hash first (most reliable)
   try {
-    var data = JSON.parse(localStorage.getItem('singularity_calc_stats'));
-    if (!data) return;
-    CALC_STAT_IDS.forEach(function(id) {
-      if (data[id] !== undefined) document.getElementById(id).value = data[id];
-    });
-    // Restore unlock checkboxes
-    if (data.unlocks) {
-      RUNE_SOURCE_ORDER.forEach(function(src, i) {
-        var cb = document.getElementById('unlockCb' + i);
-        if (cb) cb.checked = data.unlocks.indexOf(i) !== -1;
-      });
+    var hash = window.location.hash;
+    if (hash.indexOf('#calc=') === 0) {
+      data = JSON.parse(decodeURIComponent(hash.slice(6)));
     }
   } catch(e) {}
+  // Fall back to localStorage
+  if (!data) {
+    try { data = JSON.parse(localStorage.getItem('singularity_calc_stats')); } catch(e) {}
+  }
+  if (!data) return;
+  CALC_STAT_IDS.forEach(function(id) {
+    if (data[id] !== undefined) document.getElementById(id).value = data[id];
+  });
+  if (data.unlocks) {
+    RUNE_SOURCE_ORDER.forEach(function(src, i) {
+      var cb = document.getElementById('unlockCb' + i);
+      if (cb) cb.checked = data.unlocks.indexOf(i) !== -1;
+    });
+  }
 })();
 
 function onRuneSelect() {

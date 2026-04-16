@@ -2219,7 +2219,7 @@ function onRuneSelect() {
   if (sel.value === '') { calcSelectedRarity = 0; info.textContent = ''; runCalc(); return; }
   const r = RUNE_DB[parseInt(sel.value)];
   calcSelectedRarity = parseCalcNum(r[2]);
-  calcSelectedIsNoluck = r[3] === 1 || r[4] === 1;
+  calcSelectedIsNoluck = r[4] === 1;
   custom.value = '';
   const tags = [];
   if (r[3]) tags.push('Secret');
@@ -2250,7 +2250,7 @@ function runCalc() {
   const cloneCount = parseFloat(document.getElementById('calcClone').value) || 0;
   const cloneChance = parseFloat(document.getElementById('calcCloneChance').value) || 0;
 
-  const baseRps = speed * bulk;
+  const baseRps = speed > 0 ? bulk / speed : 0;
   const effectiveRps = calcSelectedIsNoluck ? baseRps : baseRps * luck;
 
   document.getElementById('resRps').textContent = formatBigNum(effectiveRps);
@@ -2285,7 +2285,7 @@ function renderRuneList() {
   var luck = parseCalcNum(document.getElementById('calcLuck').value);
   var cloneCount = parseFloat(document.getElementById('calcClone').value) || 0;
   var cloneChance = parseFloat(document.getElementById('calcCloneChance').value) || 0;
-  var baseRps = speed * bulk;
+  var baseRps = speed > 0 ? bulk / speed : 0;
   var hideInstant = document.getElementById('filterHideInstant').checked;
   var under1hr = document.getElementById('filterUnder1hr').checked;
   var secretsOnly = document.getElementById('filterSecretsOnly').checked;
@@ -2295,7 +2295,7 @@ function renderRuneList() {
   for (var i = 0; i < RUNE_DB.length; i++) {
     var r = RUNE_DB[i];
     var rarity = parseCalcNum(r[2]);
-    var isNoluck = r[3] === 1 || r[4] === 1;
+    var isNoluck = r[4] === 1;
     var isSecret = r[3] === 1;
     var effRps = isNoluck ? baseRps : baseRps * luck;
     var eta = effRps > 0 ? rarity / effRps : Infinity;
@@ -2349,4 +2349,4 @@ runCalc = function() { origRunCalc(); renderRuneList(); };
 setTimeout(renderRuneList, 100);
 </script>
 </body>
-</html>
+</ht

@@ -1504,6 +1504,10 @@ The base suffixes cycle in groups of 10: <span style="color:var(--accent-light)"
       <input type="number" id="calcCloneChance" value="5" step="0.1" oninput="runCalc()" style="width:100%;padding:6px 10px;background:rgba(10,10,26,0.8);border:1px solid var(--border);border-radius:5px;color:var(--text);font-family:'Chakra Petch',sans-serif;font-size:0.85em">
     </div>
   </div>
+  <div>
+    <label style="display:block;font-size:0.65rem;color:var(--text-dim);margin-bottom:4px">UNLOCKED RUNE BUTTONS</label>
+    <div id="unlockChecks" style="display:grid;grid-template-columns:1fr 1fr;gap:2px 8px;max-height:180px;overflow-y:auto;padding:4px;background:rgba(10,10,26,0.5);border:1px solid var(--border);border-radius:5px"></div>
+  </div>
 </div>
 </div>
 
@@ -1558,11 +1562,15 @@ The base suffixes cycle in groups of 10: <span style="color:var(--accent-light)"
 
 <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px">
 <h3 style="font-family:'Russo One',sans-serif;color:var(--accent-light);font-size:0.8em;margin-bottom:8px;letter-spacing:1px">HOW IT WORKS</h3>
-<div class="formula-box">Effective RPS = Speed x Bulk x Luck*
-ETA (seconds) = Rarity / Effective RPS
-Runes/Hour = (3600/ETA) x (1 + CloneChance% x CloneCount/100)
+<div class="formula-box">RPS = Bulk / Speed
+Prob = (1/Chance x Luck) / SourcePoolWeight
+ETA = 1 / (Prob x RPS)
+Runes/Hr = Prob x RPS x 3600 x (1 + Clone% x Clone#)
 
-* Luck does NOT apply to Secret/Damnation/Galaxy runes</div>
+Each rune button is a weighted pool. Pool weight =
+sum of 1/chance for all runes on that button.
+No-luck runes: Luck not applied (Damnation, Galaxy,
+Aetheris, Nythera, Veydris).</div>
 </div>
 
 <p style="text-align:center;font-size:0.6rem;color:#444466;margin-top:8px">Rune data from <a href="https://truthuntold.github.io/gi-calc/" style="color:var(--accent);text-decoration:none">truthuntold GI Calc</a></p>
@@ -2190,27 +2198,103 @@ function formatTime(seconds) {
   return (seconds/31536000).toFixed(1) + 'y';
 }
 
-// Populate rune dropdown grouped by source
-(function initCalcDropdown() {
-  const sel = document.getElementById('calcRuneSelect');
+// Rune button unlock order (matches in-game progression)
+const RUNE_SOURCE_ORDER = [
+  'Basic Rune','Frost Rune','Sun Rune','Tunnel Rune','Cavern Rune',
+  'Lantern Rune','Energy Rune','Waves Rune','Capstone Rune','Astryx Rune',
+  'Vornel Rune','Starlight Rune','Galaxy Rune','Heavenly Rune',
+  'Damnation Rune','Aetheris','Nythera','Veydris'
+];
+// Secret Rune is always available (not tied to a specific button)
+const ALWAYS_AVAILABLE = ['Secret Rune'];
+
+// Populate unlock checkboxes
+(function initUnlockChecks() {
+  var container = document.getElementById('unlockChecks');
+  if (!container) return;
+  RUNE_SOURCE_ORDER.forEach(function(src, i) {
+    var lbl = document.createElement('label');
+    lbl.style.cssText = 'font-size:0.68rem;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:3px;padding:1px 0;white-space:nowrap';
+    var cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.checked = true;
+    cb.dataset.idx = i;
+    cb.id = 'unlockCb' + i;
+    cb.addEventListener('change', function() { onUnlockCheck(i, this.checked); });
+    lbl.appendChild(cb);
+    lbl.appendChild(document.createTextNode(src.replace(' Rune','')));
+    container.appendChild(lbl);
+  });
+})();
+
+function onUnlockCheck(idx, checked) {
+  if (checked) {
+    // Check all below (including this one)
+    for (var i = 0; i <= idx; i++) {
+      document.getElementById('unlockCb' + i).checked = true;
+    }
+  } else {
+    // Uncheck all above (including this one)
+    for (var i = idx; i < RUNE_SOURCE_ORDER.length; i++) {
+      document.getElementById('unlockCb' + i).checked = false;
+    }
+  }
+  onUnlockChange();
+}
+
+function getUnlockedSources() {
+  var unlocked = [];
+  RUNE_SOURCE_ORDER.forEach(function(src, i) {
+    var cb = document.getElementById('unlockCb' + i);
+    if (cb && cb.checked) unlocked.push(src);
+  });
+  return unlocked.concat(ALWAYS_AVAILABLE);
+}
+
+// Populate rune dropdown (rebuilds when unlock level changes)
+function rebuildRuneDropdown() {
+  var sel = document.getElementById('calcRuneSelect');
   if (!sel) return;
-  const groups = {};
-  RUNE_DB.forEach((r, i) => {
+  var prev = sel.value;
+  sel.innerHTML = '<option value="">-- Pick a rune --</option>';
+  var unlocked = getUnlockedSources();
+  var groups = {};
+  RUNE_DB.forEach(function(r, i) {
+    if (unlocked.indexOf(r[1]) === -1) return;
     if (!groups[r[1]]) groups[r[1]] = [];
     groups[r[1]].push({name: r[0], idx: i, rarity: r[2]});
   });
-  Object.keys(groups).forEach(source => {
-    const og = document.createElement('optgroup');
+  // Add groups in unlock order
+  RUNE_SOURCE_ORDER.concat(ALWAYS_AVAILABLE).forEach(function(source) {
+    if (!groups[source]) return;
+    var og = document.createElement('optgroup');
     og.label = source;
-    groups[source].forEach(r => {
-      const opt = document.createElement('option');
+    groups[source].forEach(function(r) {
+      var opt = document.createElement('option');
       opt.value = r.idx;
       opt.textContent = r.name + ' (1 in ' + r.rarity + ')';
       og.appendChild(opt);
     });
     sel.appendChild(og);
   });
-})();
+  // Restore selection if still valid
+  if (prev && sel.querySelector('option[value="' + prev + '"]')) {
+    sel.value = prev;
+  } else {
+    sel.value = '';
+    calcSelectedRarity = 0;
+    calcSelectedIsNoluck = false;
+    calcSelectedSource = '';
+  }
+}
+rebuildRuneDropdown();
+
+function onUnlockChange() {
+  saveCalcStats();
+  rebuildRuneDropdown();
+  onRuneSelect();
+  renderRuneList();
+}
 
 // Initialize source weights now that parseCalcNum is available
 (function initSourceWeights() {
@@ -2230,17 +2314,31 @@ let calcSelectedSource = '';
 // Save/load calculator stats
 const CALC_STAT_IDS = ['calcSpeed','calcBulk','calcLuck','calcClone','calcCloneChance'];
 function saveCalcStats() {
-  const data = {};
+  var data = {};
   CALC_STAT_IDS.forEach(function(id) { data[id] = document.getElementById(id).value; });
+  // Save unlock checkbox states
+  var unlocks = [];
+  RUNE_SOURCE_ORDER.forEach(function(src, i) {
+    var cb = document.getElementById('unlockCb' + i);
+    if (cb && cb.checked) unlocks.push(i);
+  });
+  data.unlocks = unlocks;
   localStorage.setItem('singularity_calc_stats', JSON.stringify(data));
 }
 (function loadCalcStats() {
   try {
-    const data = JSON.parse(localStorage.getItem('singularity_calc_stats'));
+    var data = JSON.parse(localStorage.getItem('singularity_calc_stats'));
     if (!data) return;
     CALC_STAT_IDS.forEach(function(id) {
       if (data[id] !== undefined) document.getElementById(id).value = data[id];
     });
+    // Restore unlock checkboxes
+    if (data.unlocks) {
+      RUNE_SOURCE_ORDER.forEach(function(src, i) {
+        var cb = document.getElementById('unlockCb' + i);
+        if (cb) cb.checked = data.unlocks.indexOf(i) !== -1;
+      });
+    }
   } catch(e) {}
 })();
 
@@ -2330,11 +2428,13 @@ function renderRuneList() {
   var secretsOnly = document.getElementById('filterSecretsOnly').checked;
   var avgPerDisc = 1 + (cloneChance / 100 * cloneCount);
 
+  var unlocked = getUnlockedSources();
   var rows = [];
   for (var i = 0; i < RUNE_DB.length; i++) {
     var r = RUNE_DB[i];
-    var rarity = parseCalcNum(r[2]);
     var source = r[1];
+    if (unlocked.indexOf(source) === -1) continue;
+    var rarity = parseCalcNum(r[2]);
     var isNoluck = r[4] === 1;
     var isSecret = r[3] === 1;
     var sourceWeight = SOURCE_WEIGHTS[source] || 1;
@@ -2387,8 +2487,8 @@ function renderRuneList() {
 var origRunCalc = runCalc;
 runCalc = function() { origRunCalc(); renderRuneList(); };
 
-// Initial render on page load
-setTimeout(renderRuneList, 100);
+// Initial render on page load (rebuild dropdown after loadCalcStats restores checkboxes)
+setTimeout(function() { rebuildRuneDropdown(); renderRuneList(); }, 100);
 </script>
 </body>
 </html>

@@ -2151,10 +2151,8 @@ const SOURCE_WEIGHTS = {};
 function parseCalcNum(text) {
   if (!text) return 0;
   text = text.trim();
-  if (text.includes('e') || text.includes('E')) {
-    const v = parseFloat(text);
-    return isNaN(v) ? 0 : v;
-  }
+  // Check game suffixes FIRST (before scientific notation check,
+  // because suffixes like SxDe, TDe contain 'e' which would short-circuit)
   const upper = text.toUpperCase();
   const suffixes = Object.keys(CALC_SCALES).sort((a,b) => b.length - a.length);
   for (const suf of suffixes) {
@@ -2164,6 +2162,7 @@ function parseCalcNum(text) {
       return isNaN(v) ? 0 : v * CALC_SCALES[suf];
     }
   }
+  // No suffix matched — try as plain number or scientific notation
   const v = parseFloat(text);
   return isNaN(v) ? 0 : v;
 }

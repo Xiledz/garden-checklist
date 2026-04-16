@@ -2212,6 +2212,23 @@ function formatTime(seconds) {
 let calcSelectedRarity = 0;
 let calcSelectedIsNoluck = false;
 
+// Save/load calculator stats
+const CALC_STAT_IDS = ['calcSpeed','calcBulk','calcLuck','calcClone','calcCloneChance'];
+function saveCalcStats() {
+  const data = {};
+  CALC_STAT_IDS.forEach(function(id) { data[id] = document.getElementById(id).value; });
+  localStorage.setItem('singularity_calc_stats', JSON.stringify(data));
+}
+(function loadCalcStats() {
+  try {
+    const data = JSON.parse(localStorage.getItem('singularity_calc_stats'));
+    if (!data) return;
+    CALC_STAT_IDS.forEach(function(id) {
+      if (data[id] !== undefined) document.getElementById(id).value = data[id];
+    });
+  } catch(e) {}
+})();
+
 function onRuneSelect() {
   const sel = document.getElementById('calcRuneSelect');
   const custom = document.getElementById('calcCustomChance');
@@ -2244,6 +2261,7 @@ function onCustomChance() {
 }
 
 function runCalc() {
+  saveCalcStats();
   const speed = parseCalcNum(document.getElementById('calcSpeed').value);
   const bulk = parseCalcNum(document.getElementById('calcBulk').value);
   const luck = parseCalcNum(document.getElementById('calcLuck').value);
@@ -2331,22 +2349,4 @@ function renderRuneList() {
     html += '<tr style="border-bottom:1px solid rgba(124,58,237,0.06)">';
     html += '<td style="padding:5px 6px;color:' + nameColor + ';font-weight:600">' + row.name + tags + '</td>';
     html += '<td style="padding:5px 6px;color:var(--text-dim)">' + row.source + '</td>';
-    html += '<td style="padding:5px 6px;text-align:right;color:var(--text-dim);font-family:monospace;font-size:0.72rem">1 in ' + row.rarityStr + '</td>';
-    html += '<td style="padding:5px 6px;text-align:right;color:var(--accent-light);font-weight:600">' + etaStr + '</td>';
-    html += '<td style="padding:5px 6px;text-align:right;color:var(--green);font-weight:600">' + rphStr + '</td>';
-    html += '</tr>';
-  }
-
-  html += '</tbody></table>';
-  document.getElementById('runeListTable').innerHTML = html;
-}
-
-// Hook rune list to stat changes
-var origRunCalc = runCalc;
-runCalc = function() { origRunCalc(); renderRuneList(); };
-
-// Initial render on page load
-setTimeout(renderRuneList, 100);
-</script>
-</body>
-</ht
+    html += '<td style="padding:5px 6px;text-align:right;color:var(--text-dim);font

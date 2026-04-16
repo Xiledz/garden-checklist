@@ -2458,7 +2458,10 @@ function renderRuneList() {
   var avgPerDisc = 1 + (cloneChance / 100 * cloneCount);
 
   var unlocked = getUnlockedSources();
-  var rows = [];
+
+  // Build rows grouped by source
+  var sourceGroups = {};
+  var totalShown = 0;
   for (var i = 0; i < RUNE_DB.length; i++) {
     var r = RUNE_DB[i];
     var source = r[1];
@@ -2475,40 +2478,57 @@ function renderRuneList() {
     if (hideInstant && eta < 0.001) continue;
     if (under1hr && eta > 3600) continue;
     if (secretsOnly && !isSecret) continue;
-    rows.push({name: r[0], source: r[1], rarityStr: r[2], eta: eta, discPerHr: discPerHr, runesPerHr: runesPerHr, isNoluck: isNoluck, isSecret: isSecret});
+    if (!sourceGroups[source]) sourceGroups[source] = [];
+    sourceGroups[source].push({name: r[0], source: source, rarityStr: r[2], rarity: rarity, eta: eta, discPerHr: discPerHr, runesPerHr: runesPerHr, isNoluck: isNoluck, isSecret: isSecret});
+    totalShown++;
   }
 
-  rows.sort(function(a, b) { return a.eta - b.eta; });
+  document.getElementById('runeListCount').textContent = totalShown + ' runes shown';
 
-  document.getElementById('runeListCount').textContent = rows.length + ' runes shown';
+  // Render grouped by source in unlock progression order
+  var allSources = RUNE_SOURCE_ORDER.concat(ALWAYS_AVAILABLE);
+  var html = '';
 
-  var html = '<table style="width:100%;border-collapse:collapse;font-size:0.78rem">';
-  html += '<thead><tr style="position:sticky;top:0;background:rgba(124,58,237,0.15);z-index:1">';
-  html += '<th style="padding:8px 6px;text-align:left;color:var(--accent-light);font-family:Russo One,sans-serif;font-size:0.7rem;letter-spacing:0.5px">Rune</th>';
-  html += '<th style="padding:8px 6px;text-align:left;color:var(--accent-light);font-family:Russo One,sans-serif;font-size:0.7rem">Source</th>';
-  html += '<th style="padding:8px 6px;text-align:right;color:var(--accent-light);font-family:Russo One,sans-serif;font-size:0.7rem">Chance</th>';
-  html += '<th style="padding:8px 6px;text-align:right;color:var(--accent-light);font-family:Russo One,sans-serif;font-size:0.7rem">ETA</th>';
-  html += '<th style="padding:8px 6px;text-align:right;color:var(--accent-light);font-family:Russo One,sans-serif;font-size:0.7rem">Runes/Hr</th>';
-  html += '</tr></thead><tbody>';
+  for (var s = 0; s < allSources.length; s++) {
+    var src = allSources[s];
+    var group = sourceGroups[src];
+    if (!group || group.length === 0) continue;
 
-  for (var j = 0; j < rows.length; j++) {
-    var row = rows[j];
-    var etaStr = formatTime(row.eta);
-    var rphStr = row.runesPerHr >= 1 ? formatBigNum(row.runesPerHr) : row.runesPerHr > 0 ? row.runesPerHr.toFixed(4) : '0';
-    var nameColor = row.isSecret ? 'var(--cta)' : row.isNoluck ? 'var(--gold)' : 'var(--text)';
-    var tags = '';
-    if (row.isNoluck) tags = ' <span style="font-size:0.6rem;color:var(--text-dim)">[NL]</span>';
+    // Sort within source by chance (easiest to hardest)
+    group.sort(function(a, b) { return a.rarity - b.rarity; });
 
-    html += '<tr style="border-bottom:1px solid rgba(124,58,237,0.06)">';
-    html += '<td style="padding:5px 6px;color:' + nameColor + ';font-weight:600">' + row.name + tags + '</td>';
-    html += '<td style="padding:5px 6px;color:var(--text-dim)">' + row.source + '</td>';
-    html += '<td style="padding:5px 6px;text-align:right;color:var(--text-dim);font-family:monospace;font-size:0.72rem">1 in ' + row.rarityStr + '</td>';
-    html += '<td style="padding:5px 6px;text-align:right;color:var(--accent-light);font-weight:600">' + etaStr + '</td>';
-    html += '<td style="padding:5px 6px;text-align:right;color:var(--green);font-weight:600">' + rphStr + '</td>';
-    html += '</tr>';
+    // Source header
+    html += '<div style="margin-top:16px;margin-bottom:6px;padding:8px 12px;background:rgba(124,58,237,0.12);border-left:3px solid var(--accent);border-radius:0 6px 6px 0">';
+    html += '<span style="font-family:Russo One,sans-serif;font-size:0.82rem;color:var(--accent-light);letter-spacing:0.5px">' + src + '</span>';
+    html += '<span style="float:right;font-size:0.72rem;color:var(--text-dim)">' + group.length + ' runes</span>';
+    html += '</div>';
+
+    html += '<table style="width:100%;border-collapse:collapse;font-size:0.78rem;margin-bottom:4px">';
+    html += '<thead><tr style="background:rgba(124,58,237,0.06)">';
+    html += '<th style="padding:5px 6px;text-align:left;color:var(--text-dim);font-size:0.68rem;font-weight:500">Rune</th>';
+    html += '<th style="padding:5px 6px;text-align:right;color:var(--text-dim);font-size:0.68rem;font-weight:500">Chance</th>';
+    html += '<th style="padding:5px 6px;text-align:right;color:var(--text-dim);font-size:0.68rem;font-weight:500">ETA (1st)</th>';
+    html += '<th style="padding:5px 6px;text-align:right;color:var(--text-dim);font-size:0.68rem;font-weight:500">Per Hour</th>';
+    html += '</tr></thead><tbody>';
+
+    for (var j = 0; j < group.length; j++) {
+      var row = group[j];
+      var etaStr = formatTime(row.eta);
+      var rphStr = row.runesPerHr >= 1 ? formatBigNum(row.runesPerHr) : row.runesPerHr > 0 ? row.runesPerHr.toFixed(4) : '0';
+      var nameColor = row.isSecret ? 'var(--cta)' : row.isNoluck ? 'var(--gold)' : 'var(--text)';
+      var tags = '';
+      if (row.isNoluck) tags = ' <span style="font-size:0.6rem;color:var(--text-dim)">[NL]</span>';
+
+      html += '<tr style="border-bottom:1px solid rgba(124,58,237,0.04)">';
+      html += '<td style="padding:4px 6px;color:' + nameColor + ';font-weight:600">' + row.name + tags + '</td>';
+      html += '<td style="padding:4px 6px;text-align:right;color:var(--text-dim);font-family:monospace;font-size:0.72rem">1 in ' + row.rarityStr + '</td>';
+      html += '<td style="padding:4px 6px;text-align:right;color:var(--accent-light);font-weight:600">' + etaStr + '</td>';
+      html += '<td style="padding:4px 6px;text-align:right;color:var(--green);font-weight:600">' + rphStr + '</td>';
+      html += '</tr>';
+    }
+
+    html += '</tbody></table>';
   }
-
-  html += '</tbody></table>';
   document.getElementById('runeListTable').innerHTML = html;
 }
 

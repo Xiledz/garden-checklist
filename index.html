@@ -1535,6 +1535,18 @@ The base suffixes cycle in groups of 10: <span style="color:var(--accent-light)"
 </div>
 
 <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px">
+<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px">
+<h3 style="font-family:'Russo One',sans-serif;color:var(--accent-light);font-size:0.95em;margin-bottom:14px">All Runes</h3>
+<div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px;padding:10px;background:rgba(10,10,26,0.6);border-radius:8px;border:1px solid var(--border)">
+  <span style="font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;align-self:center">DISPLAY:</span>
+  <label style="font-size:0.8rem;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:6px"><input type="checkbox" id="filterHideInstant" onchange="renderRuneList()" checked> Hide Instant</label>
+  <label style="font-size:0.8rem;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:6px"><input type="checkbox" id="filterUnder1hr" onchange="renderRuneList()"> Under 1 Hour</label>
+  <label style="font-size:0.8rem;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:6px"><input type="checkbox" id="filterSecretsOnly" onchange="renderRuneList()"> Secrets Only</label>
+</div>
+<div id="runeListCount" style="font-size:0.75rem;color:var(--text-dim);margin-bottom:10px"></div>
+<div id="runeListTable" style="max-height:600px;overflow-y:auto;border:1px solid var(--border);border-radius:8px"></div>
+</div>
+
 <h3 style="font-family:'Russo One',sans-serif;color:var(--accent-light);font-size:0.95em;margin-bottom:10px">How It Works</h3>
 <div class="formula-box">Rune Speed = how fast you roll (cap 0.15s = 6.67 rolls/sec)
 Rune Bulk  = how many dice you roll each time
@@ -2263,6 +2275,75 @@ function runCalc() {
     ? 'Luck NOT applied (Secret/Damnation/Galaxy rune). Clone bonus: +' + clonePct + '% per discovery (avg ' + avgPerDisc.toFixed(2) + ' runes each).'
     : 'Clone bonus: +' + clonePct + '% per discovery (avg ' + avgPerDisc.toFixed(2) + ' runes each).';
 }
+
+function renderRuneList() {
+  var speed = parseCalcNum(document.getElementById('calcSpeed').value);
+  var bulk = parseCalcNum(document.getElementById('calcBulk').value);
+  var luck = parseCalcNum(document.getElementById('calcLuck').value);
+  var cloneCount = parseFloat(document.getElementById('calcClone').value) || 0;
+  var cloneChance = parseFloat(document.getElementById('calcCloneChance').value) || 0;
+  var baseRps = speed * bulk;
+  var hideInstant = document.getElementById('filterHideInstant').checked;
+  var under1hr = document.getElementById('filterUnder1hr').checked;
+  var secretsOnly = document.getElementById('filterSecretsOnly').checked;
+  var avgPerDisc = 1 + (cloneChance / 100 * cloneCount);
+
+  var rows = [];
+  for (var i = 0; i < RUNE_DB.length; i++) {
+    var r = RUNE_DB[i];
+    var rarity = parseCalcNum(r[2]);
+    var isNoluck = r[3] === 1 || r[4] === 1;
+    var isSecret = r[3] === 1;
+    var effRps = isNoluck ? baseRps : baseRps * luck;
+    var eta = effRps > 0 ? rarity / effRps : Infinity;
+    var discPerHr = eta > 0 ? 3600 / eta : 0;
+    var runesPerHr = discPerHr * avgPerDisc;
+    if (hideInstant && eta < 0.001) continue;
+    if (under1hr && eta > 3600) continue;
+    if (secretsOnly && !isSecret) continue;
+    rows.push({name: r[0], source: r[1], rarityStr: r[2], eta: eta, discPerHr: discPerHr, runesPerHr: runesPerHr, isNoluck: isNoluck, isSecret: isSecret});
+  }
+
+  rows.sort(function(a, b) { return a.eta - b.eta; });
+
+  document.getElementById('runeListCount').textContent = rows.length + ' runes shown';
+
+  var html = '<table style="width:100%;border-collapse:collapse;font-size:0.78rem">';
+  html += '<thead><tr style="position:sticky;top:0;background:rgba(124,58,237,0.15);z-index:1">';
+  html += '<th style="padding:8px 6px;text-align:left;color:var(--accent-light);font-family:Russo One,sans-serif;font-size:0.7rem;letter-spacing:0.5px">Rune</th>';
+  html += '<th style="padding:8px 6px;text-align:left;color:var(--accent-light);font-family:Russo One,sans-serif;font-size:0.7rem">Source</th>';
+  html += '<th style="padding:8px 6px;text-align:right;color:var(--accent-light);font-family:Russo One,sans-serif;font-size:0.7rem">Chance</th>';
+  html += '<th style="padding:8px 6px;text-align:right;color:var(--accent-light);font-family:Russo One,sans-serif;font-size:0.7rem">ETA</th>';
+  html += '<th style="padding:8px 6px;text-align:right;color:var(--accent-light);font-family:Russo One,sans-serif;font-size:0.7rem">Runes/Hr</th>';
+  html += '</tr></thead><tbody>';
+
+  for (var j = 0; j < rows.length; j++) {
+    var row = rows[j];
+    var etaStr = formatTime(row.eta);
+    var rphStr = row.runesPerHr >= 1 ? formatBigNum(row.runesPerHr) : row.runesPerHr > 0 ? row.runesPerHr.toFixed(4) : '0';
+    var nameColor = row.isSecret ? 'var(--cta)' : row.isNoluck ? 'var(--gold)' : 'var(--text)';
+    var tags = '';
+    if (row.isNoluck) tags = ' <span style="font-size:0.6rem;color:var(--text-dim)">[NL]</span>';
+
+    html += '<tr style="border-bottom:1px solid rgba(124,58,237,0.06)">';
+    html += '<td style="padding:5px 6px;color:' + nameColor + ';font-weight:600">' + row.name + tags + '</td>';
+    html += '<td style="padding:5px 6px;color:var(--text-dim)">' + row.source + '</td>';
+    html += '<td style="padding:5px 6px;text-align:right;color:var(--text-dim);font-family:monospace;font-size:0.72rem">1 in ' + row.rarityStr + '</td>';
+    html += '<td style="padding:5px 6px;text-align:right;color:var(--accent-light);font-weight:600">' + etaStr + '</td>';
+    html += '<td style="padding:5px 6px;text-align:right;color:var(--green);font-weight:600">' + rphStr + '</td>';
+    html += '</tr>';
+  }
+
+  html += '</tbody></table>';
+  document.getElementById('runeListTable').innerHTML = html;
+}
+
+// Hook rune list to stat changes
+var origRunCalc = runCalc;
+runCalc = function() { origRunCalc(); renderRuneList(); };
+
+// Initial render on page load
+setTimeout(renderRuneList, 100);
 </script>
 </body>
 </html>

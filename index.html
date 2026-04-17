@@ -1550,6 +1550,10 @@ The base suffixes cycle in groups of 10: <span style="color:var(--accent-light)"
 <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
   <h3 style="font-family:'Russo One',sans-serif;color:var(--accent-light);font-size:0.8em;letter-spacing:1px;margin:0">ALL RUNES</h3>
+  <div id="sortToggleGroup" style="display:flex;gap:2px;background:rgba(124,58,237,0.08);border:1px solid var(--border);border-radius:6px;padding:2px">
+    <button id="sortBtnSource" type="button" onclick="setSortMode('source')" style="font-size:0.68rem;padding:3px 10px;background:var(--accent);color:#fff;border:none;border-radius:4px;cursor:pointer;font-family:inherit">By Source</button>
+    <button id="sortBtnDifficulty" type="button" onclick="setSortMode('difficulty')" style="font-size:0.68rem;padding:3px 10px;background:transparent;color:var(--text-dim);border:none;border-radius:4px;cursor:pointer;font-family:inherit">By Difficulty</button>
+  </div>
   <div style="display:flex;gap:12px;flex-wrap:wrap">
     <label style="font-size:0.72rem;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:4px"><input type="checkbox" id="filterHideInstant" onchange="saveCalcStats();renderRuneList()" checked> Hide Instant</label>
     <label style="font-size:0.72rem;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:4px"><input type="checkbox" id="filterUnder1hr" onchange="saveCalcStats();renderRuneList()"> Under 1hr</label>
@@ -2327,6 +2331,7 @@ function onUnlockChange() {
 
 var calcSelectedRarity = 0;
 var calcSelectedSource = '';
+var calcSortMode = 'source';
 
 // Save/load calculator stats — uses localStorage (same as checklist)
 const CALC_STAT_IDS = ['calcSpeed','calcBulk','calcLuck','calcClone','calcCloneChance'];
@@ -2344,6 +2349,7 @@ function saveCalcStats() {
   data.filterHideInstant = document.getElementById('filterHideInstant').checked;
   data.filterUnder1hr = document.getElementById('filterUnder1hr').checked;
   data.filterSecretsOnly = document.getElementById('filterSecretsOnly').checked;
+  data.sortMode = calcSortMode;
   try { localStorage.setItem(CALC_STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
 }
 
@@ -2363,7 +2369,38 @@ function saveCalcStats() {
   if (data.filterHideInstant !== undefined) document.getElementById('filterHideInstant').checked = data.filterHideInstant;
   if (data.filterUnder1hr !== undefined) document.getElementById('filterUnder1hr').checked = data.filterUnder1hr;
   if (data.filterSecretsOnly !== undefined) document.getElementById('filterSecretsOnly').checked = data.filterSecretsOnly;
+  if (data.sortMode === 'difficulty' || data.sortMode === 'source') {
+    calcSortMode = data.sortMode;
+    var __srcBtn = document.getElementById('sortBtnSource');
+    var __difBtn = document.getElementById('sortBtnDifficulty');
+    if (__srcBtn && __difBtn && calcSortMode === 'difficulty') {
+      __difBtn.style.background = 'var(--accent)';
+      __difBtn.style.color = '#fff';
+      __srcBtn.style.background = 'transparent';
+      __srcBtn.style.color = 'var(--text-dim)';
+    }
+  }
 })();
+
+function setSortMode(mode) {
+  if (mode !== 'source' && mode !== 'difficulty') return;
+  calcSortMode = mode;
+  var srcBtn = document.getElementById('sortBtnSource');
+  var difBtn = document.getElementById('sortBtnDifficulty');
+  if (mode === 'difficulty') {
+    difBtn.style.background = 'var(--accent)';
+    difBtn.style.color = '#fff';
+    srcBtn.style.background = 'transparent';
+    srcBtn.style.color = 'var(--text-dim)';
+  } else {
+    srcBtn.style.background = 'var(--accent)';
+    srcBtn.style.color = '#fff';
+    difBtn.style.background = 'transparent';
+    difBtn.style.color = 'var(--text-dim)';
+  }
+  saveCalcStats();
+  renderRuneList();
+}
 
 function onRuneSelect() {
   const sel = document.getElementById('calcRuneSelect');
@@ -2474,6 +2511,41 @@ function renderRuneList() {
   }
 
   document.getElementById('runeListCount').textContent = totalShown + ' runes shown';
+
+  // BY DIFFICULTY MODE: flat table sorted easiest -> hardest, with Source column
+  if (calcSortMode === 'difficulty') {
+    var allRows = [];
+    for (var sg in sourceGroups) {
+      if (sourceGroups.hasOwnProperty(sg)) {
+        for (var ri = 0; ri < sourceGroups[sg].length; ri++) allRows.push(sourceGroups[sg][ri]);
+      }
+    }
+    allRows.sort(function(a, b) { return a.rarity - b.rarity; });
+    var difHtml = '<table style="width:100%;border-collapse:collapse;font-size:0.78rem">';
+    difHtml += '<thead><tr style="background:rgba(124,58,237,0.12);position:sticky;top:0;z-index:1">';
+    difHtml += '<th style="padding:6px;text-align:left;color:var(--text-dim);font-size:0.68rem;font-weight:500">Rune</th>';
+    difHtml += '<th style="padding:6px;text-align:left;color:var(--text-dim);font-size:0.68rem;font-weight:500">Source</th>';
+    difHtml += '<th style="padding:6px;text-align:right;color:var(--text-dim);font-size:0.68rem;font-weight:500">Chance</th>';
+    difHtml += '<th style="padding:6px;text-align:right;color:var(--text-dim);font-size:0.68rem;font-weight:500">ETA (1st)</th>';
+    difHtml += '<th style="padding:6px;text-align:right;color:var(--text-dim);font-size:0.68rem;font-weight:500">Per Hour</th>';
+    difHtml += '</tr></thead><tbody>';
+    for (var dk = 0; dk < allRows.length; dk++) {
+      var drow = allRows[dk];
+      var detaStr = formatTime(drow.eta);
+      var drphStr = drow.runesPerHr >= 1 ? formatBigNum(drow.runesPerHr) : drow.runesPerHr > 0 ? drow.runesPerHr.toFixed(4) : '0';
+      var dnameColor = drow.isSecret ? 'var(--cta)' : 'var(--text)';
+      difHtml += '<tr style="border-bottom:1px solid rgba(124,58,237,0.04)">';
+      difHtml += '<td style="padding:4px 6px;color:' + dnameColor + ';font-weight:600">' + drow.name + '</td>';
+      difHtml += '<td style="padding:4px 6px;color:var(--accent-light);font-size:0.72rem">' + drow.source + '</td>';
+      difHtml += '<td style="padding:4px 6px;text-align:right;color:var(--text-dim);font-family:monospace;font-size:0.72rem">1 in ' + drow.rarityStr + '</td>';
+      difHtml += '<td style="padding:4px 6px;text-align:right;color:var(--accent-light);font-weight:600">' + detaStr + '</td>';
+      difHtml += '<td style="padding:4px 6px;text-align:right;color:var(--green);font-weight:600">' + drphStr + '</td>';
+      difHtml += '</tr>';
+    }
+    difHtml += '</tbody></table>';
+    document.getElementById('runeListTable').innerHTML = difHtml;
+    return;
+  }
 
   // Render grouped by source in unlock progression order
   var allSources = RUNE_SOURCE_ORDER.concat(ALWAYS_AVAILABLE);

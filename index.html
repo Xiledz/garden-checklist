@@ -1628,152 +1628,259 @@ const DATA = [
       { id: "p2e_2", text: "<strong>Reinc 5-9:</strong> Grab and upgrade leaves, unlock World 2, grab snow, skip." },
       { id: "p2e_3", text: "<strong>Reinc 10-14:</strong> Grab snow, skip." },
       { id: "p2e_4", text: "<strong>Reinc 15-19:</strong> Grab snow, unlock World 3, get fossils, skip." },
+      { id: "p2e_4b", text: "<strong>Reinc 20-24:</strong> Mine World: break one ore, refine for Dust. Skip (+5)." },
       { id: "p2e_5", text: "<strong>Reinc 25-27:</strong> Grab snow, World 3 runes (<strong>500T Temple God</strong>). World 4: break ore, refine. Unlock World 5, get energy then power, skip." },
       { id: "p2e_6", text: "<strong>Reinc 28-32:</strong> Break ore, refine. World 5: energy, power, runes (<strong>500T Nexus Entity</strong>), energy and power again, skip." },
       { id: "p2e_7", text: "<strong>Reinc 33-35:</strong> Skip." },
       { id: "p2e_8", text: "<strong>Reinc 36-45:</strong> Catch fish, grab pearls each reinc group, skip." },
       { id: "p2e_9", text: "<strong>Reinc 46-50 (Ocean + runes):</strong> Catch fish, sell, open runes (<strong>50M The Deepest Sea</strong>). Repeat until depths 4: pearls/upgrades, turn off fishing luck, Angel Fish + 1, craft first rod, coin upgrades. Then: buy 3 fishermen, pearls/upgrades, fish until stringfish, skip.", detail: "Same Ocean deep dive as P1 but rune threshold is now 50M instead of 5M." },
       { id: "p2e_10", text: "<strong>Reinc 51-55 (Mushroom World):</strong> Catch fish, get pearls, unlock <strong>World 7</strong>. Buy red mushroom seeds, plant all. Pick one at a time, sell, buy fungus upgrades (fungus mult 1&2, mushrooms mult, plant max size cap, score mult). Score milestones 5+. First spore upgrade until runes (<strong>10k Echomycra</strong>), skip." },
-      { id: "p2e_11", text: "<strong>Reinc 56-60 (Mushroom deep dive):</strong> Push to score milestone 8+, then 11+. Spore upgrades + glowy crystals. Farm red mushrooms buying all upgrades each pick. Bounce spore upgrades / glowy crystals. Grab magic energy and upgrades (stay above 2.5No, score mult is priority), skip.", detail: "Should be able to buy all upgrades other than Magic Energy Multiplier and Extra Fungus Multiplier on first pass. Keep bouncing between spore upgrades and glowy crystals until most are done." }
+      { id: "p2e_11", text: "<strong>Reinc 56-60 (Mushroom deep dive):</strong> Push to score milestone 8+, then 11+. Spore upgrades + glowy crystals. Farm red mushrooms buying all upgrades each pick. Bounce spore upgrades / glowy crystals. Grab magic energy and upgrades (stay above 2.5No, score mult is priority), skip.", detail: "Should be able to buy all upgrades other than Magic Energy Multiplier and Extra Fungus Multiplier on first pass. Keep bouncing between spore upgrades and glowy crystals until most are done." },
+      { id: "p2e_12", text: "<strong>Reinc 60: Prestige from Mushroom World (World 7).</strong>", detail: "Go to Mushroom World and Prestige. This unlocks P3 which adds Keep Score Milestone On Reinc -- a key perk for all future runs." }
     ]
   },
   {
-    title: "Reinc 61+ Prep: Multi-World Optimization",
-    cls: "phase-prep61",
-    items: [
-      { id: "prep_1", text: "Grab <strong>Masteries</strong> as they become available." },
-      { id: "prep_2", text: "<strong>Ticket upgrades:</strong> Rune Luck and Rune Bulk first. Leftovers into stats, tier luck, tier bulk." },
-      { id: "prep_3", text: "<strong>Perk grind:</strong> Get to score milestone 11, spore upgrades + glowy crystals, magic energy, grab perks (only go down to reinc 55), skip reinc 56-60, repeat until all perks.", detail: "This is the fastest perk farming loop at this stage." },
-      { id: "prep_4", text: "<strong>World 5 (after automation perks):</strong> Grab runes, upgrade PC until it needs ice." },
-      { id: "prep_5", text: "<strong>World 3 runes:</strong> Open runes for a bit, sac Temple God runes for passive luck. Grab fossils before leaving." },
-      { id: "prep_6", text: "<strong>World 2 passive:</strong> Buy upgrades with passive shards, pop roll luck potion, roll passives (<strong>Varkyn+ target</strong>). Stop boss fight progression to keep getting shards." },
-      { id: "prep_7", text: "<strong>World 7 push:</strong> Get to milestone 15+ using earlier methods. Open runes, max magic energy upgrades, farm toxic mushrooms until <strong>radiant aura</strong>." },
-      { id: "prep_8", text: "<strong>World 4 equipment:</strong> Get to minify 3, pop roll luck potion, roll best traits for miners, craft ruby pickaxe, roll best passive." },
-      { id: "prep_9", text: "<strong>World 6 equipment:</strong> Get to depths 5, grab all coin/pearl upgrades, open runes, buy all fishermen. Pop roll luck potion, roll best traits. Craft first rod, fish until last rod, roll best enchantments on first and last rods. Check relics (should auto unlock)." },
-      { id: "prep_10", text: "<strong>Rune farming:</strong> Go through all worlds farming runes and sacrificing in World 3. Focus <strong>Worlds 4 and 6</strong>." },
-      { id: "prep_11", text: "<strong>Milestones:</strong> Do milestones on Worlds 4 and 6." }
-    ]
-  },
-  {
-    title: "Reinc 61-75: World 8 (Space) + World 9 (Heaven)",
+    title: "P3 Run 1 — Reinc 1–60: Setup",
     cls: "phase-w89",
     items: [
-      { id: "w89_1", text: "<strong>Reinc 61-65:</strong> Fastest path to World 8: World 6 get 1 fish + pearls, World 7 score milestone 11, glowy crystals + magic energy, unlock <strong>World 8</strong>." },
-      { id: "w89_1b", text: "Level <strong>Planetify</strong> by pressing each currency button in order (moonlite, etc.) -- <strong>do NOT buy upgrades</strong>, just hit buttons through each currency to planetify each level.", detail: "With cosmic rarity glitch + Sing 6 (keep planetify): press moonlite button first, open first 2 runes, hit moonlite again, farm third rune. Upgrade Planetify to rank 9." },
-      { id: "w89_2", text: "Do milestones with <strong>NO UPGRADES</strong> first (they glitch otherwise, need relog to fix).", detail: "After milestones with no upgrades: grab all upgrades for dirtite through uranite, do milestones again, skip reinc 61-65." },
-      { id: "w89_2b", text: "Go to <strong>Heaven upgrade tree</strong> and get the <strong>'Don't Lose Planetify On Reincarnation'</strong> node before reincarnating.", detail: "Critical -- without this, you lose planetify progress when you reinc for perks." },
-      { id: "w89_3", text: "<strong>Reinc 66-70:</strong> Skip." },
-      { id: "w89_4", text: "<strong>Reinc 70 perks:</strong> Go to World 7, do all perks available for reinc 70 (easy since you keep planetify). Grab <strong>World 6 perks first</strong>." },
-      { id: "w89_5", text: "<strong>World 6 equipment:</strong> Buy all fishermen, craft last fishing rod." },
-      { id: "w89_6", text: "<strong>Reinc 71-75 (World 9 -- Heaven):</strong> Get first transcend. Get rare 50+, press glory button. Sit on runes.", detail: "Farm to transcend 3 by getting upgrades between grace and glory. Work on upgrade tree while getting transcend 4. Finish upgrade tree, get enough divinity for reinc 75, skip." }
+      { id: "p3r1_1", text: "<strong>Reinc 1–4:</strong> Skip (+4)." },
+      { id: "p3r1_2", text: "<strong>Reinc 5–19:</strong> Snow → Fossils → Desert Sand unlock.", detail: "Reinc 5–9: Snow, skip +5. Reinc 10–14: Snow, skip +5. Reinc 15–19: Snow → Desert → unlock Sand generation → grab Fossils → skip +5." },
+      { id: "p3r1_3", text: "<strong>Reinc 20–24:</strong> Mine → refine ore for Dust → skip (+5)." },
+      { id: "p3r1_4", text: "<strong>Reinc 25–27:</strong> Desert rune (<strong>500T Temple God</strong>) → Mine ore → Cyber: Energy → Power → skip (+3).", detail: "At S5, Ice auto-converts from Snow. Oil upgrades not required at this stage." },
+      { id: "p3r1_5", text: "<strong>Reinc 27–32:</strong> Mine ore. Cyber: Energy → Power → rune (<strong>500T Nexus Entity</strong>) → skip (+5)." },
+      { id: "p3r1_6", text: "<strong>Reinc 32–35:</strong> Mine ore. Cyber: Circuits + all board upgrades + Tech Tree (all upgrades). Skip (+3).", detail: "Tech Tree required -- Cores come from here. Ocean needs Cores to unlock permanently. Target: spend all available tech points." },
+      { id: "p3r1_7", text: "<strong>Reinc 35–50:</strong> Ocean: fish → pearls → skip (+5). Two quick passes to Reinc 45, then Ocean deep dive.", detail: "Reinc 35–40: fish + pearls → skip +5. Reinc 40–45: same → skip +5. Reinc 45–50 (deep dive): rune target 50M Deepest Sea. Depth 4. Turn Fishing Luck OFF for Angel Fish + Crawfish (hardest catch). Turn Luck ON after Crawfish. Fish to Stringfish → skip +5." },
+      { id: "p3r1_8", text: "<strong>Reinc 50–60:</strong> Mushroom ×2. Ocean fish + pearls first each time, then Mushroom.", detail: "Pass 1 (50–55): Score Milestone 6 → Spores unlock. Switch to Spore Multiplier upgrades. If Cosmic Rarity still active from Singularity: Capstone rune ~10K Echomycra shortcut. Skip +5. Pass 2 (56–60): Score Milestone 11+. Glowy Crystals. Magic Energy above 2.5 No. Skip +5." },
+      { id: "p3r1_9", text: "<strong>Reinc 60: Perk grind.</strong> Loop to Reinc 55 until all perks collected.", detail: "Loop: Ocean fish + pearls → Mushroom (Score MS11, spores, glowy crystals, 2.5 No magic energy) → Forest collect all perks → skip +5 back to Reinc 60. Repeat. Do not go below Reinc 55. 'Keep Depth Three' is high-value perk." },
+      { id: "p3r1_10", text: "<strong>Reinc 60: Equipment + Milestones pass.</strong> Masteries + Tickets → Cyber PC upgrades → Passive rolling → Mushroom MS15 → Mine Minify 3 → Ocean Depth 5 → Rune Tour → Mine+Ocean Milestones → Desert Sacrifices.", detail: "Order: 1. Masteries + Tickets (left to right: Rune Bulk, Rune Luck, stats, tier luck/bulk). 2. Cyber: upgrade PC until it needs Ice/Strawberry. Get Tech Points + Motherboards. 3. Desert: Temple God rune briefly + sacrifice. 4. Passive rolling: Forest Basic rune briefly, Winter Frost rune ~2 min. Pause boss fight at Winter to keep earning Passive Shards while away. Pop potions + roll -- target Varkyn or better, stop at Archangel. 5. Mushroom: Score Milestone 15 (50 Oc score). Capstone rune 1–2 min. 6. Mine: Minify 3 + Ruby Pickaxe + Master of the Mines enchant + all 3 Mine runes 1–3 min each. 7. Ocean: Depth 5 + all 4 fishermen (God of the Sea traits) + Abyss Rod + Secrets of the Sea enchant + Waves rune 1–2 min. 8. Rune Tour: ~1 min per world rune. 9. Mine + Ocean milestones. 10. Desert: sacrifice all available + Fossils." }
     ]
   },
   {
-    title: "Phase 0: Pre-Garden Prep",
-    cls: "phase-pre",
+    title: "P3 Run 1 — Reinc 61–75: Space + Heaven → Prestige",
+    cls: "phase-w89",
     items: [
-      { id: "pre_1", text: "Max <strong>Cosmic Rank/Rarity</strong> as high as possible.", detail: "Doesn't reset until you disconnect -- lets you open the first 5 Space runes immediately next run." },
-      { id: "pre_2", text: "Run to <strong>Space first</strong> before opening any runes.", detail: "Light Point upgrades give xRL and xRB. Always grab these before sitting on runes." },
-      { id: "pre_3", text: "Get <strong>Computer upgrades</strong> up to the point of needing Strawberries." },
-      { id: "pre_4", text: "Farm all <strong>Sacrifices and Milestones</strong> before entering Garden." },
-      { id: "pre_5", text: "Equip <strong>Archangel passive</strong> for Garden." }
+      { id: "p3r1_11", text: "<strong>Reinc 61–65: Space World.</strong> Milestones FIRST (before any board upgrades). Runes: Astryx ~1 min, Vornel 1–2 min. Then Planify 9 sequence.", detail: "RULES: No board upgrades. No Cosmic Points upgrades. No Space Rarity. Runes first, then Planify only. Planify sequence: Dirtite→P1 → Moonlight→Marsite→Venusite → Vornel rune → P2 → Mercuryite→P3 → Jupiterite→P4 → Starlight rune 10–15s → Saturnite→P5 → Uranite→P6→P7→P8 → Neptunite→P9. After P9: Plutonite briefly, then return to Forest. WARNING: Do NOT touch Cosmic Points upgrades if still in first session since Singularity (glitched)." },
+      { id: "p3r1_12", text: "<strong>Reinc 65–70: Loop until Heaven accessible.</strong> Each reinc: Ocean → Mushroom → Space Planify 9 → Forest → reinc → repeat.", detail: "At S5 Planify does NOT persist on reinc. All Planify levels reset each reinc -- only runes and milestones carry forward. Repeat full Planify 9 sequence each pass. Gets faster each time as runes stack. Continue loop until Heaven World becomes accessible." },
+      { id: "p3r1_13", text: "<strong>Reinc 70–75: Heaven World.</strong> Roll Rarity → Grace ↔ Glory loop. Target Transcends in order.", detail: "Transcend targets: T1→T2 = Epic 100. T2→T3 = Legendary 400 (key unlock -- Heaven Points flow opens, tree becomes completable). T3→T4 = Divine 500. Spend Heaven Points on upgrade tree immediately each time. At Divinity 1000: divinity generates passively. Skip Celestial Rank -- resets too much at this stage." },
+      { id: "p3r1_14", text: "<strong>Prestige:</strong> 10 QD Divinity reached → Forest → reinc → <strong>Mine World → Prestige</strong>.", detail: "Resets to Prestige 3, Reinc 0. All perks, milestones, runes, and equipment carry forward. This starts the Garden run (Part 2)." }
     ]
   },
   {
-    title: "Phase 1: Garden Entry",
+    title: "P3 Run 2 — Reinc 0–75: After Prestige Reset",
+    cls: "phase-prep61",
+    items: [
+      { id: "p3r2_1", text: "<strong>Reinc 0–4:</strong> Auto-skip +4 immediately." },
+      { id: "p3r2_2", text: "<strong>Reinc 5–14:</strong> Snow → skip +5 → Reinc 9. Snow → skip +5 → Reinc 14." },
+      { id: "p3r2_3", text: "<strong>Reinc 14–19:</strong> Desert: unlock Sand → Fossils → skip. Update Ticket board.", detail: "Mine + Ocean already unlocked from perks. Better Points tree persists. Ticket board: Stats (first ~3), Passive Shards, left to right." },
+      { id: "p3r2_4", text: "<strong>Reinc 19–34:</strong> Dust → Circuits → Tech Tree. Quick rune sweep 10–15s each world.", detail: "Reinc 19–24: Desert oil upgrades → Cyber → Circuits → skip +5. Reinc 24–29: Same + quick rune pass (Desert, Winter, Mine, Cyber runes 10–15s each). Reinc 29–34: Cyber Circuits + all upgrades + Tech Tree (5M tech pts min) → skip +5." },
+      { id: "p3r2_5", text: "<strong>Reinc 34–45: Ocean.</strong> Two quick passes → targeted fishing for key fish with Luck OFF.", detail: "Reinc 34→39: fish + pearls + rune 15–30s → skip +5. Reinc 39→44: same → skip +5. Reinc 44–45: Fishing Luck OFF. Target: Angelfish, Carp, Crawfish (hardest -- watch inventory). After Crawfish: Luck ON. Fish to Salmon → Abyss Rod. Fish to Stringfish → Ocean done. Mushroom World starts at Reinc 45." },
+      { id: "p3r2_6", text: "<strong>Reinc 45–60:</strong> Mushroom ×2. Score Milestone 15. Capstone rune 15–20s after spores unlock.", detail: "Each pass: Ocean fish + pearls first, then Mushroom. Score Milestone 15 persists from P3 perk. Capstone rune after spores = massive boost. Pass 2 (55–60): Magic Energy auto-running. Skip almost immediately." },
+      { id: "p3r2_7", text: "<strong>Reinc 60: Space (simplified).</strong> Astryx 20s → Vornel briefly → Planify 9 sequence. No board upgrades.", detail: "Auto-production lights up most ore buttons -- check furthest lit button. Starlight rune 10–15s before Planify 4→5. After P9: Plutonite briefly. Return to Forest." },
+      { id: "p3r2_8", text: "<strong>Reinc 60→65:</strong> Jupiterite auto-produces → skip +5." },
+      { id: "p3r2_9", text: "<strong>Reinc 65→70:</strong> Uranite auto-produces → skip +5." },
+      { id: "p3r2_10", text: "<strong>Reinc 70→75:</strong> Heaven requirement qualifies → skip +5." },
+      { id: "p3r2_11", text: "<strong>Reinc 75: Heaven World.</strong> Same T1→T4 Transcend sequence. Target 10 QD Divinity.", detail: "Faster this time -- runes, stats, and upgrade tree all built on prior run. Roll Rarity → Grace ↔ Glory. Transcend targets: T1 Epic 100 → T2 Legendary 400 → T3 Divine 500. Divinity 1000 = auto-divinity. Wait 10 QD Divinity. Do NOT prestige here -- Hell World is next." }
+    ]
+  },
+  {
+    title: "P3 Run 2 — Reinc 75–85: Hell World",
+    cls: "phase-5",
+    items: [
+      { id: "hell_1", text: "<strong>10 reincs in Hell World. Garden World unlocks at Reinc 85.</strong>", detail: "Goal: complete the Hell upgrade tree permanently. Everything in this section serves that goal." },
+      { id: "hell_2", text: "<strong>Loop each reinc:</strong> Heaven (Divinity pass) → Hell → Forest → skip +5.", detail: "Short Heaven pass before each Hell entry to get Divinity. Hell accessible once sufficient Divinity is accumulated." },
+      { id: "hell_3", text: "<strong>Hell routine (pre-Auto Sin):</strong> Madness → Droppers 1–5 → Sin button → upgrade tree. Repeat.", detail: "Stand on Madness button, upgrade Madness board ×2. Droppers 1→2→3→4→5 in sequence -- upgrade Hell XP at each stop. Sin button: upgrade Sin/Ember/Madness/Hell boards, then STEP on it (resets Hell XP/Ember/Madness → generates Sins). Check upgrade tree. Repeat loop." },
+      { id: "hell_4", text: "<strong>Damnation rune:</strong> Requires 75 Trillion Sins. Sit on it 1–2 min every visit.", detail: "Get on Damnation whenever 75T Sins is available. Same priority as Space/Heaven runes -- major stat boost." },
+      { id: "hell_5", text: "<strong>Curses:</strong> Roll with Dropper Shards throughout. 400–500 shards = good shot at highest tier.", detail: "Check curse index for personal odds. Major passive boost (similar to Heaven Blessings). Roll throughout each Hell visit whenever shards are meaningful." },
+      { id: "hell_6", text: "<strong>Auto Sin unlocks (key turning point):</strong> Stop stepping on Sin button. Upgrade Sin board passively only.", detail: "Auto Sin generates Sins as % of Hell XP automatically. No more manual resets. Hell XP/Ember/Madness no longer wipe each cycle. Focus shifts: Sins board ↔ Madness board ↔ upgrade tree." },
+      { id: "hell_7", text: "<strong>Late loop (Reinc 80–85):</strong> Fast pass only. Target 50 Sins for skip.", detail: "Each reinc: Forest +5 → Heaven (Divinity) → Hell (Madness→Droppers→50 Sins) → Forest → skip to Reinc 85." },
+      { id: "hell_8", text: "<strong>Before leaving Hell permanently:</strong> Get Minion unlock from upgrade tree. Get Plutite Multiplier.", detail: "Minion is the key unlock -- do not reinc without it. Plutite Multiplier is most valuable for Garden prep. Also get if available: Rune Multiplier, Worker XP, Fisher XP, Rune Bulk Multiplier. Update Masteries before leaving." }
+    ]
+  },
+  {
+    title: "Computer Gates (~Reinc 85): Cyber World Unlock Sequence",
+    cls: "phase-prep61",
+    items: [
+      { id: "cg_0", text: "Work through <strong>Computer gates in order</strong>. Each gate unlocks the next Computer tier in Cyber World." },
+      { id: "cg_1", text: "<strong>Gate 1: Score 15 DDe</strong> (Mushroom World)", detail: "Max red seeds, cycle spore upgrades + glowy crystals, push score. Target 15 DDe -- you will likely reach ~18 DDe. Score resets on reinc but upgrades persist, so this goes fast." },
+      { id: "cg_2", text: "<strong>Gate 2: Sins 2.5 DDe</strong> (Hell World)", detail: "Hell routine: Madness → Droppers (around the horn) → Sins board. Use Auto Sin (passive). Target 2.5 DDe Sins." },
+      { id: "cg_3", text: "<strong>Gate 3: Sunite 10 Billion</strong> (Space World)", detail: "Galaxy rune is the primary Sunite source. Farm 10–15 min with boosts. Plutite upgrades help. Once at 10B Sunite, Rune Bulk bonuses unlock. Do NOT grind this early -- belongs after the Sins gate only." },
+      { id: "cg_4", text: "<strong>Gate 4: Strawberry 250 Million</strong> (Garden World)", detail: "Quick and easy at this stage. Go to Garden -- Strawberries stack fast. Final Computer gate before full Cyber unlock." }
+    ]
+  },
+  {
+    title: "Garden Entry — Reinc 86–92",
     cls: "phase-1",
     items: [
-      { id: "p1_1", text: "<strong>Reinc 86</strong> -- Get first Garden Rank, then immediately reinc." },
-      { id: "p1_2", text: "<strong>Reinc 87</strong> -- Grab LP rune upgrades + Sunite Bulk upgrades. Farm 2-5k alltime Strawberry runes.", detail: "Optional: skip 86 & 87 entirely and just farm runes on the way to 88." },
-      { id: "p1_3", text: "Craft <strong>Fruits</strong> as they become available (Apples, Oranges first).", detail: "Fruits persist through reinc. Check the Fruit Tracker for gating requirements." },
-      { id: "p1_4", text: "<strong>Reinc 88</strong> -- Push into Garden reincs." }
+      { id: "gard_1", text: "<strong>Reinc 85: Pre-Garden prep</strong> before entering Garden.", detail: "1. Cosmic Rank: if active from Singularity, do NOT touch Cosmic Rarity or Rank upgrades. 2. Ticket board: update left to right. 3. Space: Light Point upgrades (no Cosmic upgrades). Galaxy rune if foundation reachable. 4. Cyber: PC upgrades. 5. Mine: push to Minify 5. 6. Ocean: Depth 5 + milestones + runes. 7. Desert rune: Desert Gods (500 = Passive Luck max; 1,000 = Rune Luck + Rune Bulk + Tier Luck all maxed simultaneously). 8. Hell: Damnation rune visit. 9. Equip Archangel passive before entering Garden." },
+      { id: "gard_2", text: "<strong>Enter Garden World.</strong> Craft fruits as gates unlock: Apples → Oranges → Bananas → Pineapples → Peaches.", detail: "Fruits persist through reinc. Apples (Gate 1): 500Qd FL + 350 Straw. Oranges (Gate 1): 7.5Sp FL + 5K Straw. Bananas (Gate 2): 1DDe FL + 50Oc Grass. Pineapples (Gate 2): 1TDe FL + 20No Grass. Peaches (Gate 2): 125TDe FL + 2.25UDe Grass. See Fruit Tracker for full list." },
+      { id: "gard_3", text: "<strong>Reinc 86:</strong> Get first Garden Rank → immediately reinc.", detail: "Garden Rank resets FL + Strawberries. Gives permanent multipliers. Get it and reinc right away." },
+      { id: "gard_4", text: "<strong>Reinc 87–88:</strong> LP rune upgrades + Sunite Bulk upgrades. Farm 2–5K alltime Strawberry runes." },
+      { id: "gard_5", text: "<strong>Reinc 88–91:</strong> Push Garden reincs fast. Rank up whenever requirements met. Craft Pears + Mangoes + Grapes (Gates 3–5).", detail: "Pears (Gate 3): 10TDe Grass + 1K GP. Mangoes (Gate 4): 40QdDe FL + 100K Straw + 100B GP. Grapes (Gate 5): 75QdDe FL + 125K Straw + 2.5T GP + 750QdDe Grass. Speed over optimization." },
+      { id: "gard_6", text: "<strong>Garden Rune 2 unlocks at 10 QdDe Grass.</strong> Stop and regrind runes immediately when hit.", detail: "Massive upgrade. Sit on runes a few minutes, upgrade sacrifices, do milestones before pushing further." },
+      { id: "gard_7", text: "<strong>Grass target: 200 UTg</strong> (U-T-g) before Reinc 91 skip.", detail: "200 UTg is 1–2 notation steps after QnVt. Required for the 91→93 skip." },
+      { id: "gard_8", text: "<strong>Reinc 90: GP loop + Perk loop.</strong> AFK to 290B GP → Mangoes unlock. Continue earning perks.", detail: "GP board: Multiplier 1 (60 levels, caps x34) + Multiplier 2 (10 levels) + Multiplier 3 + generation speed upgrades. Perk priority: Fish 3/4, Tier Luck, Tier Bulk. Max skip always +5." },
+      { id: "gard_9", text: "<strong>Reinc 91 → skip to 93</strong> when 200 UTg Grass is reached (costs: 15B GP + 6.5Qd GP + 1.25NoDe FL + 1.5QnVt Grass + 200UTg Grass).", detail: "WARNING: Only available when Garden Runes are below 1/100SxDe!" }
     ]
   },
   {
-    title: "Phase 2: Garden Reincarnations (Speed Through)",
+    title: "Garden Mid — Reinc 92–96: Garden Rank 4 + Flowers Unlock",
     cls: "phase-2",
     items: [
-      { id: "p2_0", text: "<strong>Use spare reincs for Perks.</strong> If you only need 2 reincs to advance (e.g., 89 to 91) but can skip 5 at a time, spend the 3 spare reincs grabbing perks.", detail: "Each perk costs 1 reincarnation. Can't drop below Reinc 85. So on any skip where you have room, go grab perks first. Order: Mushroom -> Space -> Hell -> Late Garden." },
-      { id: "p2_1", text: "Push through <strong>Garden reincs</strong> as fast as possible -- reinc when you can, don't stall.", detail: "Speed over optimization. This is the fastest path to Garden Point reincs." },
-      { id: "p2_2", text: "Rank up <strong>Garden Rank</strong> whenever you meet requirements.", detail: "Resets FL + Strawberries but gives permanent multipliers. Worth it." },
-      { id: "p2_3", text: "Craft <strong>Fruits</strong> as materials become available." },
-      { id: "p2_4", text: "Pick up <strong>Garden Levels</strong> along the way when you have Flowers." },
-      { id: "p2_5", text: "Kill <strong>Plants</strong> for Grass. Upgrade Grass Board between reincs." },
-      { id: "p2_6", text: "Kill <strong>Garden Boss</strong> for Gacha Shards. Level Gacha when possible.", detail: "Gacha gives xStats, xRL, xRB per level plus Clone Chance. Use Auto at higher levels." }
+      { id: "gard_10", text: "<b class='hl'>⚠ Flowers reset on every Garden Rank.</b> Do NOT invest in Flowers until at target Garden Rank.", detail: "Every Garden Rank resets Flowers AND Honey upgrades. FL/Grass/Straw upgrades are preserved. Get to Rank 4 first, then build Flowers." },
+      { id: "gard_11", text: "<strong>Garden Rank 3 → 4:</strong> Rebuild FL + Straw + Grass after each rank reset. Push GP + Grass boards to thresholds.", detail: "After each Rank reset: full standard progression from scratch, then push to next rank. Warning: do not overshoot boss -- it locks rank-up. Use Heaven visits for Divinity boosts when Garden stalls." },
+      { id: "gard_12", text: "<strong>Reinc 93+: Flowers are now accessible.</strong> Do NOT invest in them until Garden Rank 4 is secured.", detail: "After the 91→93 skip you are at Reinc 93 with Flowers available. But every Garden Rank still resets Flowers. Hold off on Flowers investment until Rank 4 is reached." },
+      { id: "gard_13", text: "<strong>Reinc 93 → skip to 96</strong> (costs: 1.25NoDe FL + 1.5QnVt Grass + 200UTg Grass + 1DDe Flowers + 1.25T Honey)." },
+      { id: "gard_14", text: "<strong>Coconuts + Blueberries (Gate 6):</strong> Craft after GP tree cycle.", detail: "Coconuts: 30SxDe FL + 750K Straw + 75SxDe Grass. Blueberries: 1Vt FL + 1M Straw + 200Vt Grass. Blueberries become available after full GP tree cycle." },
+      { id: "gard_15", text: "<strong>Perk loop (92–95):</strong> Continue between world visits. Max skip +5.", detail: "Don't let perks stall the push to Rank 4. Remaining priority: Fish perks, Tier Luck, Tier Bulk." },
+      { id: "gard_16", text: "<strong>Four-zone rune tour (~Reinc 95):</strong> Mine → Cyber → Ocean → Mushroom.", detail: "Mine: 500B/100B/20B ore targets. Cyber: Energy rune + Computer check. Ocean: Waves rune (target 20B Secret Sea). Mushroom: Capstone rune (target 15M Midnight Bloom)." },
+      { id: "gard_17", text: "<strong>Space rune tour (~Reinc 95):</strong> Astryx (20s) → Vornel (1–2 min) → Starlight (10–15s) → Galaxy rune (10–15 min) → Sunite rune.", detail: "Galaxy rune = primary Sunite generator. Target: 1 Qn Sunite. Plutite: E125 / level 450. After Galaxy: Sunite rune → Rune Bulk 5/5 bonuses unlock. 10B Sunite required for Computer Gate 3." },
+      { id: "gard_18", text: "<strong>Heaven (~Reinc 95):</strong> Transcend 7 + Astral Divinity push to ~2B.", detail: "Come back to Heaven whenever Garden stalls. Astral Divinity to 2B. Glory tree + Divinity nearly maxable at this point." },
+      { id: "gard_19", text: "<strong>Desert Gods (~Reinc 95):</strong> Aim for 1,000 Desert Gods.", detail: "500 Desert Gods = Passive Luck max. 1,000 = Rune Luck + Rune Bulk + Tier Luck all maxed simultaneously. Sit on Desert rune and accumulate." }
     ]
   },
   {
-    title: "Phase 3: Garden Point Reincarnations",
+    title: "P3 Run 2 — Garden Late — Reinc 96–100: Flowers + Honey → Prestige to P4",
     cls: "phase-3",
     items: [
-      { id: "p3_1", text: "Go back and grab some <strong>Heaven runes</strong>, then grind through Point reincs." },
-      { id: "p3_2", text: "On last point reinc, sit on <strong>Garden Boss</strong> and open runes. Target: full rune within 20-30 sec.", detail: "Usually skip 2nd and 3rd point reinc. Get another 2-5k of overall rune types." },
-      { id: "p3_3", text: "Check for <strong>Rune 2</strong> (unlocks at 10 QdDe Grass) -- massive upgrade, regrind runes when you hit it." },
-      { id: "p3_4", text: "Run back to World 2 for <strong>Tier upgrades</strong> from passive sheet.", detail: "Grab snow runes for snow milestones. Target Tier 600-875. Cosmic Level gives more TL and TB." },
-      { id: "p3_5", text: "Don't forget <strong>Space stuff</strong> for more rune stats." }
+      { id: "gard_20", text: "<strong>Reinc 96+: Build Flowers at Garden Rank 4.</strong>", detail: "Garden Level 1 = 300 DDe Flowers. Garden Level 2 = 50 VT Flowers. Garden Level costs Flowers and resets Flowers + Honey upgrades -- FL/Grass/Straw preserved. Build Flowers progressively." },
+      { id: "gard_21", text: "<strong>Watermelons (Gate 7):</strong> 1.0e106 FL + 3UDe Flowers. Craft when available." },
+      { id: "gard_22", text: "<strong>Wait for 1 Trillion Honey</strong> before pushing Flowers hard.", detail: "Before 1T Honey: build Flowers at a steady pace. After 1T Honey: push hard toward 50 VT or 5 UDe Flowers, whichever comes first." },
+      { id: "gard_23", text: "<strong>Bees:</strong> Upgrade when Honey is flowing. Target 100 bees → push toward 35 Sp bees total.", detail: "8 types: Noob Bee to Queen of the Bees. Each upgraded individually with Honey. At ~100 bees total, Honey flow accelerates significantly." },
+      { id: "gard_24", text: "<strong>Lemons (Gate 8):</strong> 5Qd Honey + 10UVt Flowers. <strong>Mandarins (Gate 9):</strong> 5Sp Honey.", detail: "Skip Cherries for now -- 5NoVt Flowers cost too high relative to benefit at this stage." },
+      { id: "gard_25", text: "<strong>Vedris rune (~500 Qn Honey):</strong> Third Garden rune. Pop potions before standing on it.", detail: "Garden rune order: Aetherius (first) → Nythera (second) → Vedris (~500 Qn Honey). Major stat boost. Pop all potions before standing on Vedris." },
+      { id: "gard_26", text: "<strong>Garden Rune 3 (250T Honey):</strong> Massive upgrade. Regrind runes immediately when hit." },
+      { id: "gard_27", text: "<strong>Final perk push toward Reinc 100.</strong> Max skip +5 each loop.", detail: "Option 1: finish all perks first, then push to 100. Option 2: push to 100 and perk on the way. Both valid." },
+      { id: "gard_28", text: "<strong>Reinc 100: Cosmic Rarity grind.</strong> Do this AT Reinc 100 -- not before.", detail: "Cosmic Rarity is the one glitch carry that transfers into the next Singularity. Grind it here at max reinc. Time invested compounds forward into the next run." },
+      { id: "gard_29", text: "<strong>Check Singularity Milestones</strong> before Singularizing. Collect anything pending." },
+      { id: "gard_30", text: "<strong>Prestige at Reinc 100 → Mine World.</strong> Becomes P4. Back to Reinc 0.", detail: "Final perk first: Mushroom World → pick up Rune Luck 5. Forest → reinc → skip +5 → Reinc 100. Mine World → Prestige button. Resets to Prestige 4, Reinc 0. Keeps: passives, enchants. Loses: global runes (no need to grind runes before Prestige -- they reset). P4 run begins." }
     ]
   },
   {
-    title: "Phase 4: Leaves & Grass Reincarnations",
-    cls: "phase-4",
+    title: "P4 Run — Reinc 0–49: Fast Early Game",
+    cls: "phase-w89",
     items: [
-      { id: "p4_1", text: "Get <strong>Upgrade Tree</strong> to the point of more Leaf upgrades." },
-      { id: "p4_2", text: "Between upgrades, runes, Garden Ranks, and Fruits -- <strong>skip all 3 reinc up to Flowers</strong>.", detail: "Reinc 91 -> skip to 93. Reinc 93 -> skip to 96." },
-      { id: "p4_3", text: "Max <strong>Garden Rank</strong>. When maxed, sit on boss for Gacha Shards." },
-      { id: "p4_4", text: "Get to <strong>Garden Level 50-75</strong> for the stats -- helps when going for Honey runes." }
+      { id: "p4e_1", text: "<strong>Reinc 0–4:</strong> Skip +4 immediately. Perks automate almost everything from prior runs." },
+      { id: "p4e_2", text: "<strong>Reinc 4–14:</strong> Skip +5 twice. No actions needed." },
+      { id: "p4e_3", text: "<strong>Reinc 14: Desert World — Fossils.</strong> Better Points already running from perks. Grab Fossil → Forest → skip +5 → Reinc 19.", detail: "Desert permanently unlocked at P4 from perks. Better Points upgrades persist. Just click the Fossil button directly if Better Points is already running." },
+      { id: "p4e_4", text: "<strong>Reinc 19–29:</strong> Skip +5 twice. No actions needed." },
+      { id: "p4e_5", text: "<strong>Reinc 29: Circuits</strong> auto-unlock. Wait 1 second → skip +5 → Reinc 34." },
+      { id: "p4e_6", text: "<strong>Reinc 34–49: Ocean fish auto-caught at P4.</strong> Wait for 5 fish each pass → skip +5. Repeat at Reinc 39, 44.", detail: "No manual fishing needed. Just wait for the auto-catch confirmation, then skip +5. Three passes total: Reinc 34→39, 39→44, 44→49." },
+      { id: "p4e_7", text: "<strong>Reinc 49+: Mushroom World.</strong> Score milestones do NOT carry from P3 — re-earn from Reinc 0. Target: Milestone 15 (250 No score).", detail: "Plant Red Mushrooms one-at-a-time; upgrade Fungus board after each. Glowy Crystals: reset → wait to settle (~10s rate stabilizes) → reset again. Toxic Mushrooms: harvest greens from red field → Toxic board upgrades. This is the key to hitting 250 No. Strategy: plant full red field → harvest greens specifically for Toxic upgrades → pushes score from ~23 No to 250+ No in 2 rounds. Once Milestone 15 reached and Magic Energy is auto-running: skip +5." }
     ]
   },
   {
-    title: "Phase 5: Flowers & Honey",
+    title: "P4 Run — Reinc 49+: Space World (Planify Persists) + Heaven",
+    cls: "phase-prep61",
+    items: [
+      { id: "p4s_1", text: "<strong>Enter Space.</strong> Astryx rune 10–15s (keep potions running). Then Vornel rune — upgrade Light Point upgrades while on it.", detail: "Two Space runes: Astryx (first) and Vornel (second). Light Point upgrades are found on Vornel. Critical: keep potions active throughout this entire Space visit." },
+      { id: "p4s_2", text: "<strong>Planify sequence (trio combos — different from P3).</strong> Planify PERSISTS on reinc at P4.", detail: "Step 1: Dirtite + Marsite + Venusite → Planify 1. Step 2: Marsite + Venusite + Mercuryite → Planify 2. Step 3: Venusite + Mercuryite + Jupiterite → Planify 3. Step 4: Mercuryite + Jupiterite + Saturnite → Planify 4. Step 5: Jupiterite + Saturnite + Uranite → Planify 5. Step 6: Saturnite + Uranite → Planify 6. Step 7: Uranite only → Planify 7. Step 8: Neptunite → Planify 8/9. Because Planify persists at P4, you build on top of prior passes each reinc." },
+      { id: "p4s_3", text: "<strong>After Planify 9 (Neptunite):</strong> Plutite → Galaxy rune 10–15s → back to Plutite (all upgrades) → Sunite upgrades → target Rune Bulk 5.", detail: "Plutite first, then Galaxy rune for the boost, then back to Plutite upgrades. Sunite: upgrade board fully. Target: Rune Bulk 5 from Sunite. Run through Planify sequence again twice to push toward Planify 10. Stand on Neptunite → Neptunite upgrades. Stand on Sunite → upgrade all Sunite upgrades available." },
+      { id: "p4s_4", text: "<strong>DO NOT touch Cosmic Rarity or Cosmic Rank</strong> during this entire Space visit. Leave them alone." },
+      { id: "p4s_5", text: "<strong>Post-Space skip:</strong> Forest → skip +5 → Reinc 64 → skip +5 → Reinc 69 → Uranite available → skip +1 → Reinc 70 → Heaven." },
+      { id: "p4s_6", text: "<strong>Heaven (Reinc 70):</strong> Roll Rarity loop. Target Divine 1,000. Then reinc → skip +5 → Reinc 75.", detail: "Stand on Roll Rarity. At Rare 50: go to Glory → Heavenly rune 15–20s → back to Roll Rarity. Transcend targets: Epic 100 (T2), Legendary 400 (T3), Divine 500 (T4), Divine 1,000 (done). As Heaven Points flow: spend immediately, run up the middle of the tree. Auto-systems come online at T3+. After Divine 1,000 and HP upgrades complete: reincarnate → skip +5 → Reinc 75. S5/P4 benchmarks on arrival: Absolute Divinity ~1–2B, Astral Divinity ~70K (baseline from perks only)." }
+    ]
+  },
+  {
+    title: "P4 Run — Reinc 75: Pre-Hell Cleanup Pass",
+    cls: "phase-w89",
+    items: [
+      { id: "p4p_1", text: "<strong>Space:</strong> Light Point upgrades. Sunite rune (Rune Bulk bonus + board upgrades). Neptune Knight board. Plutite upgrades. Milestones — check (likely not ready yet).", detail: "DO NOT touch Cosmic Rarity, Cosmic Rank, or Planify (already done). Sunite visit is for Rune Bulk bonus and board upgrades only — do NOT grind toward 10B Sunite here, that belongs after the Sins gate." },
+      { id: "p4p_2", text: "<strong>Forest:</strong> Ticket upgrades (Rune Bulk, Rune Luck, Stats — all of them). Basic Garden rune 10–15s. Benchmark: ~15–20T Secret Garden per session." },
+      { id: "p4p_3", text: "<strong>Winter:</strong> Frost rune 10–15s (~500–600 Corrupted Ice, ~100 Qd Sub Zero). Shard upgrades check. Boss level ~515 — don't stop boss fights." },
+      { id: "p4p_4", text: "<strong>Desert:</strong> Sun rune 10–15s (~15 No Temple God benchmark)." },
+      { id: "p4p_5", text: "<strong>Mine:</strong> All 3 rune buttons in order (Tunnel→Secret Gateway, Cavern→Secret Depths, Lantern→Secret Element ~10s). Attempt Minify 5.", detail: "Minify 5 cost: E141 Cash + Dust. Sell Mithril (~E144 value) for both. If Dust requirement isn't met yet, skip and come back. Max ore multipliers: Tunnel max ×50, Cavern max ×500, Lantern ~10s to fill." },
+      { id: "p4p_6", text: "<strong>Cyber:</strong> Energy rune 10–15s (~40T Cybernetic Secrets). Full Tech Tree upgrade (cycle reset until complete). Computer check — Ice gate: E227 Ice (should already be met at P4)." },
+      { id: "p4p_7", text: "<strong>Mushroom:</strong> Sit on spore area. Target 50 UDe score. Everything automatic at P4 — very light work." },
+      { id: "p4p_8", text: "<strong>Ocean:</strong> Waves rune 10–15s (~50M Secret Sea). Verify relics." },
+      { id: "p4p_9", text: "<strong>Desert:</strong> All sacrifices (persist through Prestige — do not skip). Reset Fossils." }
+    ]
+  },
+  {
+    title: "P4 Run — Reinc 75–85: Hell World",
     cls: "phase-5",
-    hasMethodToggle: true,
-    methods: {
-      "method1": {
-        label: "Method 1 (Recommended -- extra reincs)",
-        items: [
-          { id: "p5m1_1", text: "Do the <strong>Flower reinc</strong> and immediately reincarnate. Get Flower rein and first Honey rein." },
-          { id: "p5m1_2", text: "Max out <strong>Garden Rank, Upgrade Tree, Grass, and Fall Leaves</strong>." },
-          { id: "p5m1_3", text: "Go back to lower worlds: <strong>sauna, milestones, Light Points, Cosmic Rank/Level</strong>.", detail: "Catch up on anything skipped." },
-          { id: "p5m1_4", text: "Start Flowers -- get <strong>Leaf upgrades</strong> and let Flower Fruit cut through Flower ranks." },
-          { id: "p5m1_5", text: "Get first <strong>Flower Rank</strong>, then grab Honey rune (trillions-level boost)." },
-          { id: "p5m1_6", text: "Farm Flowers until <strong>upper Qd Honey or early Qt</strong>." },
-          { id: "p5m1_7", text: "Get <strong>Honey runes</strong>. Check for rare runes (Abyss, Titan).", detail: "Rune 3 unlocks at 250T Honey -- another massive upgrade point." },
-          { id: "p5m1_8", text: "Farm runes and Flowers until first few upgrades lock in (<strong>no more resets</strong>)." },
-          { id: "p5m1_9", text: "Craft all remaining <strong>Fruits</strong> through Dragon Fruit.", detail: "Check the Fruit Tracker for order and gating. Dragon Fruit is the best single fruit (x1.25 RB, x1.1 RL)." },
-          { id: "p5m1_10", text: "Hit <strong>250-Oo Honey</strong> to skip to 1000." }
-        ]
-      },
-      "method2": {
-        label: "Method 2 (Alternative)",
-        items: [
-          { id: "p5m2_1", text: "Farm Flowers to get first <strong>Flower Rank and Fruit</strong>." },
-          { id: "p5m2_2", text: "Farm until you have enough <strong>Honey to skip</strong> the first Honey rein." },
-          { id: "p5m2_3", text: "Then follow Method 1 from step 3 onward." }
-        ]
-      }
-    }
-  },
-  {
-    title: "Phase 6: Post-Honey -- Perks, Milestones, P4",
-    cls: "phase-6",
     items: [
-      { id: "p6_1", text: "Finish <strong>Honey runes</strong>." },
-      { id: "p6_2", text: "Work on <strong>Perks</strong>. Grind 5x rein, grab 5 perks, skip rein.", detail: "Order: Mushroom -> Space -> Hell -> Late Garden." },
-      { id: "p6_3", text: "Farm remaining <strong>Milestones and Sacrifices</strong>." },
-      { id: "p6_4", text: "Focus <strong>Gold Point ticket upgrades</strong> (wait for 3x Singularity boost).", detail: "At 1900 with Garden Skill Tree boost, can make billions of GP in minutes." },
-      { id: "p6_5", text: "Sacrifice quick, then hit <strong>P4</strong> and run through Garden to Singularity.", detail: "After P4, Garden flows much faster. Most pre-P4 time is just prep to fly through." }
+      { id: "p4h_1", text: "<strong>Hell Pass 1:</strong> Madness button → Madness board. Goal: get Sins auto-running. Droppers circuit (~dropper 10 first pass). Hell XP board. Ember tree. Once Auto Sin active: Hell rune 10–15s → Sins board → Madness (remaining upgrades). Dropper second circuit (max 9–10).", detail: "Steps in order: Madness button → upgrade Madness board. Droppers 1→10 first circuit. Hell XP board (a few runs). Ember tree (start upgrading). Once auto-Sins unlocks: step on Hell rune 10–15s → upgrade Sins board (no manual Sins stepping needed anymore) → finish Madness board upgrades → second dropper circuit." },
+      { id: "p4h_2", text: "<strong>Heaven trip (Computer Divinity gate):</strong> Transcend upgrades only (HP tree already maxed). Target Transcend 7. Upgrade Glory fully. Push Astral Divinity. Target: 50 UDe Divinity.", detail: "If can't Transcend immediately: upgrade Glory from distance while standing on Roll Rarity. Transcend 7 fires a top-of-screen notification. After T7: upgrade Glory board fully + push Divinity as high as possible." },
+      { id: "p4h_3", text: "<strong>Cyber check:</strong> Computer requires Score 15 DDe → Mushroom World." },
+      { id: "p4h_4", text: "<strong>Mushroom score grind:</strong> Red + Green mushrooms (all automatic). Max Magic Energy on Energy board. Sit on Mushroom rune 2–3 min if stuck. Target: 15+ DDe score.", detail: "+1 score per mushroom collected. Milestone 12 (double score per milestone) should be maxed. Green mushrooms may boost more — collect them first when possible. Sitting on the rune for 2–3 min is the reliable method if score progress is slow." },
+      { id: "p4h_5", text: "<strong>Forest: skip +5. Hell Pass 2</strong> (tree complete — much faster). Madness ×2 → Droppers (max 9–10) → Hell XP (max) → Sins (max) → Madness finish. End state: Sins/XP/Madness all maxed." },
+      { id: "p4h_6", text: "<strong>Mine World: Minify unlock.</strong> Sell Mithril ×2 (~E145 Cash + Dust threshold). Reach max Minify. Max Mine milestones (Power Cores reward). Cash upgrades maxed. Return: Forest → skip +5.", detail: "Previous Minify attempt may have failed because Dust wasn't available yet. Selling Mithril provides both the Cash and the Dust needed. Fish also unlock at this point. Worker XP upgrades (2 remaining) — do them. Lantern rune has highest Dust multiplier if needed." }
     ]
   },
   {
-    title: "Garden Reinc Groupings",
-    cls: "phase-ref",
+    title: "P4 Computer Gates (~Reinc 85)",
+    cls: "phase-prep61",
     items: [
-      { id: "grp_1", text: "Do the <strong>first Leaf ones</strong> together." },
-      { id: "grp_2", text: "Do the <strong>last 2 Points</strong> together." },
-      { id: "grp_3", text: "Do the <strong>Leaf and 2 Grass ones</strong> after Points together." },
-      { id: "grp_4", text: "Do the <strong>Flower and first Honey</strong> together." },
-      { id: "grp_5", text: "Do the <strong>last 2 Honey</strong> together." },
-      { id: "grp_6", text: "<strong>Reinc 91 -> skip to 93. Reinc 93 -> skip to 96.</strong>", detail: "Use these skip points to accelerate through mid-garden. Saves significant grinding time." }
+      { id: "p4cg_1", text: "<strong>Gate 1 — Mushroom Score 15 DDe:</strong> Red + Green mushrooms (fully automatic). Max Magic Energy. Collect Greens first when possible. Sit on Mushroom rune if stuck. Target: 18 DDe (actual gate is 15 DDe)." },
+      { id: "p4cg_2", text: "<strong>Gate 2 — Sins 2.5 DDe:</strong> Hell quick pass. Madness ×2 → Droppers circuit → Hell XP board → Sins board. Done." },
+      { id: "p4cg_3", text: "<strong>Gate 3 — Sunite 10 Billion:</strong> Space World. Light Points first. Neptune Knight board. Plutite ×2. Stand on Sunite — target 10B. Rune Bulk 5/5 confirms when hit. DO NOT touch Cosmic Rarity or Cosmic Rank.", detail: "This is the correct time for the 10B Sunite grind (NOT the pre-Hell cleanup pass). When 10B Sunite hits: top-of-screen notification fires and Computer upgrade completes." },
+      { id: "p4cg_4", text: "<strong>Gate 4 — Strawberry 250 Million:</strong> Back to Cyber. Quick at this stage." }
+    ]
+  },
+  {
+    title: "P4 Garden Entry (~Reinc 86–92)",
+    cls: "phase-1",
+    items: [
+      { id: "p4g_1", text: "<strong>Garden entry:</strong> Garden Rank 1 immediately. Stand on Fall Rune → max Fall Leaves. Strawberries. Grass → Garden Rank 2." },
+      { id: "p4g_2", text: "<strong>Fruits (no GP needed):</strong> Apples, Oranges, Bananas, Pineapples, Peaches. Pears blocked until Garden Points unlock." },
+      { id: "p4g_3", text: "<strong>Boss Plant:</strong> Damage Increase button → one-shot kills only. Keep killing — fastest GP generation. Grass Multiplier ticks every 5 levels." },
+      { id: "p4g_4", text: "<strong>100 DDe Grass gate</strong> → unlocks 5 reincarnations → Forest → skip → Reinc 90.", detail: "Starting from UDe Grass, 100 DDe moves quickly. Focus: Damage Increase + Grass Multiplier upgrades. One-shot kills mandatory. Overshoot to 500 DDe is fine." },
+      { id: "p4g_5", text: "<strong>Garden Points phase (Reinc 90+):</strong> First gate 7.5M GP, Second gate 15B GP (requires AFK). Pears unlock when GP flows.", detail: "AFK tip: sit on Aetherius rune overnight. When back: Nythera rune available (QdDe Grass threshold) — pop potions before sitting on it. P4 mechanic: standing on Nythera allows the Very Dangerous Plant to take damage passively simultaneously — grind rune + boss fight at same time. No need to leave the rune." },
+      { id: "p4g_6", text: "<strong>290B GP: Craft Mangoes</strong> (requires 100B GP)." },
+      { id: "p4g_7", text: "<strong>Perk stop:</strong> Earn 2 reincs → Mushroom World. Buy: Passive Luck 3, Passive Luck 4, Passive Luck 5. Skip +5 → Reinc 92." }
+    ]
+  },
+  {
+    title: "P4 Garden Mid (~Reinc 92–95)",
+    cls: "phase-2",
+    items: [
+      { id: "p4gm_1", text: "<strong>Reinc 92 — Hell (quick loop):</strong> Madness → Droppers → Hell XP → Ember → Sins. All max fast." },
+      { id: "p4gm_2", text: "<strong>Heaven (Reinc 92):</strong> Max Transcend upgrades. Astral Divinity target: 2B (~20–25s on Heavenly rune). Upgrade Divinity board — when Divinity 2 hits 20+: Divinity 3 unlocks.", detail: "Heaven is nearly instant at this stage. Upgrade Glory board fully. Push Divinity as high as possible each visit." },
+      { id: "p4gm_3", text: "<strong>Space (Reinc 92):</strong> Light Points. Neptune. Plutite max. Sunite → 10B (Rune Bulk 5/5 confirm). Cosmic Ranks safe to grind now (target ~55–58). Galaxy rune 15–20s.", detail: "Cosmic Ranks safe ONLY after Rune Bulk 5/5 confirmed and Planify sequence fully complete. Do NOT touch Cosmic Rank before that. Galaxy rune benchmark: ~1.5B Unknown Otherworldly from 15–20s session. Stop Cosmic Rank at 58." },
+      { id: "p4gm_4", text: "<strong>Garden Rank 2 → 3 → 4 loop:</strong> Fall Leaves → Strawberries → Grass → Garden Points (repeat). CRITICAL: Flowers RESET on every Garden Rank — do NOT invest in Flowers until Rank 4 is reached.", detail: "At 10 DE Grass: GP upgrade tree activates. Universal range mechanic at P4: most upgrades work from anywhere on the map (Grass still requires being in range). Heaven for Divinity if GP stalls — at Transcend 7 with Divinity 2 at 20+, Heaven is near-instant." },
+      { id: "p4gm_5", text: "<strong>Fruits on Nythera:</strong> Grapes (2.5T GP gate), Coconuts. Blueberries unlock after GP tree cycle (Fall Leaves upgrades unblock it). Blueberry effect: ×100 Snow — immediate boost." },
+      { id: "p4gm_6", text: "<strong>Perks (~Reinc 92–95):</strong> Earn reincs → Mushroom World. Targets: Fish 3, Fish 4, Tier Luck 4, Tier Bulk 4, Tickets 4. Skip +5 → Reinc 95." }
+    ]
+  },
+  {
+    title: "P4 Reinc ~95: Full Rune Tour",
+    cls: "phase-w89",
+    items: [
+      { id: "p4rt_1", text: "<strong>Forest:</strong> 10–15s." },
+      { id: "p4rt_2", text: "<strong>Winter:</strong> Reset Snow. Blueberry ×100 multiplier now active — massive Snow haul on this pass." },
+      { id: "p4rt_3", text: "<strong>Desert — Desert Gods:</strong> Sit on Desert rune. Target 1,000 Gods.", detail: "500 Gods = Passive Luck maxed. 1,000 Gods = Rune Luck + Rune Bulk + Tier Luck all maxed simultaneously. Reset Better Points while here." },
+      { id: "p4rt_4", text: "<strong>Space rune tour:</strong> Astryx 10s → Vornel → Starlight 10–15s (Neptune + Plutite boards during) → Galaxy rune ~1 min.", detail: "Galaxy rune targets: ~+5–8B Unknown Otherworldly, total ~10B. Then Sunite 15s (upgrade all, Cosmic Rarity safe now, target 1 Qn Sunite) → Plutite 10–15s (upgrade ×2, then let accumulate to E125 / Plutite level ~450). After Plutite: Dirtite milestones daisy-chain completable. Return to Sunite briefly → ~500 Qd Sunite. Stop Cosmic Rank at 58 — no more grinding." },
+      { id: "p4rt_5", text: "<strong>Mine rune targets:</strong> Tunnel→Secret Gateway (500B Secret Galaxy), Cavern→Secret Depths (100B Secret Depths), Lantern→Secret Element (20B). Mine milestones after." },
+      { id: "p4rt_6", text: "<strong>Cyber:</strong> Energy rune (~20 Qd Cybernetic Secrets). Full Tech Tree upgrade. Computer remaining gates: 1 Motherboard + 100 DE Honey pending.", detail: "Calite from Mine World upgrades boosts Cyber Energy generation here — expect bigger numbers than earlier passes." },
+      { id: "p4rt_7", text: "<strong>Ocean:</strong> Waves rune, Secret Sea to 20B. Sweetfish + Stringfish milestones (big boosts confirmed). Check Piranha + Golden Bass milestones." },
+      { id: "p4rt_8", text: "<strong>Mushroom:</strong> Capstone rune. Midnight Bloom to level ~15M." },
+      { id: "p4rt_9", text: "<strong>Heaven:</strong> Transcend 7. Astral Divinity → 2B on Heavenly rune. Max Divinity board." },
+      { id: "p4rt_10", text: "<strong>Hell:</strong> Standard pass (Madness → Droppers → Hell XP → Sins). Quick at this stage." }
+    ]
+  },
+  {
+    title: "P4 Garden — Rank 3→4 + Flowers Phase Prep",
+    cls: "phase-2",
+    items: [
+      { id: "p4gf_1", text: "<strong>Garden rune (Aetherius/Damnation):</strong> 10–15s (~25B output benchmark). Then standard rank loop: Fall Leaves → Strawberries → Grass → Garden Points." },
+      { id: "p4gf_2", text: "<strong>Garden Rank 3 loop:</strong> Fall Leaves (maxes quickly) → Strawberry → Grass → GP board. Boss: one-shot only — if overleveled, drop back and use skip levels. At 10 DE Grass: Garden Points board. If GP stalls: Heaven (Divinity board, Divinity 2 at 20+ = Divinity 3 unlocks). Rank 3 get it." },
+      { id: "p4gf_3", text: "<strong>Garden Rank 4:</strong> Same loop. Two Fall Leaves upgrades will be blocked (Flower multiplier + FL Multiplier 2) — skip them, continue. Rank 4 get it." },
+      { id: "p4gf_4", text: "<strong>CRITICAL: Flowers RESET on every Garden Rank.</strong> Do NOT invest in Flowers until Rank 4 is fully reached." },
+      { id: "p4gf_5", text: "<strong>After Rank 4: rebuild Fall Leaves → Strawberries → Grass from scratch.</strong> Then begin Flowers." },
+      { id: "p4gf_6", text: "<strong>First Flower targets:</strong> 3 UDe Flowers → Garden Level 1 (300 DDe Flowers). Keep Fall Leaves board upgraded throughout — flower multipliers compound." }
+    ]
+  },
+  {
+    title: "P4 Reinc 96–100: Honey + Flowers → Singularity",
+    cls: "phase-3",
+    items: [
+      { id: "p4fin_1", text: "<strong>Wait for 1 Trillion Honey</strong> before pushing Flowers hard. Then target 50 VT Flowers → Garden Level 2.", detail: "Honey comes from bees. Upgrade bees first, then honey board. Target 250 Oc Honey before Reinc 100." },
+      { id: "p4fin_2", text: "<strong>Vedris rune (~500 Qn Honey):</strong> Third Garden rune. Pop potions before standing. Beehives unlock. Target: 100 Sx Honey (auto-honey fully active). At 35 Sp bees: grab and get auto-honey running.", detail: "Garden rune order: Aetherius (1st) → Nythera (2nd) → Vedris (3rd, ~500 Qn Honey). Major stat boost. Pop all potions before Vedris. After Vedris: upgrade bees first, then honey board, then get back on Vedris when possible." },
+      { id: "p4fin_3", text: "<strong>Fruits:</strong> Watermelons (craftable after Garden Level 1). Lemons (craft). Mandarins (craft). Skip Cherries for now — other fruits easier to get first." },
+      { id: "p4fin_4", text: "<strong>Final perk math (Reinc 96):</strong> Earn 2 reincs (1 DDe Flowers → Reinc 97, 1.25T Honey → Reinc 98). Buy 3 perks → skip +5 → Reinc 100.", detail: "Math: 96 + 2 earned − 3 perks + 5 skip = 100. Each perk purchased costs 1 reincarnation. Max skip is always +5. Optimization: buy perks such that (earned reincs) − (perks bought) + 5 is net positive." },
+      { id: "p4fin_5", text: "<strong>Reinc 100: Grind Cosmic Rarity before Singularizing.</strong> This is the glitch carry — persists into S6.", detail: "Cosmic Rarity is the one stat that carries as a glitch into the next Singularity. Do NOT Singularize until this grind is done. Time invested here compounds forward into S6." },
+      { id: "p4fin_6", text: "<strong>Check Singularity Milestones</strong> before Singularizing. Collect anything pending." },
+      { id: "p4fin_7", text: "<strong>Singularize from Garden World.</strong> → S6 begins.", detail: "S6 key unlock: Keep Planify On Reinc (Milestone 6). Planify becomes a one-time sequence per run instead of repeating every reinc. See Singularity Milestones section for full S6 bonuses." }
     ]
   },
   {
@@ -1812,10 +1919,10 @@ const DATA = [
       { id: "sing_3", text: "<strong>Singularity 3:</strong> 2x Guild Points, 1.5x RL, 2x Stats, <b class='hl'>Keep Minify On Reincarnation</b>" },
       { id: "sing_4", text: "<strong>Singularity 4:</strong> 5x Toxic Mushrooms/Mushrooms, 2x Fish, <b class='hl'>Keep Level 2 Stat Perks</b>, <b class='hl'>Auto Buy Relics</b>", detail: "Things speed up here -- Auto Buy Relics and keeping stat perks saves a lot of manual work each run." },
       { id: "sing_5", text: "<strong>Singularity 5:</strong> 2x Stats, x50 Worker/Fisher XP, <b class='hl'>Keep Auto Charge Perk</b>", detail: "BUG: Auto Charge Perk doesn't work until you relog!" },
-      { id: "sing_6", text: "<strong>Singularity 6:</strong> 2x Sunite, 2x Fish, <b class='hl'>Keep Tech Tree On Prestige</b>" },
-      { id: "sing_7", text: "<strong>Singularity 7:</strong> <b class='hl'>New Bee Upgrade</b>, 2x Garden Points, <b class='hl'>Unlocks New Bee</b>", detail: "Major Garden speedup -- GP and Grass are the slowest parts of a run." },
+      { id: "sing_6", text: "<strong>Singularity 6:</strong> 3x Sunite, 5x Fish, <b class='hl'>Keep Planetify On Reinc</b>, <b class='hl'>Keep Tech Tree On Prestige</b>", detail: "<b>Keep Planetify On Reinc</b> is the major unlock -- at S5 you lose all Planify levels on every reincarnation. At S6+ you keep them, removing the biggest time cost in Space World. Also removes the need to re-unlock the Heaven 'Don't Lose Planetify' node each reinc." },
+      { id: "sing_7", text: "<strong>Singularity 7:</strong> 5x Garden Points, <b class='hl'>Unlock New Neptunite Upgrades</b>, <b class='hl'>Unlock New Plutite Upgrades</b>, <b class='hl'>Keep Garden Upgrade Tree On Reinc</b>", detail: "Major Space speedup -- new Neptunite/Plutite upgrades plus keeping Garden Upgrade Tree on reinc save significant time each run." },
       { id: "sing_8", text: "<strong>Singularity 8:</strong> 2x Gacha Shards, 2x Boss Shards/Damage, <b class='hl'>Unlocks New Bee</b>" },
-      { id: "sing_9", text: "<strong>Singularity 9:</strong> 1.4x RB, 1.1x Ores, <b class='hl'>Better Ore Milestones</b>, <b class='hl'>Keep Minify 3</b>, 3x TB" },
+      { id: "sing_9", text: "<strong>Singularity 9:</strong> 1.5x RB, 1.5x Ores, <b class='hl'>Better Ore Milestones</b>, <b class='hl'>Keep Minify 3</b>, <b class='hl'>Keep Score Milestone On Reinc</b>" },
       { id: "sing_10", text: "<strong>Singularity 10:</strong> 1.4x RB, 1.25x RL, <b class='hl'>Keep LP Upgrades On Reincarnation</b>" },
       { id: "sing_11", text: "<strong>Singularity 11:</strong> 10x Heavenly Points (?), 3x Heaven Fish (?), 1.5x Stats, 1.10x RB (?), <b class='hl'>Keep Minify On Prestige</b>" },
       { id: "sing_12", text: "<strong>Singularity 12:</strong> 5x (?) (?), x1T Fisher XP (?), <b class='hl'>Better Fish Milestones</b> (?)" },
@@ -1846,13 +1953,14 @@ const DATA = [
       "<strong>Space milestones glitch:</strong> They glitch at some point. Relog to fix, delay as long as possible.",
       "<strong>Auto click (Garden Tree):</strong> Gives Fall Leaves per click, costs Strawberries. Once obtained, stays active unless you relog without getting it.",
       "<strong>Auto Charge perk (Sing 5):</strong> Doesn't work until you relog.",
+      "<strong>Cosmic Rarity carry timing:</strong> Grind Cosmic Rarity at <b>Reinc 100</b> -- not before. It is the one carry that transfers into the next Singularity. Do it while sitting at max reinc, then Singularize. Time invested here compounds forward into the next run.",
       "<strong>Bees:</strong> 8 types from Noob Bee (0.02%/5s) to Queen of the Bees (1%/0.5s). Each upgraded individually with Honey.",
       "<strong>Plant Combat:</strong> Kill plants for Grass. Higher levels = more drops. At high levels: 7.45M+ Grass per kill.",
       "<strong>Stat increases:</strong> Rare stats in Upgrade Trees are massive. Heaven/Hell trees boost Bulk. Garden tree nearly required for rare runes.",
       "<strong>Milestone scaling:</strong> Wonky in Mines -- hit walls, then huge increases. Neptunite cascade (Kale Head -> Plutite -> Neptunite -> RB) is exponential.",
       "<strong>Reinc Skip requirements (Reinc 85+):</strong> Skip from 91->93 costs: 15B GP, 6.5Qd GP, 1.25NoDe FL, 1.5QnVt Grass, 200UTg Grass. Skip from 93->96 costs: 1.25NoDe FL, 1.5QnVt Grass, 200UTg Grass, 1DDe Flowers, 1.25T Honey. <b>WARNING: Only available for Garden Runes below 1/100SxDe!</b>",
       "<strong>Garden = slowest part</strong> of any singularity before P4. After P4 it flows. Most pre-P4 time is prep.",
-      "<strong>Timeline:</strong> A singularity takes ~15-30 hours. P3 is the rough one."
+      "<strong>Timeline:</strong> A singularity run takes ~10–12 hours active at S5 (excluding AFK). P3 and pre-P4 Garden are the rough parts. After P4 the run flows significantly faster. With S6+ (Keep Planetify On Reinc) the Space loop is much shorter."
     ]
   }
 ];

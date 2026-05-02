@@ -761,6 +761,29 @@
     font-size: 0.7rem;
   }
 
+  /* Sub-item checklists */
+  .sub-items-container {
+    margin-left: 28px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border-left: 2px solid var(--accent);
+    padding-left: 10px;
+  }
+  .sub-item {
+    padding: 5px 10px;
+    margin: 2px 0;
+    font-size: 0.84rem;
+    background: rgba(255,255,255,0.02);
+    border-radius: 5px;
+  }
+  .sub-item.checked {
+    opacity: 0.45;
+  }
+  .sub-item input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+  }
+
   /* Tip Items with glow */
   .tip-item {
     font-size: 0.84rem;
@@ -1762,18 +1785,32 @@ const DATA = [
       { id: "gard_20b", text: "<strong>Garden Rank maxed: now build Flowers.</strong> Start accumulating Flowers — first target is Garden Level 1.", detail: "Flowers and Honey reset on each Garden Level upgrade, but FL/Grass/Straw are preserved. Build Flowers progressively toward each Garden Level threshold." },
       { id: "gard_21", text: "<strong>Watermelons (Gate 7):</strong> 1.0e106 FL + 3UDe Flowers. Craft when available." },
       { id: "gard_level1", text: "<strong>Garden Level 1:</strong> 300 DDe Flowers. Push toward this first before anything else.", detail: "Garden Level 1 is the first major Flowers milestone. Costs 300 DDe Flowers and resets Flowers + Honey upgrades — FL/Grass/Straw preserved. This is the immediate target after Watermelons. Build Flowers steadily until this fires." },
-      { id: "gard_level2", text: "<strong>Garden Level 2:</strong> 50 VT Flowers. Push toward this after Garden Level 1.", detail: "Garden Level 2 costs 50 VT Flowers and resets Flowers + Honey upgrades — FL/Grass/Straw preserved. Build Flowers back up after the Level 1 reset and push to this threshold before going for the 1 Trillion Honey milestone." },
-      { id: "gard_22", text: "<strong>Wait for 1 Trillion Honey</strong> before pushing Flowers hard.", detail: "After Garden Level 1: build Flowers at a steady pace. Once Honey hits 1T: push hard toward Garden Level 2 (50 VT Flowers). Garden Level 2 location in the progression TBD — will be updated." },
-      { id: "gard_23", text: "<strong>Bees:</strong> Upgrade when Honey is flowing. Target 100 bees → push toward 35 Sp bees total.", detail: "8 types: Noob Bee to Queen of the Bees. Each upgraded individually with Honey. At ~100 bees total, Honey flow accelerates significantly." },
+      { id: "gard_level2", text: "<strong>Garden Level 2:</strong> 50 VT Flowers. Push toward this after Garden Level 1.", detail: "Garden Level 2 costs 50 VT Flowers and resets Flowers + Honey upgrades — FL/Grass/Straw preserved. Build Flowers back up after the Level 1 reset and push to this threshold before the 1 Trillion Honey milestone." },
+      { id: "gard_22", text: "<strong>Wait for 1 Trillion Honey</strong> before pushing Flowers hard.", detail: "After Garden Level 2: Honey grind begins in earnest. Build toward 1T Honey. As soon as Honey hits 250 Oc, start the Pre-Prestige 4 checklist." },
       { id: "fruit_lemon", text: "<strong>Fruit: Lemons (Gate 8)</strong> — 5Qd Honey + 10UVt Flowers. Craft when threshold is met.", detail: "Keep Honey above 5Qd at all times — do not drain it below this threshold when upgrading the Honey board. Lemons come online mid-Honey grind." },
       { id: "fruit_mandarin", text: "<strong>Fruit: Mandarins (Gate 9)</strong> — 5Sp Honey. Craft after Lemons.", detail: "Mandarins require Sp-range Honey. Continue Honey grind after Lemons — Mandarins follow naturally. Skip Cherries (5NoVt Flowers) — cost too high relative to benefit at this stage." },
-      { id: "gard_25", text: "<strong>Vedris rune (~500 Qn Honey):</strong> Third Garden rune. Pop potions before standing on it.", detail: "Garden rune order: Aetherius (first) → Nythera (second) → Vedris (~500 Qn Honey). Major stat boost. Pop all potions before standing on Vedris." },
-      { id: "gard_26", text: "<strong>Garden Rune 3 (250T Honey):</strong> Massive upgrade. Regrind runes immediately when hit." },
+      { id: "gard_25", text: "<strong>Veydris rune (~500 Qn Honey) — Garden Rune 3.</strong> Third Garden rune. Pop all potions before standing on it.", detail: "Garden rune order: Aetherius (first) → Nythera (second) → Veydris (~500 Qn Honey). This is Garden Rune 3 — a single rune unlock, not two separate events. Major stat boost. Pop all potions before standing on Veydris. Regrind runes immediately after." },
+      { id: "gard_23", text: "<strong>Bees:</strong> Upgrade when Honey is flowing. Max out the Bee Hive. Target less than 2.5K bees total.", detail: "8 types: Noob Bee to Queen of the Bees. Each upgraded individually with Honey. Max out The Bee Hive upgrade. Total bee count target is less than 2.5K — beyond that you get diminishing returns." },
+      { id: "gard_level3", text: "<strong>Garden Level 3:</strong> Continue building Flowers after Bees are sorted. Push toward the next Garden Level threshold.", detail: "With Veydris active and Bees maxed, Honey and Flower generation accelerates. Use this momentum to push Garden Level 3 before the final perk push." },
       { id: "gard_27", text: "<strong>Final perk push toward Reinc 100.</strong> Max skip +5 each loop.", detail: "Option 1: finish all perks first, then push to 100. Option 2: push to 100 and perk on the way. Both valid." },
-      { id: "gard_28", text: "<strong>Reinc 100: Cosmic Rarity grind.</strong> Do this AT Reinc 100 -- not before.", detail: "Cosmic Rarity is the one glitch carry that transfers into the next Singularity. Grind it here at max reinc. Time invested compounds forward into the next run." },
+      { id: "gard_28", text: "<strong>Reinc 100: Cosmic Rarity &amp; Cosmic Rank grind.</strong> See the Pre-Prestige 4 checklist below.", detail: "Cosmic Rarity is the one glitch carry that transfers into the next Singularity. At Reinc 100, also do your Cosmic Rank grind — it uses the same glitch carry mechanic. Both compound into the next run." },
       { id: "gard_29", text: "<strong>Check Singularity Milestones</strong> before Singularizing. Collect anything pending." },
-      { id: "p4_prestige_prep", text: "<strong>Pre-Prestige 4 checklist.</strong> Do this before hitting Prestige.", detail: "What PERSISTS through Prestige: Passives, Enchants (all equipment), Aura, Blessings (Heaven), Curses (Hell), Perks, Milestones, Masteries, Ticket board upgrades, Equipment traits. What is LOST: All global runes (reset to zero — no need to grind runes before Prestige), Garden fruits (Apples through Watermelons — ALL reset on Prestige, do not invest in fruits late in this run just before Presticing), most currencies. Checklist: ✓ Desert sacrifices done ✓ Best passive equipped and charges spent ✓ All equipment enchanted ✓ Aura equipped (Archangel or better) ✓ Heaven Blessings collected ✓ Curses rolled (Hell — Dropper Shards) ✓ Milestones claimed ✓ Tickets fully spent ✓ Cosmic Rarity grind done at Reinc 100 (this carry transfers into next run) ✓ Fruits will reset — do not invest heavily in late fruits right before Presticing" },
-      { id: "gard_30", text: "<strong>Prestige at Reinc 100 → Mine World.</strong> Becomes P4. Back to Reinc 0.", detail: "Final perk first: Mushroom World → pick up Rune Luck 5. Forest → reinc → skip +5 → Reinc 100. Mine World → Prestige button. Resets to Prestige 4, Reinc 0. Keeps: passives, enchants. Loses: global runes (no need to grind runes before Prestige -- they reset). P4 run begins." }
+      { id: "p4_prestige_prep", text: "<strong>Pre-Prestige 4 checklist.</strong> Begin when Honey reaches 250 Oc.", subItems: [
+        { id: "p4prep_1", text: "Desert sacrifices done — converts to permanent Passive Luck" },
+        { id: "p4prep_2", text: "Best passive equipped and charges spent" },
+        { id: "p4prep_3", text: "All equipment enchanted (pickaxe, rod)" },
+        { id: "p4prep_4", text: "Aura equipped (Archangel or better)" },
+        { id: "p4prep_5", text: "Heaven Blessings collected" },
+        { id: "p4prep_6", text: "Curses rolled (Hell — Dropper Shards)" },
+        { id: "p4prep_7", text: "Milestones claimed" },
+        { id: "p4prep_8", text: "Tickets fully spent" },
+        { id: "p4prep_9", text: "Revisit Space — upgrade remaining items" },
+        { id: "p4prep_10", text: "Cosmic Rarity grind (at Reinc 100 — glitch carry into next run)" },
+        { id: "p4prep_11", text: "Cosmic Rank grind (at Reinc 100 — same glitch carry)" },
+        { id: "p4prep_12", text: "NOTE: Runes reset on Prestige — no rune grind needed" },
+        { id: "p4prep_13", text: "NOTE: Fruits reset on Prestige — do not invest in late fruits just before Presticing" }
+      ]},
+      { id: "gard_30", text: "<strong>Prestige at Reinc 100 → Mine World.</strong> Becomes P4. Back to Reinc 0.", detail: "Final perk first: Mushroom World → pick up Rune Luck 5. Forest → reinc → skip +5 → Reinc 100. Mine World → Prestige button. Resets to Prestige 4, Reinc 0. Keeps: passives, enchants. Loses: global runes (no need to grind runes before Prestige — they reset). P4 run begins." }
     ]
   },
   {
@@ -1898,7 +1935,7 @@ const DATA = [
     cls: "phase-3",
     items: [
       { id: "p4fin_1", text: "<strong>Wait for 1 Trillion Honey</strong> before pushing Flowers hard. Then target 50 VT Flowers → Garden Level 2.", detail: "Honey comes from bees. Upgrade bees first, then honey board. Target 250 Oc Honey before Reinc 100." },
-      { id: "p4fin_2", text: "<strong>Vedris rune (~500 Qn Honey):</strong> Third Garden rune. Pop potions before standing. Beehives unlock. Target: 100 Sx Honey (auto-honey fully active). At 35 Sp bees: grab and get auto-honey running.", detail: "Garden rune order: Aetherius (1st) → Nythera (2nd) → Vedris (3rd, ~500 Qn Honey). Major stat boost. Pop all potions before Vedris. After Vedris: upgrade bees first, then honey board, then get back on Vedris when possible." },
+      { id: "p4fin_2", text: "<strong>Veydris rune (~500 Qn Honey):</strong> Third Garden rune. Pop potions before standing. Beehives unlock. Target: 100 Sx Honey (auto-honey fully active). At 35 Sp bees: grab and get auto-honey running.", detail: "Garden rune order: Aetherius (1st) → Nythera (2nd) → Veydris (3rd, ~500 Qn Honey). Major stat boost. Pop all potions before Veydris. After Veydris: upgrade bees first, then honey board, then get back on Veydris when possible." },
       { id: "p4fin_3", text: "<strong>Fruits:</strong> Watermelons (craftable after Garden Level 1). Lemons (craft). Mandarins (craft). Skip Cherries for now — other fruits easier to get first." },
       { id: "p4fin_4", text: "<strong>Final perk math (Reinc 96):</strong> Earn 2 reincs (1 DDe Flowers → Reinc 97, 1.25T Honey → Reinc 98). Buy 3 perks → skip +5 → Reinc 100.", detail: "Math: 96 + 2 earned − 3 perks + 5 skip = 100. Each perk purchased costs 1 reincarnation. Max skip is always +5. Optimization: buy perks such that (earned reincs) − (perks bought) + 5 is net positive." },
       { id: "p4fin_5", text: "<strong>Reinc 100: Grind Cosmic Rarity AND Cosmic Rank before Singularizing.</strong> Both are part of the same glitch carry — both persist into S6.", detail: "Cosmic Rarity and Cosmic Rank both carry as a glitch into the next Singularity. Grind both here at Reinc 100 before Singularizing. Do NOT do this earlier — it must be done at max reinc. Time invested compounds forward into S6." },
@@ -2024,20 +2061,30 @@ function switchPlayer(player) {
 function countSectionChecked(section, state) {
   let total = 0, checked = 0;
   if (section.isTips) return { total: 0, checked: 0 };
+  function countItem(item) {
+    if (item.subItems && item.subItems.length) {
+      item.subItems.forEach(sub => { total++; if (state[sub.id]) checked++; });
+    } else {
+      total++;
+      if (state[item.id]) checked++;
+    }
+  }
   if (section.hasMethodToggle) {
-    Object.values(section.methods).forEach(m => {
-      m.items.forEach(item => { total++; if (state[item.id]) checked++; });
-    });
+    Object.values(section.methods).forEach(m => { m.items.forEach(countItem); });
   } else if (section.items) {
-    section.items.forEach(item => { total++; if (state[item.id]) checked++; });
+    section.items.forEach(countItem);
   }
   return { total, checked };
 }
 
 function updateProgress() {
-  const boxes = document.querySelectorAll('.check-item input[type="checkbox"]');
+  const allBoxes = document.querySelectorAll('.check-item input[type="checkbox"]');
+  const boxes = [...allBoxes].filter(cb => {
+    const item = cb.closest('.check-item');
+    return !item.querySelector(':scope > .sub-items-container');
+  });
   const total = boxes.length;
-  const checked = [...boxes].filter(b => b.checked).length;
+  const checked = boxes.filter(b => b.checked).length;
   const pct = total ? (checked/total*100).toFixed(1) : 0;
   document.getElementById('progressText').textContent = `${checked} / ${total} steps`;
   document.getElementById('progressPct').textContent = `${pct}%`;
@@ -2074,11 +2121,22 @@ function buildCheckItem(item, state) {
   const checked = state[item.id] || false;
   let html = `<div class="check-item ${checked ? 'checked' : ''}">
     <input type="checkbox" id="${item.id}" ${checked ? 'checked' : ''}>
-    <label class="check-label" for="${item.id}">${item.text}</label>
-  </div>`;
+    <label class="check-label" for="${item.id}">${item.text}</label>`;
   if (item.detail) {
     html += `<div class="detail">${item.detail}</div>`;
   }
+  if (item.subItems && item.subItems.length) {
+    html += `<div class="sub-items-container">`;
+    item.subItems.forEach(sub => {
+      const subChecked = state[sub.id] || false;
+      html += `<div class="check-item sub-item ${subChecked ? 'checked' : ''}">
+        <input type="checkbox" id="${sub.id}" ${subChecked ? 'checked' : ''}>
+        <label class="check-label" for="${sub.id}">${sub.text}</label>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+  html += `</div>`;
   return html;
 }
 
@@ -2130,9 +2188,42 @@ function render() {
   document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
     cb.addEventListener('change', function() {
       const st = loadState();
-      st[this.id] = this.checked;
+      const parentItem = this.closest('.check-item');
+      const container = this.closest('.sub-items-container');
+
+      if (container) {
+        // Sub-item checkbox
+        st[this.id] = this.checked;
+        parentItem.classList.toggle('checked', this.checked);
+        const allSubs = container.querySelectorAll('input[type="checkbox"]');
+        const allChecked = [...allSubs].every(s => s.checked);
+        const parentCb = container.closest('.check-item').querySelector(':scope > input[type="checkbox"]');
+        if (parentCb) {
+          parentCb.checked = allChecked;
+          st[parentCb.id] = allChecked;
+          parentCb.closest('.check-item').classList.toggle('checked', allChecked);
+        }
+        if (!this.checked && parentCb) {
+          parentCb.checked = false;
+          st[parentCb.id] = false;
+          parentCb.closest('.check-item').classList.remove('checked');
+        }
+      } else if (parentItem.querySelector(':scope > .sub-items-container')) {
+        // Parent checkbox — check/uncheck all subs
+        st[this.id] = this.checked;
+        parentItem.classList.toggle('checked', this.checked);
+        parentItem.querySelectorAll('.sub-items-container input[type="checkbox"]').forEach(sub => {
+          sub.checked = this.checked;
+          st[sub.id] = this.checked;
+          sub.closest('.check-item').classList.toggle('checked', this.checked);
+        });
+      } else {
+        // Regular item
+        st[this.id] = this.checked;
+        parentItem.classList.toggle('checked', this.checked);
+      }
+
       saveState(st);
-      this.closest('.check-item').classList.toggle('checked', this.checked);
       updateProgress();
     });
   });

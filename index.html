@@ -2687,7 +2687,11 @@ function runCalc() {
   refreshSourceWeights(luck);
   var myWeight = runeWeight(calcSelectedRarity, luck);
   var sourceWeight = calcSelectedSource ? (SOURCE_WEIGHTS[calcSelectedSource] || 1) : 1;
-  var prob = sourceWeight > 0 ? myWeight / sourceWeight : 0;
+  // Secret Rune is a global pool that rolls from any source, so use absolute probability
+  // (not pool-normalized) to match game behavior -- otherwise the rarest entry dominates and ETA collapses to ~0
+  var prob = (calcSelectedSource === 'Secret Rune')
+    ? myWeight
+    : (sourceWeight > 0 ? myWeight / sourceWeight : 0);
   var etaSec = (prob > 0 && baseRps > 0) ? 1 / (prob * baseRps) : Infinity;
 
   document.getElementById('resEta').textContent = formatTime(etaSec);
@@ -2729,7 +2733,10 @@ function renderRuneList() {
     var isSecret = r[3] === 1;
     var myWeight = runeWeight(rarity, luck);
     var sourceWeight = SOURCE_WEIGHTS[source] || 1;
-    var prob = sourceWeight > 0 ? myWeight / sourceWeight : 0;
+    // Secret Rune is a global pool that rolls from any source -- use absolute probability for it
+    var prob = (source === 'Secret Rune')
+      ? myWeight
+      : (sourceWeight > 0 ? myWeight / sourceWeight : 0);
     var eta = (prob > 0 && baseRps > 0) ? 1 / (prob * baseRps) : Infinity;
     var discPerHr = prob * baseRps * 3600;
     var runesPerHr = discPerHr * avgPerDisc;

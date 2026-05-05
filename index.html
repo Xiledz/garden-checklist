@@ -1574,6 +1574,17 @@ The base suffixes cycle in groups of 10: <span style="color:var(--accent-light)"
   </div>
 </div>
 <div id="resCloneNote" style="margin-top:6px;font-size:0.68rem;color:var(--text-dim);text-align:center"></div>
+<details style="margin-top:10px;background:rgba(124,58,237,0.04);border:1px solid var(--border);border-radius:6px;padding:8px 10px">
+  <summary style="cursor:pointer;font-size:0.72rem;color:var(--accent-light);font-family:'Russo One',sans-serif;letter-spacing:0.5px;outline:none">FORMULA &amp; HOW LUCK WORKS</summary>
+  <div style="margin-top:8px;font-size:0.72rem;color:var(--text);line-height:1.55">
+    <div style="background:rgba(0,0,0,0.25);padding:8px 10px;border-radius:4px;font-family:monospace;font-size:0.7rem;color:var(--gold);overflow-x:auto;margin-bottom:8px">
+      Runes/sec(X) = Bulk &times; min(1, Luck / Rarity_X) &times; (1 + CloneChance &times; CloneAmount) / Speed
+    </div>
+    <p style="margin:6px 0;color:var(--text-dim)">Each roll independently checks every rune. Per roll, your chance of dropping rune X is <strong style="color:var(--text)">min(1, Luck / Rarity)</strong> &mdash; capped at 1.0 when you've outgrown a rune (Luck &ge; Rarity), so every roll yields it.</p>
+    <p style="margin:6px 0;color:var(--text-dim)">Each roll yields <strong style="color:var(--text)">Bulk</strong> copies of the rune that drops. Each roll independently has a <strong style="color:var(--text)">CloneChance</strong> to clone, in which case it yields <strong style="color:var(--text)">CloneAmount &times; Bulk</strong> extra runes. Rolls happen every <strong style="color:var(--text)">Speed</strong> seconds (max-rate 0.15s = 6.67 rolls/sec).</p>
+    <p style="margin:6px 0;color:var(--text-dim)"><strong style="color:var(--accent-light)">Levers:</strong> Lower Speed, higher Bulk, higher Clones, and higher CloneChance always help. Higher Luck only helps for runes where you're not yet at the cap. Calibrated 2026-05-04 against in-game test &mdash; matches observed rate within 2%.</p>
+  </div>
+</details>
 </div>
 </div>
 

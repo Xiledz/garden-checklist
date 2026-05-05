@@ -2749,23 +2749,18 @@ function renderRuneList() {
     var isSecret = r[3] === 1;
     var myWeight = runeWeight(rarity, luck);
     // Each rune rolls INDEPENDENTLY per discovery: prob = min(1, luck/rarity).
-    // We expose two separate metrics:
-    //   eventEta  = wait time until the NEXT drop event of this rune (raw rate, no bulk, no clones)
-    //              = speed / prob  -- "how long until you SEE one roll"
-    //   perDrop   = number of runes you get on each event (bulk + clone bonus)
-    //              = bulk * (1 + cloneChance% * cloneAmount)
-    //   runesPerHr= long-term average rate = (3600/eventEta) * perDrop
+    // Per second runes you receive of THIS rune = prob × bulk × cloneFactor / speed.
+    // ETA = 1 / runes/sec = average time between receiving one rune of this type.
     var prob = myWeight;
-    var eventEta = (prob > 0 && speed > 0) ? speed / prob : Infinity;
-    var perDrop  = bulk * avgPerDisc;
-    var runesPerHr = (eventEta > 0 && isFinite(eventEta)) ? (3600 / eventEta) * perDrop : 0;
-    // Filter on the long-term rate's "average time per copy" for backward compat with Hide Instant filter
-    var avgEtaPerCopy = runesPerHr > 0 ? 3600 / runesPerHr : Infinity;
-    if (hideInstant && avgEtaPerCopy < 0.001) continue;
-    if (under1hr && avgEtaPerCopy > 3600) continue;
+    var effRps = baseRps * avgPerDisc;
+    var runesPerSec = prob * effRps;
+    var eta = runesPerSec > 0 ? 1 / runesPerSec : Infinity;
+    var runesPerHr = runesPerSec * 3600;
+    if (hideInstant && eta < 0.001) continue;
+    if (under1hr && eta > 3600) continue;
     if (secretsOnly && !isSecret) continue;
     if (!sourceGroups[source]) sourceGroups[source] = [];
-    sourceGroups[source].push({name: r[0], source: source, rarityStr: r[2], rarity: rarity, eventEta: eventEta, perDrop: perDrop, runesPerHr: runesPerHr, isSecret: isSecret});
+    sourceGroups[source].push({name: r[0], source: source, rarityStr: r[2], rarity: rarity, eta: eta, runesPerHr: runesPerHr, isSecret: isSecret});
     totalShown++;
   }
 
@@ -2792,14 +2787,12 @@ function renderRuneList() {
     difHtml += '<th style="padding:7px 6px;text-align:left;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase">Rune</th>';
     difHtml += '<th style="padding:7px 6px;text-align:left;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase">Source</th>';
     difHtml += '<th style="padding:7px 6px;text-align:right;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase">Chance</th>';
-    difHtml += '<th style="padding:7px 6px;text-align:right;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase" title="Average wait time between drop events of this rune (no bulk, no clones)">Wait/Drop</th>';
-    difHtml += '<th style="padding:7px 6px;text-align:right;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase" title="Runes obtained per drop event = Bulk x CloneFactor">Per Drop</th>';
-    difHtml += '<th style="padding:7px 6px;text-align:right;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase" title="Long-term average runes accumulated per hour (includes clones)">Per Hour</th>';
+    difHtml += '<th style="padding:7px 6px;text-align:right;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase" title="Average time to get one rune of this type (with bulk + clones)">ETA</th>';
+    difHtml += '<th style="padding:7px 6px;text-align:right;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase" title="Long-term average runes accumulated per hour (with bulk + clones)">Per Hour</th>';
     difHtml += '</tr></thead><tbody>';
     for (var dk = 0; dk < allRows.length; dk++) {
       var drow = allRows[dk];
-      var dWaitStr = formatTime(drow.eventEta);
-      var dPerDropStr = drow.perDrop >= 1 ? formatBigNum(drow.perDrop) : drow.perDrop.toFixed(4);
+      var detaStr = formatTime(drow.eta);
       var drphStr = drow.runesPerHr >= 1 ? formatBigNum(drow.runesPerHr) : drow.runesPerHr > 0 ? drow.runesPerHr.toFixed(4) : '0';
       var dnameColor = drow.isSecret ? 'var(--cta)' : 'var(--text)';
       var dIsNext = (drow.rarity === sourceMaxRarity[drow.source]);
@@ -2809,8 +2802,7 @@ function renderRuneList() {
       difHtml += '<td style="padding:4px 6px;color:' + dnameColor + ';font-weight:600">' + drow.name + dTags + '</td>';
       difHtml += '<td style="padding:4px 6px;color:var(--accent-light);font-size:0.72rem">' + drow.source + '</td>';
       difHtml += '<td style="padding:4px 6px;text-align:right;color:var(--text-dim);font-family:monospace;font-size:0.72rem">1 in ' + drow.rarityStr + '</td>';
-      difHtml += '<td style="padding:4px 6px;text-align:right;color:var(--accent-light);font-weight:600">' + dWaitStr + '</td>';
-      difHtml += '<td style="padding:4px 6px;text-align:right;color:var(--text);font-weight:600">' + dPerDropStr + '</td>';
+      difHtml += '<td style="padding:4px 6px;text-align:right;color:var(--accent-light);font-weight:600">' + detaStr + '</td>';
       difHtml += '<td style="padding:4px 6px;text-align:right;color:var(--green);font-weight:600">' + drphStr + '</td>';
       difHtml += '</tr>';
     }
@@ -2841,15 +2833,13 @@ function renderRuneList() {
     html += '<thead><tr style="background:#1a0d2e;position:sticky;top:0;z-index:5;box-shadow:0 2px 4px rgba(0,0,0,0.5)">';
     html += '<th style="padding:6px;text-align:left;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase">Rune</th>';
     html += '<th style="padding:6px;text-align:right;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase">Chance</th>';
-    html += '<th style="padding:6px;text-align:right;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase" title="Average wait time between drop events (no bulk, no clones)">Wait/Drop</th>';
-    html += '<th style="padding:6px;text-align:right;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase" title="Runes per drop event = Bulk x CloneFactor">Per Drop</th>';
-    html += '<th style="padding:6px;text-align:right;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase" title="Long-term average runes per hour (includes clones)">Per Hour</th>';
+    html += '<th style="padding:6px;text-align:right;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase" title="Average time to get one rune of this type (with bulk + clones)">ETA</th>';
+    html += '<th style="padding:6px;text-align:right;color:var(--accent-light);font-size:0.68rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase" title="Long-term average runes per hour (with bulk + clones)">Per Hour</th>';
     html += '</tr></thead><tbody>';
 
     for (var j = 0; j < group.length; j++) {
       var row = group[j];
-      var waitStr = formatTime(row.eventEta);
-      var perDropStr = row.perDrop >= 1 ? formatBigNum(row.perDrop) : row.perDrop.toFixed(4);
+      var etaStr = formatTime(row.eta);
       var rphStr = row.runesPerHr >= 1 ? formatBigNum(row.runesPerHr) : row.runesPerHr > 0 ? row.runesPerHr.toFixed(4) : '0';
       var nameColor = row.isSecret ? 'var(--cta)' : 'var(--text)';
       var isNext = (j === group.length - 1);  // rarest unobtained = last in ascending-sorted group
@@ -2859,8 +2849,7 @@ function renderRuneList() {
       html += '<tr style="border-bottom:1px solid rgba(124,58,237,0.04);' + rowBg + '">';
       html += '<td style="padding:4px 6px;color:' + nameColor + ';font-weight:600">' + row.name + tags + '</td>';
       html += '<td style="padding:4px 6px;text-align:right;color:var(--text-dim);font-family:monospace;font-size:0.72rem">1 in ' + row.rarityStr + '</td>';
-      html += '<td style="padding:4px 6px;text-align:right;color:var(--accent-light);font-weight:600">' + waitStr + '</td>';
-      html += '<td style="padding:4px 6px;text-align:right;color:var(--text);font-weight:600">' + perDropStr + '</td>';
+      html += '<td style="padding:4px 6px;text-align:right;color:var(--accent-light);font-weight:600">' + etaStr + '</td>';
       html += '<td style="padding:4px 6px;text-align:right;color:var(--green);font-weight:600">' + rphStr + '</td>';
       html += '</tr>';
     }

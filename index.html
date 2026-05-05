@@ -1578,7 +1578,9 @@ The base suffixes cycle in groups of 10: <span style="color:var(--accent-light)"
   <summary style="cursor:pointer;font-size:0.72rem;color:var(--accent-light);font-family:'Russo One',sans-serif;letter-spacing:0.5px;outline:none">FORMULA &amp; HOW LUCK WORKS</summary>
   <div style="margin-top:8px;font-size:0.72rem;color:var(--text);line-height:1.55">
     <div style="background:rgba(0,0,0,0.25);padding:8px 10px;border-radius:4px;font-family:monospace;font-size:0.7rem;color:var(--gold);overflow-x:auto;margin-bottom:8px">
-      Runes/sec(X) = Bulk &times; min(1, Luck / Rarity_X) &times; (1 + CloneChance &times; CloneAmount) / Speed
+      Runes/sec(X) = (Bulk / Speed) &times; min(1, Luck / Rarity_X) &times; (1 + CloneChance &times; CloneAmount)
+      
+ETA = 1 / Runes/sec(X)   &mdash; clones always included since they cannot be disabled in-game
     </div>
     <p style="margin:6px 0;color:var(--text-dim)">Each roll independently checks every rune. Per roll, your chance of dropping rune X is <strong style="color:var(--text)">min(1, Luck / Rarity)</strong> &mdash; capped at 1.0 when you've outgrown a rune (Luck &ge; Rarity), so every roll yields it.</p>
     <p style="margin:6px 0;color:var(--text-dim)">Each roll yields <strong style="color:var(--text)">Bulk</strong> copies of the rune that drops. Each roll independently has a <strong style="color:var(--text)">CloneChance</strong> to clone, in which case it yields <strong style="color:var(--text)">CloneAmount &times; Bulk</strong> extra runes. Rolls happen every <strong style="color:var(--text)">Speed</strong> seconds (max-rate 0.15s = 6.67 rolls/sec).</p>
@@ -1609,15 +1611,19 @@ The base suffixes cycle in groups of 10: <span style="color:var(--accent-light)"
 
 <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px">
 <h3 style="font-family:'Russo One',sans-serif;color:var(--accent-light);font-size:0.8em;margin-bottom:8px;letter-spacing:1px">HOW IT WORKS</h3>
-<div class="formula-box">RPS = Bulk / Speed
-Prob = (1/Chance x Luck) / SourcePoolWeight
-ETA = 1 / (Prob x RPS)
-Runes/Hr = Prob x RPS x 3600 x (1 + Clone% x Clone#)
+<div class="formula-box">CloneFactor  = 1 + (Clone% x Clones)
+EffRPS       = (Bulk / Speed) x CloneFactor
+Prob/roll    = min(1, Luck / Rarity)
+ETA          = 1 / (Prob x EffRPS)
+Runes/Hr     = Prob x EffRPS x 3600
 
-Each rune button is a weighted pool.
-Weight per rune = min(1, Luck / Rarity).
-Pool total = sum of all weights on that button.
-Share = your weight / pool total.</div>
+Each rune rolls INDEPENDENTLY per discovery -- no pool
+normalization. Cap kicks in at 1 per roll once Luck >= Rarity.
+Clones can't be turned off in-game, so every rate above
+includes the clone factor.
+
+Calibrated 2026-05-04: predicted 362 vs observed 370
+Unknown Gardens / minute (within 2%).</div>
 </div>
 
 <p style="text-align:center;font-size:0.6rem;color:#444466;margin-top:8px">Rune data from <a href="https://truthuntold.github.io/gi-calc/" style="color:var(--accent);text-decoration:none">truthuntold GI Calc</a></p>
@@ -2682,9 +2688,12 @@ function runCalc() {
   const cloneCount = parseFloat(document.getElementById('calcClone').value) || 0;
   const cloneChance = parseFloat(document.getElementById('calcCloneChance').value) || 0;
 
+  // Clones are ALWAYS active in-game (cannot be turned off), so all metrics include the clone factor.
+  const avgPerDisc = 1 + (cloneChance / 100 * cloneCount);
   const baseRps = speed > 0 ? bulk / speed : 0;
+  const effRps = baseRps * avgPerDisc;  // effective runes/sec with clones (real-world max yield)
 
-  document.getElementById('resRps').textContent = formatBigNum(baseRps);
+  document.getElementById('resRps').textContent = formatBigNum(effRps);
 
   if (calcSelectedRarity <= 0 || baseRps <= 0) {
     document.getElementById('resEta').textContent = '--';
@@ -2694,26 +2703,24 @@ function runCalc() {
     return;
   }
 
-  // Weighted probability pool (matches optimizer: weight = min(1, luck/rarity), share = weight/totalWeight)
-  refreshSourceWeights(luck);
-  var myWeight = runeWeight(calcSelectedRarity, luck);
   // Each rune rolls INDEPENDENTLY per discovery: prob = min(1, luck/rarity).
   // Calibrated 2026-05-04 against in-game test (Unknown Garden, 1850 in 5 min) -- matches within 2%.
-  // Pool-normalization (dividing by sum of source weights) was wrong; previously underestimated rates ~8x.
+  refreshSourceWeights(luck);
+  var myWeight = runeWeight(calcSelectedRarity, luck);
   var prob = myWeight;
-  var etaSec = (prob > 0 && baseRps > 0) ? 1 / (prob * baseRps) : Infinity;
+  // ETA-to-first-rune and per-hour rates all include the clone factor (real game behavior).
+  var etaSec = (prob > 0 && effRps > 0) ? 1 / (prob * effRps) : Infinity;
 
   document.getElementById('resEta').textContent = formatTime(etaSec);
 
-  const discPerHr = prob * baseRps * 3600;
+  const discPerHr = prob * effRps * 3600;  // includes clones
   document.getElementById('resDiscPerHr').textContent = discPerHr >= 1 ? formatBigNum(discPerHr) : discPerHr.toFixed(4);
 
-  const avgPerDisc = 1 + (cloneChance / 100 * cloneCount);
-  const runesPerHr = discPerHr * avgPerDisc;
+  const runesPerHr = discPerHr;  // same as discPerHr now -- both already factor in clones
   document.getElementById('resRunesPerHr').textContent = runesPerHr >= 1 ? formatBigNum(runesPerHr) : runesPerHr.toFixed(4);
 
   const clonePct = ((avgPerDisc - 1) * 100).toFixed(1);
-  document.getElementById('resCloneNote').textContent = 'Clone bonus: +' + clonePct + '% per discovery (avg ' + avgPerDisc.toFixed(2) + ' runes each).';
+  document.getElementById('resCloneNote').textContent = 'All rates include clones: +' + clonePct + '% per roll (avg ' + avgPerDisc.toFixed(2) + 'x runes each).';
 }
 
 function renderRuneList() {
@@ -2742,10 +2749,12 @@ function renderRuneList() {
     var isSecret = r[3] === 1;
     var myWeight = runeWeight(rarity, luck);
     // Each rune rolls independently per discovery: prob = min(1, luck/rarity)
+    // All metrics include the clone factor since clones cannot be disabled in-game.
     var prob = myWeight;
-    var eta = (prob > 0 && baseRps > 0) ? 1 / (prob * baseRps) : Infinity;
-    var discPerHr = prob * baseRps * 3600;
-    var runesPerHr = discPerHr * avgPerDisc;
+    var effRps = baseRps * avgPerDisc;
+    var eta = (prob > 0 && effRps > 0) ? 1 / (prob * effRps) : Infinity;
+    var discPerHr = prob * effRps * 3600;  // includes clones
+    var runesPerHr = discPerHr;             // same -- both already with clones
     if (hideInstant && eta < 0.001) continue;
     if (under1hr && eta > 3600) continue;
     if (secretsOnly && !isSecret) continue;

@@ -2774,6 +2774,13 @@ function renderRuneList() {
       }
     }
     allRows.sort(function(a, b) { return a.rarity - b.rarity; });
+    // Identify the rarest rune in each source for the NEXT badge
+    var sourceMaxRarity = {};
+    allRows.forEach(function(r) {
+      if (!sourceMaxRarity[r.source] || r.rarity > sourceMaxRarity[r.source]) {
+        sourceMaxRarity[r.source] = r.rarity;
+      }
+    });
     var difHtml = '<table style="width:100%;border-collapse:collapse;font-size:0.78rem">';
     difHtml += '<thead><tr style="background:rgba(124,58,237,0.12);position:sticky;top:0;z-index:1">';
     difHtml += '<th style="padding:6px;text-align:left;color:var(--text-dim);font-size:0.68rem;font-weight:500">Rune</th>';
@@ -2787,8 +2794,11 @@ function renderRuneList() {
       var detaStr = formatTime(drow.eta);
       var drphStr = drow.runesPerHr >= 1 ? formatBigNum(drow.runesPerHr) : drow.runesPerHr > 0 ? drow.runesPerHr.toFixed(4) : '0';
       var dnameColor = drow.isSecret ? 'var(--cta)' : 'var(--text)';
-      difHtml += '<tr style="border-bottom:1px solid rgba(124,58,237,0.04)">';
-      difHtml += '<td style="padding:4px 6px;color:' + dnameColor + ';font-weight:600">' + drow.name + '</td>';
+      var dIsNext = (drow.rarity === sourceMaxRarity[drow.source]);
+      var dTags = dIsNext ? ' <span style="display:inline-block;padding:1px 5px;margin-left:6px;font-size:0.58rem;background:var(--cta);color:#000;border-radius:3px;font-weight:700;font-family:Russo One,sans-serif;letter-spacing:0.5px;vertical-align:middle">NEXT</span>' : '';
+      var dRowBg = dIsNext ? 'background:rgba(251,191,36,0.06);border-left:2px solid var(--gold);' : '';
+      difHtml += '<tr style="border-bottom:1px solid rgba(124,58,237,0.04);' + dRowBg + '">';
+      difHtml += '<td style="padding:4px 6px;color:' + dnameColor + ';font-weight:600">' + drow.name + dTags + '</td>';
       difHtml += '<td style="padding:4px 6px;color:var(--accent-light);font-size:0.72rem">' + drow.source + '</td>';
       difHtml += '<td style="padding:4px 6px;text-align:right;color:var(--text-dim);font-family:monospace;font-size:0.72rem">1 in ' + drow.rarityStr + '</td>';
       difHtml += '<td style="padding:4px 6px;text-align:right;color:var(--accent-light);font-weight:600">' + detaStr + '</td>';
@@ -2831,9 +2841,11 @@ function renderRuneList() {
       var etaStr = formatTime(row.eta);
       var rphStr = row.runesPerHr >= 1 ? formatBigNum(row.runesPerHr) : row.runesPerHr > 0 ? row.runesPerHr.toFixed(4) : '0';
       var nameColor = row.isSecret ? 'var(--cta)' : 'var(--text)';
-      var tags = '';
+      var isNext = (j === group.length - 1);  // rarest unobtained = last in ascending-sorted group
+      var tags = isNext ? ' <span style="display:inline-block;padding:1px 5px;margin-left:6px;font-size:0.58rem;background:var(--cta);color:#000;border-radius:3px;font-weight:700;font-family:Russo One,sans-serif;letter-spacing:0.5px;vertical-align:middle">NEXT</span>' : '';
+      var rowBg = isNext ? 'background:rgba(251,191,36,0.06);border-left:2px solid var(--gold);' : '';
 
-      html += '<tr style="border-bottom:1px solid rgba(124,58,237,0.04)">';
+      html += '<tr style="border-bottom:1px solid rgba(124,58,237,0.04);' + rowBg + '">';
       html += '<td style="padding:4px 6px;color:' + nameColor + ';font-weight:600">' + row.name + tags + '</td>';
       html += '<td style="padding:4px 6px;text-align:right;color:var(--text-dim);font-family:monospace;font-size:0.72rem">1 in ' + row.rarityStr + '</td>';
       html += '<td style="padding:4px 6px;text-align:right;color:var(--accent-light);font-weight:600">' + etaStr + '</td>';

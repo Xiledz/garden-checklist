@@ -2393,7 +2393,7 @@ const RUNE_DB = [
 ["Apple","Aetheris","1",0,1],["Banana","Aetheris","3T",0,1],["Lemon","Aetheris","10Sp",0,1],["Avocado","Aetheris","5SxDe",0,1],["Blueberry","Aetheris","25SxDe",0,1],["Blue Carrot","Aetheris","125SxDe",0,1],["Plums","Aetheris","625SxDe",0,1],["Albino Strawberry","Aetheris","5SpDe",0,1],
 ["Dirt","Nythera","1",0,1],["Water","Nythera","1B",0,1],["Flower","Nythera","1Qn",0,1],["Black Sand","Nythera","1Oc",0,1],["Sunny","Nythera","20SxDe",0,1],["Cloudy","Nythera","150SxDe",0,1],["Potting Soil","Nythera","1.25SpDe",0,1],["Fall","Nythera","10SpDe",0,1],["Magical Garden","Nythera","200SpDe",0,1],
 ["Planted","Veydris","1",0,1],["Pond","Veydris","22.5B",0,1],["Toxic Flower","Veydris","450Qn",0,1],["Honey","Veydris","10No",0,1],["Blossom","Veydris","10SpDe",0,1],["Deadly Bush","Veydris","45SpDe",0,1],["Autumn Garden","Veydris","225SpDe",0,1],["Mystical Garden","Veydris","1OcDe",0,1],["Garden Relic","Veydris","5OcDe",0,1],["Poisonous Wasp","Veydris","25OcDe",0,1],["The Bee Hive","Veydris","500OcDe",0,1],
-["Nebula Storm","Secret Rune","500NoDe",1,0],["Shadow Eclipse","Secret Rune","5Vt",1,0],["The Forgotten","Secret Rune","50Vt",1,0],["The Flower Garden","Secret Rune","5UVt",1,0],["Divine Gateway","Secret Rune","25UVt",1,0],["Cactus God","Secret Rune","35UVt",1,0],["Depths Of The Void","Secret Rune","250UVt",1,0],["Cybernetic Matrix","Secret Rune","500UVt",1,0],["The Forgotten Sea","Secret Rune","1DVt",1,0],["Element Of Nature","Secret Rune","2.5DVt",1,0],["Mushroom King","Secret Rune","7.5DVt",1,0],["Phoenix Of Death","Secret Rune","125DVt",1,0],["Icy Garden","Secret Rune","200DVt",1,0],["The Ultimate Realm","Secret Rune","300DVt",1,0],["The Afterlife","Secret Rune","750DVt",1,0],["The Bee Swarm","Secret Rune","1.5TVt",1,0],["God Of The Bees","Secret Rune","50TVt",1,0]
+["Nebula Storm","Astryx Rune","500NoDe",1,0],["Shadow Eclipse","Vornel Rune","5Vt",1,0],["The Forgotten","Starlight Rune","50Vt",1,0],["The Flower Garden","Basic Rune","5UVt",1,0],["Divine Gateway","Tunnel Rune","25UVt",1,0],["Cactus God","Sun Rune","35UVt",1,0],["Depths Of The Void","Cavern Rune","250UVt",1,0],["Cybernetic Matrix","Energy Rune","500UVt",1,0],["The Forgotten Sea","Waves Rune","1DVt",1,0],["Element Of Nature","Lantern Rune","2.5DVt",1,0],["Mushroom King","Capstone Rune","7.5DVt",1,0],["Phoenix Of Death","Damnation Rune","125DVt",1,0],["Icy Garden","Frost Rune","200DVt",1,0],["The Ultimate Realm","Galaxy Rune","300DVt",1,0],["The Afterlife","Heavenly Rune","750DVt",1,0],["The Bee Swarm","Veydris","1.5TVt",1,0],["God Of The Bees","Veydris","50TVt",1,0]
 ];
 
 // Scales for parsing suffix notation
@@ -2487,8 +2487,8 @@ const RUNE_SOURCE_ORDER = [
   'Vornel Rune','Starlight Rune','Galaxy Rune','Heavenly Rune',
   'Damnation Rune','Aetheris','Nythera','Veydris'
 ];
-// Secret Rune is always available (not tied to a specific button)
-const ALWAYS_AVAILABLE = ['Secret Rune'];
+// All sources are now button-tied (Secret Runes were moved into their real source button group on 2026-05-04).
+const ALWAYS_AVAILABLE = [];
 
 // Populate unlock checkboxes
 (function initUnlockChecks() {
